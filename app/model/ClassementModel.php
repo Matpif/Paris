@@ -10,6 +10,7 @@ class ClassementModel extends Model
 {
 
     function __construct() {
+        parent::__construct();
         $this->_key = 'id';
         $this->_table = 'classement';
     }
