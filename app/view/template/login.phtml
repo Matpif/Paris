@@ -10,26 +10,14 @@
  */
 $_login = $this;
 ?>
-<div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-        <form class="form-horizontal" action="<?php echo $_login->getUrlAction('signIn') ?>" method="post">
-            <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="password" class="col-sm-2 control-label">Mot de passe</label>
-                <div class="col-sm-10">
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Se connecter</button>
-                </div>
-            </div>
-        </form>
-    </div>
+<div class="login-card">
+    <img class="profile-img-card" src="/images/avatar.png">
+    <p class="profile-img-card"></p>
+    <form class="form-signin" action="<?php echo $_login->getUrlAction('signIn') ?>" method="post">
+        <span class="reauth-email"></span>
+        <input type="email" name="email" class="form-control" id="email" autofocus required placeholder="Email">
+        <input type="password" name="password" class="form-control" id="password" required placeholder="Mot de passe">
+
+        <button type="submit" class="btn btn-default">Se connecter</button>
+    </form>
 </div>
