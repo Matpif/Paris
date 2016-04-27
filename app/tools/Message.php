@@ -57,13 +57,13 @@ class Message
         $returned = '';
         switch ($this->_level) {
             case self::LEVEL_ERROR:
-                $returned = '<p class="bg-danger">'.$this->getMessage().'</p>';
+                $returned = '<div class="alert alert-danger" role="alert"><b>Oh snap!</b> '.$this->getMessage().'</div>';
                 break;
             case self::LEVEL_INFO:
-                $returned = '<p class="bg-info">'.$this->getMessage().'</p>';
+                $returned = '<div class="alert alert-info" role="alert"><b>Warning!</b> '.$this->getMessage().'</div>';
                 break;
             case self::LEVEL_SUCCESS:
-                $returned = '<p class="bg-success">'.$this->getMessage().'</p>';
+                $returned = '<div class="alert alert-success" role="alert"><b>Well done!</b> '.$this->getMessage().'</div>';
                 break;
         }
 
