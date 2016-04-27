@@ -98,6 +98,23 @@ abstract class Collection implements Iterator
         return $model;
     }
 
+    public function loadAll() {
+        $query = "SELECT * FROM {$this->_table} WHERE {$this->_key} = :{$this->_key}";
+        $stmt = $this->_db->prepareQuery($query, array());
+        $result = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+        $model = null;
+        if ($result && is_array($result)) {
+            /**
+             * @var $model Model
+             */
+            $model = new $this->_model;
+            $model->setData($result);
+        }
+
+        return $model;
+    }
+
     public function getFirstRow() {
         return (isset($this->_rows[0]))?$this->_rows[0]:null;
     }
