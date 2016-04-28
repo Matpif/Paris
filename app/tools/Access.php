@@ -9,7 +9,7 @@
 class Access
 {
     private $_pageAccess;
-
+    private $_currentPage;
     private static $_instance;
 
     public static function getInstance() {
@@ -26,13 +26,18 @@ class Access
 
     function __construct()
     {
-        $this->_pageAccess = ['accueil' => ['connect' => true, 'level' => '0'],
-                                'login' => ['connect' => false, 'level' => '0']
+        $this->_pageAccess = [
+                                'accueil' => ['connect' => true, 'level' => '0'],
+                                'matchs' => ['connect' => true, 'level' => '0'],
+                                'myParis' => ['connect' => true, 'level' => '0'],
+                                'profile' => ['connect' => true, 'level' => '0'],
+                                'classement' => ['connect' => true, 'level' => '0'],
+                                'login' => ['connect' => false, 'level' => '0'],
                                 ];
     }
 
     public function controlAccess($page) {
-
+        $this->_currentPage = $page;
         if (isset($this->_pageAccess[$page])) {
             if ($this->_pageAccess[$page]['connect'] === true) {
 
@@ -55,5 +60,17 @@ class Access
             header("HTTP/1.0 404 Not Found");
             exit;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentPage()
+    {
+        return $this->_currentPage;
+    }
+
+    public function isActivePage($page) {
+        return $this->_currentPage == $page;
     }
 }

@@ -75,3 +75,44 @@
 .login-card .forgot-password:hover, .login-card .forgot-password:active, .login-card .forgot-password:focus {
     color: rgb(12, 97, 33);
 }
+/** #############
+***   HEADER  ***
+##############**/
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 50px;
+
+    background-color: #F7F7F7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+header .width {
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width: 768px) {
+    header .width {
+        width: 750px;
+    }
+}
+@media (min-width: 992px) {
+    header .width {
+        width: 990px;
+    }
+}
+@media (min-width: 1260px) {
+    header .width {
+        width: 1230px;
+    }
+}
+
+
+/** #############
+***    BODY   ***
+##############**/
+.body {
+    margin-top: 60px;
+}
