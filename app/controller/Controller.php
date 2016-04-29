@@ -35,6 +35,7 @@ class Controller
     function __construct()
     {
         $this->_url = '';
+        $this->setTemplate('/default.phtml');
         $this->setTemplateHeader('/header.phtml');
         $this->setTemplateFooter('/footer.phtml');
         $this->_title = 'Paris Euro 2016';
