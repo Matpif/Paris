@@ -8,6 +8,16 @@
 /** @var Controller $this */
 /** @var Access $_access */
 $_access = Access::getInstance();
+/** @var MatchsController $_matchs */
+$_matchs = Controller::getController('MatchsController');
+/** @var MesParisController $_mesParis */
+$_mesParis = Controller::getController('MesParisController');
+/** @var ClassementController $_classement */
+$_classement = Controller::getController('ClassementController');
+/** @var MonProfilController $_monProfil */
+$_monProfil = Controller::getController('MonProfilController');
+/** @var LoginController $_login */
+$_login = Controller::getController('LoginController');
 ?>
 <header>
     <nav class="navbar navbar-default">
@@ -23,16 +33,16 @@ $_access = Access::getInstance();
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="<?php echo ($_access->isActivePage('matchs'))?'active':''; ?>"><a href="/matchs">Matchs</a></li>
-                    <li class="<?php echo ($_access->isActivePage('myParis'))?'active':''; ?>"><a href="/myParis">Mes Paris</a></li>
-                    <li class="<?php echo ($_access->isActivePage('classement'))?'active':''; ?>"><a href="/classement">Classement</a></li>
+                    <li class="<?php echo ($_access->isActivePage($_matchs->getPage()))?'active':''; ?>"><a href="<?php echo $_matchs->getUrl(); ?>">Matchs</a></li>
+                    <li class="<?php echo ($_access->isActivePage($_mesParis->getPage()))?'active':''; ?>"><a href="<?php echo $_mesParis->getUrl(); ?>">Mes Paris</a></li>
+                    <li class="<?php echo ($_access->isActivePage($_classement->getPage()))?'active':''; ?>"><a href="<?php echo $_classement->getUrl(); ?>">Classement</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/profile">Profile</a></li>
-                            <li><a href="/login/disconnect">Se déconnecter</a></li>
+                            <li><a href="<?php echo $_monProfil->getUrl(); ?>">Profil</a></li>
+                            <li><a href="<?php echo $_login->getUrlAction('disconnect'); ?>">Se déconnecter</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -12,9 +12,10 @@ class LoginController extends Controller
     function __construct()
     {
         parent::__construct();
-        $this->_url = '/login';
+        $this->_url = '/Login';
         $this->setTemplate('/login.phtml');
         $this->_title = 'Login';
+        $this->_page = 'Login';
     }
 
     public function signInAction() {

@@ -15,4 +15,5 @@ class MatchCollection extends Collection
         $this->_model = 'MatchModel';
         $this->_key = 'id';
     }
+        
 }

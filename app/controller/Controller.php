@@ -31,6 +31,19 @@ class Controller
      * @var string
      */
     protected $_title;
+    /**
+     * @var string
+     */
+    protected $_page;
+
+    private static $_instance;
+    public static function getController($controller) {
+        if (!isset(self::$_instance[$controller]) || self::$_instance[$controller] == null) {
+            self::$_instance[$controller] = new $controller;
+        }
+
+        return self::$_instance[$controller];
+    }
 
     function __construct()
     {
@@ -95,6 +108,14 @@ class Controller
     }
 
     /**
+     * @return string
+     */
+    public function getPage()
+    {
+        return $this->_page;
+    }
+
+    /**
      * @return String
      */
     public function getUrl() {
@@ -112,7 +133,7 @@ class Controller
     /**
      * @param $template string
      */
-    protected function setTemplate($template) {
+    public function setTemplate($template) {
         $this->_template = self::PATH_TEMPLATE.$template;
     }
 

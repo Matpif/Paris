@@ -18,16 +18,16 @@ function __autoload($class_name) {
     }
 }
 
-$_page = 'accueil';
+$_page = ReadIni::getInstance()->getAttribute('general', 'index_page');
 if (isset($_GET['page'])) {
     $_page = $_GET['page'];
 }
 Access::getInstance()->controlAccess($_page);
-$controllerName = ucfirst(strtolower($_page)).'Controller';
+$controllerName = $_page.'Controller';
 /**
  * @var $_controller Controller
  */
-$_controller = new $controllerName;
+$_controller = Controller::getController($controllerName);
 
 if ($_controller && isset($_GET['action'])) {
     $_action = $_GET['action'].'Action';

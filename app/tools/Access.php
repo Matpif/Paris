@@ -27,12 +27,12 @@ class Access
     function __construct()
     {
         $this->_pageAccess = [
-                                'accueil' => ['connect' => true, 'level' => '0'],
-                                'matchs' => ['connect' => true, 'level' => '0'],
-                                'myParis' => ['connect' => true, 'level' => '0'],
-                                'profile' => ['connect' => true, 'level' => '0'],
-                                'classement' => ['connect' => true, 'level' => '0'],
-                                'login' => ['connect' => false, 'level' => '0'],
+                                'Accueil' => ['connect' => true, 'level' => '0'],
+                                'Matchs' => ['connect' => true, 'level' => '0'],
+                                'MesParis' => ['connect' => true, 'level' => '0'],
+                                'MonProfil' => ['connect' => true, 'level' => '0'],
+                                'Classement' => ['connect' => true, 'level' => '0'],
+                                'Login' => ['connect' => false, 'level' => '0'],
                                 ];
     }
 
@@ -42,7 +42,8 @@ class Access
             if ($this->_pageAccess[$page]['connect'] === true) {
 
                 if (!isset($_SESSION['utilisateur'])) {
-                    $login = new LoginController();
+                    /** @var LoginController $login */
+                    $login = Controller::getController('LoginController');
                     header('Location: ' . $login->getUrl());
                     exit;
                 } else {
@@ -51,15 +52,30 @@ class Access
                      */
                     $utilisateur = unserialize($_SESSION['utilisateur']);
                     if ($utilisateur->getAttribute('privilege') < $this->_pageAccess[$page]['level']) {
-                        header("HTTP/1.0 403 Forbidden");
-                        exit;
+                        $this->pageForbidden();
                     }
                 }
             }
         } else {
-            header("HTTP/1.0 404 Not Found");
+            $this->pageNotFound();
             exit;
         }
+    }
+
+    private function pageNotFound() {
+        header("HTTP/1.0 404 Not Found");
+        $controller = new Controller();
+        $controller->setTemplate('404.phtml');
+        echo $controller->getHtml();
+        exit;
+    }
+
+    private function pageForbidden() {
+        header("HTTP/1.0 403 Forbidden");
+        $controller = new Controller();
+        $controller->setTemplate('403.phtml');
+        echo $controller->getHtml();
+        exit;
     }
 
     /**
