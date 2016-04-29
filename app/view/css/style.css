@@ -108,11 +108,54 @@ header .width {
         width: 1230px;
     }
 }
+/** #############
+***   FOOTER  ***
+##############**/
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
 
+    height: 50px;
 
+    color: #777;
+
+    background-color: #F7F7F7;
+    box-shadow: 0px -2px 2px rgba(0, 0, 0, 0.3);
+
+    z-index: 10;
+}
+footer .width {
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-top: 10px;
+}
+@media (min-width: 768px) {
+    footer .width {
+        width: 750px;
+    }
+}
+@media (min-width: 992px) {
+    footer .width {
+        width: 990px;
+    }
+}
+@media (min-width: 1260px) {
+    footer .width {
+        width: 1230px;
+    }
+}
+.rotation180 {
+    transform: rotate(180deg);
+}
 /** #############
 ***    BODY   ***
 ##############**/
 .body {
     margin-top: 60px;
+}
+.center {
+    text-align: center;
 }
