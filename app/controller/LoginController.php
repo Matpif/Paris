@@ -22,7 +22,7 @@ class LoginController extends Controller
         if ($request['email'] && $request['password']) {
             $utilisateurCollection = new UtilisateurCollection();
             $attributes = ['email' => $request['email'],
-                            'password' => $request['password'],
+                            'password' => sha1($request['password']),
                             ];
 
             /**
