@@ -23,6 +23,10 @@ class Controller
      */
     protected $_url;
     /**
+     * @var string
+     */
+    private $_rootUrl;
+    /**
      * Path of template
      * @var string
      */
@@ -48,10 +52,12 @@ class Controller
     function __construct()
     {
         $this->_url = '';
+        $this->_rootUrl = ReadIni::getInstance()->getAttribute('general', 'root_url');
         $this->setTemplate('/default.phtml');
         $this->setTemplateHeader('/header.phtml');
         $this->setTemplateFooter('/footer.phtml');
         $this->_title = 'Paris Euro 2016';
+
     }
 
     /**
@@ -108,6 +114,14 @@ class Controller
     }
 
     /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->_title = $title;
+    }
+
+    /**
      * @return string
      */
     public function getPage()
@@ -143,5 +157,21 @@ class Controller
 
     protected  function setTemplateFooter($template) {
         $this->_footer = self::PATH_TEMPLATE.$template;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRootUrl()
+    {
+        return $this->_rootUrl;
+    }
+
+    /**
+     * @param $file string
+     * @return string
+     */
+    public function getUrlfile($file) {
+        return $this->_rootUrl.$file;
     }
 }

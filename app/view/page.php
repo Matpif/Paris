@@ -1,10 +1,12 @@
 <?php
 session_start();
 
-// DEBUG MODE ON
-error_reporting(E_ALL);
-ini_set('display_errors', 'on');
-// DEBUG MODE ON
+if (ReadIni::getInstance()->getAttribute('general', 'debug') == true) {
+    // DEBUG MODE ON
+    error_reporting(E_ALL);
+    ini_set('display_errors', 'on');
+    // DEBUG MODE ON
+}
 
 function __autoload($class_name) {
     if (strpos($class_name, 'Model') !== false) {
@@ -23,34 +25,45 @@ if (isset($_GET['page'])) {
     $_page = $_GET['page'];
 }
 Access::getInstance()->controlAccess($_page);
-$controllerName = $_page.'Controller';
-/**
- * @var $_controller Controller
- */
-$_controller = Controller::getController($controllerName);
 
-if ($_controller && isset($_GET['action'])) {
-    $_action = $_GET['action'].'Action';
-    call_user_func(array($_controller, $_action));
+if (Access::getInstance()->getErrorController()) {
+    $_controller = Access::getInstance()->getErrorController();
+} else {
+    $controllerName = $_page . 'Controller';
+    /**
+     * @var $_controller Controller
+     */
+    $_controller = Controller::getController($controllerName);
+
+    if ($_controller && isset($_GET['action'])) {
+        $_action = $_GET['action'] . 'Action';
+        if (method_exists($_controller, $_action))
+            call_user_func(array($_controller, $_action));
+        else {
+            /** @var ErrorController $_controller */
+            $_controller = Controller::getController('ErrorController');
+            $_controller->notFound();
+        }
+    }
 }
-
 $messageManager = new MessageManager();
 $messages = $messageManager->getMessages();
 ?>
 <html>
     <head>
         <title><?php echo $_controller->getTitle(); ?></title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/bootstrap.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/bootstrap-theme.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/style.css'); ?>">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="<?php echo $_controller->getUrlfile('/js/bootstrap.min.js'); ?>"></script>
     </head>
     <body>
         <?php echo $_controller->getHeader(); ?>
         <div class="container-fluid body">
             <div class="row">
                 <div class="col-lg-4 col-lg-offset-4">
+                    <?php /** @var Message $message */ ?>
                     <?php foreach ($messages as $message): ?>
                         <?php echo $message->getMessageHtml(); ?><br/>
                     <?php endforeach; ?>

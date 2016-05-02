@@ -8,9 +8,27 @@
  */
 class Access
 {
+    /**
+     * @var array
+     */
     private $_pageAccess;
+    /**
+     * @var string
+     */
     private $_currentPage;
+    /**
+     * @var UtilisateurModel
+     */
+    private $_utilisateur;
+    /**
+     * @var ErrorController
+     */
+    private $_errorController;
+    /**
+     * @var Access
+     */
     private static $_instance;
+
 
     public static function getInstance() {
         if (!self::$_instance) {
@@ -50,32 +68,35 @@ class Access
                     /**
                      * @var $utilisateur UtilisateurModel
                      */
-                    $utilisateur = unserialize($_SESSION['utilisateur']);
-                    if ($utilisateur->getAttribute('privilege') < $this->_pageAccess[$page]['level']) {
+                    $this->_utilisateur = unserialize($_SESSION['utilisateur']);
+                    if ($this->_utilisateur->getAttribute('privilege') < $this->_pageAccess[$page]['level']) {
                         $this->pageForbidden();
                     }
                 }
             }
         } else {
             $this->pageNotFound();
-            exit;
         }
     }
 
+    /**
+     * Page non trouvée
+     */
     private function pageNotFound() {
-        header("HTTP/1.0 404 Not Found");
-        $controller = new Controller();
-        $controller->setTemplate('404.phtml');
-        echo $controller->getHtml();
-        exit;
+        /** @var ErrorController $controller */
+        $this->_errorController = Controller::getController('ErrorController');
+        $this->_errorController->notFound();
+        $this->_error = true;
     }
 
+    /**
+     * Page non autorisée
+     */
     private function pageForbidden() {
-        header("HTTP/1.0 403 Forbidden");
-        $controller = new Controller();
-        $controller->setTemplate('403.phtml');
-        echo $controller->getHtml();
-        exit;
+        /** @var ErrorController $controller */
+        $this->_errorController = Controller::getController('ErrorController');
+        $this->_errorController->forbidden();
+        $this->_error = true;
     }
 
     /**
@@ -88,5 +109,20 @@ class Access
 
     public function isActivePage($page) {
         return $this->_currentPage == $page;
+    }
+
+    /**
+     * @return UtilisateurModel
+     */
+    public function getCurrentUser() {
+        return $this->_utilisateur;
+    }
+
+    /**
+     * @return ErrorController
+     */
+    public function getErrorController()
+    {
+        return $this->_errorController;
     }
 }
