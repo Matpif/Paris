@@ -35,7 +35,7 @@ class LoginController extends Controller
             if ($utilisateur) {
                 $_SESSION['utilisateur'] = serialize($utilisateur);
 
-                $accueilController = new AccueilController();
+                $accueilController = Controller::getController('AccueilController');
                 header('Location: '.$accueilController->getUrl());
             } else {
                 (new MessageManager())->newMessage("Erreur d'identification", Message::LEVEL_ERROR);

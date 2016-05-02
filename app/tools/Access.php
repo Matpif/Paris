@@ -86,7 +86,6 @@ class Access
         /** @var ErrorController $controller */
         $this->_errorController = Controller::getController('ErrorController');
         $this->_errorController->notFound();
-        $this->_error = true;
     }
 
     /**
@@ -96,7 +95,6 @@ class Access
         /** @var ErrorController $controller */
         $this->_errorController = Controller::getController('ErrorController');
         $this->_errorController->forbidden();
-        $this->_error = true;
     }
 
     /**

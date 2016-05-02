@@ -160,14 +160,6 @@ class Controller
     }
 
     /**
-     * @return string
-     */
-    public function getRootUrl()
-    {
-        return $this->_rootUrl;
-    }
-
-    /**
      * @param $file string
      * @return string
      */

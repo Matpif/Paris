@@ -23,7 +23,7 @@ $_login = Controller::getController('LoginController');
     <nav class="navbar navbar-default">
         <div class="container-fluid width">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu_header" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -31,13 +31,14 @@ $_login = Controller::getController('LoginController');
                 </button>
                 <a class="navbar-brand" href="/">Paris</a>
             </div>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="menu_header">
                 <ul class="nav navbar-nav">
                     <li class="<?php echo ($_access->isActivePage($_matchs->getPage()))?'active':''; ?>"><a href="<?php echo $_matchs->getUrl(); ?>">Matchs</a></li>
                     <li class="<?php echo ($_access->isActivePage($_mesParis->getPage()))?'active':''; ?>"><a href="<?php echo $_mesParis->getUrl(); ?>">Mes Paris</a></li>
                     <li class="<?php echo ($_access->isActivePage($_classement->getPage()))?'active':''; ?>"><a href="<?php echo $_classement->getUrl(); ?>">Classement</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <?php // echo $_access->getCurrentUser()->getAttribute('login'); ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
