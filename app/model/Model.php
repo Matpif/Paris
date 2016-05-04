@@ -60,7 +60,7 @@ Abstract class Model
      * @return mixed|string
      */
     public function getAttribute($key) {
-        if (array_key_exists($key, $this->_data))
+        if (is_array($this->_data) && array_key_exists($key, $this->_data))
             return $this->_data[$key];
         else
             return '';
