@@ -23,6 +23,16 @@ $_utilisateur = $_profil->getUtilisateur();
                     </div>
 
                     <div class="form-group">
+                        <label for="lastName">Nom</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Nom" name="lastName" value="<?php echo $_utilisateur->getAttribute('lastName'); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">Prénom</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Prénom" name="firstName" value="<?php echo $_utilisateur->getAttribute('firstName'); ?>">
+                    </div>
+
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?php echo $_utilisateur->getAttribute('email'); ?>">
                     </div>
