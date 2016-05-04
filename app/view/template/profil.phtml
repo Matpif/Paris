@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 03/05/16
+ * Time: 18:34
+ */
+/** @var MonProfilController $_profil */
+$_profil = $this;
+$_utilisateur = $_profil->getUtilisateur();
+?>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mon profil</h3>
+            </div>
+            <div class="panel-body">
+                <form action="<?php echo $_profil->getUrlAction('save'); ?>" method="POST">
+                    <div class="form-group">
+                        <label for="login">Login</label>
+                        <input type="text" class="form-control" id="login" placeholder="Login" name="login" value="<?php echo $_utilisateur->getAttribute('login'); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?php echo $_utilisateur->getAttribute('email'); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password2">Confirmer mot de passe</label>
+                        <input type="password" class="form-control" id="password2" name="password2"placeholder="Confirmer mot de passe">
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

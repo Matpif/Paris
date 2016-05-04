@@ -13,9 +13,9 @@ $SQLite = new SQLite();
 
 $queries = ['Create Utilisateur' => 'CREATE TABLE `utilisateur` (
         `id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-        `login`	TEXT NOT NULL,
+        `login`	TEXT NOT NULL UNIQUE,
         `password`	TEXT NOT NULL,
-        `email`	TEXT NOT NULL,
+        `email`	TEXT NOT NULL UNIQUE,
         `privilege`	INTEGER NOT NULL DEFAULT -1
     );',
         'Create Poule' => 'CREATE TABLE `poule` (

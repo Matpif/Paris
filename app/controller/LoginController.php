@@ -29,14 +29,13 @@ class LoginController extends Controller
             /**
              * @var $utilisateur UtilisateurModel
              */
-            $utilisateur = $utilisateurCollection->load($attributes)
+            $utilisateur = $utilisateurCollection
+                                        ->load($attributes)
                                         ->getFirstRow();
-
+            
             if ($utilisateur) {
-                $_SESSION['utilisateur'] = serialize($utilisateur);
-
-                $accueilController = Controller::getController('AccueilController');
-                header('Location: '.$accueilController->getUrl());
+                Access::getInstance()->setCurrentUser($utilisateur);
+                header('Location: /');
             } else {
                 (new MessageManager())->newMessage("Erreur d'identification", Message::LEVEL_ERROR);
                 unset ($_SESSION['utilisateur']);

@@ -117,6 +117,14 @@ class Access
     }
 
     /**
+     * @param $utilisateur UtilisateurModel
+     */
+    public function setCurrentUser($utilisateur) {
+        $_SESSION['utilisateur'] = serialize($utilisateur);
+        $this->_utilisateur = $utilisateur;
+    }
+
+    /**
      * @return ErrorController
      */
     public function getErrorController()

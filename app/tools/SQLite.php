@@ -26,17 +26,16 @@ class SQLite extends SQLite3
     /**
      * Add param value in query
      * @param $query
-     * @param null $params
+     * @param null|array $params
      * @return SQLite3Stmt
      */
     public function prepareQuery($query, $params = null) {
-
         /**
          * @var $stmt SQLite3Stmt
          */
         $stmt = $this->prepare($query);
-
-        if (is_array($params)) {
+       
+        if ($stmt !== false && is_array($params)) {
             foreach ($params as $key => $param) {
                 $stmt->bindValue(":{$key}", $param);
             }
@@ -56,7 +55,7 @@ class SQLite extends SQLite3
         $string = "";
         foreach($data as $key => $value){
             if($keyTable != $key)
-                $string .= "{$key} = :{$key}{$delimiter}";
+                $string .= "{$key}=:{$key}{$delimiter}";
         }
         $string = substr($string, 0, -strlen($delimiter));
         return $string;
