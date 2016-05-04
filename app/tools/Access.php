@@ -51,6 +51,7 @@ class Access
                                 'MonProfil' => ['connect' => true, 'level' => '0'],
                                 'Classement' => ['connect' => true, 'level' => '0'],
                                 'Login' => ['connect' => false, 'level' => '0'],
+                                'Admin' => ['connect' => true, 'level' => '9'],
                                 ];
     }
 

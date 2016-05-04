@@ -2,27 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: matpif
- * Date: 25/04/16
- * Time: 11:49
+ * Date: 04/05/16
+ * Time: 21:07
  */
-/** @var Controller $this */
-/** @var Access $_access */
-$_access = Access::getInstance();
-/** @var MatchsController $_matchs */
-$_matchs = Controller::getController('MatchsController');
-/** @var MesParisController $_mesParis */
-$_mesParis = Controller::getController('MesParisController');
-/** @var ClassementController $_classement */
-$_classement = Controller::getController('ClassementController');
-/** @var MonProfilController $_monProfil */
-$_monProfil = Controller::getController('MonProfilController');
 /** @var AdminController $_admin */
-$_admin = Controller::getController('AdminController');
+$_admin = $this;
 /** @var LoginController $_login */
 $_login = Controller::getController('LoginController');
 ?>
 <header>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid width">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu_header" aria-expanded="false">
@@ -31,21 +20,21 @@ $_login = Controller::getController('LoginController');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Paris</a>
+                <a class="navbar-brand" href="<?php echo $_admin->getUrl(); ?>">Administration Paris</a>
             </div>
             <div class="collapse navbar-collapse" id="menu_header">
                 <ul class="nav navbar-nav">
-                    <li class="<?php echo ($_access->isActivePage($_matchs->getPage()))?'active':''; ?>"><a href="<?php echo $_matchs->getUrl(); ?>">Matchs</a></li>
-                    <li class="<?php echo ($_access->isActivePage($_mesParis->getPage()))?'active':''; ?>"><a href="<?php echo $_mesParis->getUrl(); ?>">Mes Paris</a></li>
-                    <li class="<?php echo ($_access->isActivePage($_classement->getPage()))?'active':''; ?>"><a href="<?php echo $_classement->getUrl(); ?>">Classement</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('newUser'); ?>">Ajouter Utilisateur</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('newMatch'); ?>">Ajouter Match</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('newPoule'); ?>">Ajouter Poule</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('newEquipe'); ?>">Ajouter Equipe</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php // echo $_access->getCurrentUser()->getAttribute('login'); ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo $_monProfil->getUrl(); ?>">Profil</a></li>
-                            <li><a href="<?php echo $_admin->getUrl(); ?>">Administration</a></li>
+                            <li><a href="/">Retour</a></li>
                             <li><a href="<?php echo $_login->getUrlAction('disconnect'); ?>">Se déconnecter</a></li>
                         </ul>
                     </li>
