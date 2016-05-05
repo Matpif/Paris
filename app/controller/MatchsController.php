@@ -18,7 +18,7 @@ class MatchsController extends Controller
 
     public function testAction () {
         $collection = new MatchCollection();
-        $collection->loadAll();
+        $collection->loadAll('date');
 
         /** @var MatchModel $match */
         foreach ($collection as $match) {

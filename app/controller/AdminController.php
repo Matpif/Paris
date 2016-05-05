@@ -31,6 +31,21 @@ class AdminController extends Controller
         $this->_title = 'Création de profil';
     }
 
+    public function newMatchAction() {
+        $this->setTemplate('/admin/addMatch.phtml');
+        $this->_title = 'Création de match';
+    }
+
+    public function newPouleAction() {
+        $this->setTemplate('/admin/addPoule.phtml');
+        $this->_title = 'Création de poule';
+    }
+
+    public function newEquipeAction() {
+        $this->setTemplate('/admin/addEquipe.phtml');
+        $this->_title = 'Création d\'équipe';
+    }
+
     public function addUserAction(){
         $post = Access::getRequest();
 
@@ -75,20 +90,40 @@ class AdminController extends Controller
             $this->setTemplate('/admin/addUser.phtml');
         }
     }
+    
+    public function addMatchAction() {
+        $post = Access::getRequest();
+        $match = new MatchModel();
 
-    public function newMatchAction() {
-        $this->setTemplate('/admin/addMatch.phtml');
-        $this->_title = 'Création de match';
-    }
+        if (isset($post['date'], $post['equipe_id_1'], $post['equipe_id_2'])) {
 
-    public function newPouleAction() {
-        $this->setTemplate('/admin/addPoule.phtml');
-        $this->_title = 'Création de poule';
-    }
 
-    public function newEquipeAction() {
-        $this->setTemplate('/admin/addEquipe.phtml');
-        $this->_title = 'Création d\'équipe';
+            if (!empty($post['date']) && $post['equipe_id_1'] != $post['equipe_id_2']) {
+                $match->setAttribute('date', $post['date']);
+                $match->setAttribute('equipe_id_1', $post['equipe_id_1']);
+                $match->setAttribute('equipe_id_2', $post['equipe_id_2']);
+
+                if ($match->save()) {
+
+                    $messages = new MessageManager();
+                    $messages->newMessage('Le match a été sauvegardé correctement', Message::LEVEL_SUCCESS);
+                } else {
+
+                    $messages = new MessageManager();
+                    $messages->newMessage('Un problème est survenue', Message::LEVEL_ERROR);
+                    $this->setTemplate('/admin/addMatch.phtml');
+                }
+            }else {
+                $messages = new MessageManager();
+                $messages->newMessage('Tous les champs sont obligatoires et les équipes doivent être différentes', Message::LEVEL_ERROR);
+                $this->setTemplate('/admin/addMatch.phtml');
+            }
+
+        } else {
+            $messages = new MessageManager();
+            $messages->newMessage('Tous les champs sont obligatoires', Message::LEVEL_ERROR);
+            $this->setTemplate('/admin/addMatch.phtml');
+        }
     }
 
     /**
@@ -97,5 +132,13 @@ class AdminController extends Controller
     public function getNewUser()
     {
         return ($this->_newUser)?$this->_newUser:new UtilisateurModel();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAllEquipe() {
+        $_equipeCollection = new EquipeCollection();
+        return $_equipeCollection->loadAll("name");
     }
 }

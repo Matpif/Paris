@@ -7,6 +7,7 @@
  */
 /** @var AdminController $_admin */
 $_admin = $this;
+$_allEquipe = $_admin->getAllEquipe();
 ?>
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
@@ -15,9 +16,44 @@ $_admin = $this;
                 <h3 class="panel-title">Nouveau Match</h3>
             </div>
             <div class="panel-body">
-                <form action="<?php echo $_admin->getUrlAction('addMatch'); ?>" method="POST">
+                <form class="form-horizontal" action="<?php echo $_admin->getUrlAction('addMatch'); ?>" method="POST">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="datetime" class="col-sm-5 control-label">Date et Heure du match</label>
+                                <div class="col-sm-7">
+                                    <input type="datetime" class="form-control" id="datetime" name="date" placeholder="aaaa-mm-dd hh:mm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <button type="submit" class="btn btn-default">Enregistrer</button>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <select name="equipe_id_1" class="form-control .col-xs-5">
+                                <?php /** @var EquipeModel $_equipe */ ?>
+                                <?php foreach ($_allEquipe as $_equipe): ?>
+                                    <option value="<?php echo $_equipe->getAttribute('id') ?>"><?php echo $_equipe->getAttribute("name") ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-xs-2 center">
+                            vs
+                        </div>
+                        <div class="col-xs-5">
+                            <select name="equipe_id_2" class="form-control .col-xs-5">
+                                <?php /** @var EquipeModel $_equipe */ ?>
+                                <?php foreach ($_allEquipe as $_equipe): ?>
+                                    <option value="<?php echo $_equipe->getAttribute('id') ?>"><?php echo $_equipe->getAttribute("name") ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-default">Enregistrer</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
