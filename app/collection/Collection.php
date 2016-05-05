@@ -8,6 +8,9 @@
  */
 abstract class Collection implements Iterator
 {
+    const SORT_ASC = 'ASC';
+    const SORT_DESC = 'DESC';
+
     /**
      * Table model
      * @var string
@@ -50,16 +53,20 @@ abstract class Collection implements Iterator
 
     /**
      * Load Models by attributes values
-     * @param $attributes array
+     * @param $attributes
+     * @param null|array $sort
      * @return $this
      */
-    public function load($attributes, $order = null) {
+    public function load($attributes, $sort = null) {
 
         $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ');
         $query = "SELECT * FROM {$this->_table} WHERE ".$dataParamList;
 
-        if ($order) {
-            $query .= " ORDER BY ".$order;
+        if (is_array($sort)) {
+            foreach ($sort as $key => $value) {
+                $query .= " ORDER BY ".$key.' '.$value.',';
+            }
+            $query = substr($query, 0, -1);
         }
         
         $stmt = $this->_db->prepareQuery($query, $attributes);
@@ -101,16 +108,19 @@ abstract class Collection implements Iterator
 
         return $model;
     }
-
+    
     /**
-     * @param null|string $order
+     * @param null|array $sort
      * @return $this
      */
-    public function loadAll($order = null) {
+    public function loadAll($sort = null) {
         $query = "SELECT * FROM {$this->_table}";
 
-        if ($order) {
-            $query .= " ORDER BY ".$order;
+        if (is_array($sort)) {
+            foreach ($sort as $key => $value) {
+                $query .= " ORDER BY ".$key.' '.$value.',';
+            }
+            $query = substr($query, 0, -1);
         }
 
         $stmt = $this->_db->prepareQuery($query);

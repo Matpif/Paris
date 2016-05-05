@@ -139,6 +139,6 @@ class AdminController extends Controller
      */
     public function getAllEquipe() {
         $_equipeCollection = new EquipeCollection();
-        return $_equipeCollection->loadAll("name");
+        return $_equipeCollection->loadAll(["name" => Collection::SORT_ASC]);
     }
 }
