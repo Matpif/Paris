@@ -53,10 +53,14 @@ abstract class Collection implements Iterator
      * @param $attributes array
      * @return $this
      */
-    public function load($attributes) {
+    public function load($attributes, $order = null) {
 
         $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ');
         $query = "SELECT * FROM {$this->_table} WHERE ".$dataParamList;
+
+        if ($order) {
+            $query .= " ORDER BY ".$order;
+        }
         
         $stmt = $this->_db->prepareQuery($query, $attributes);
         $results = $stmt->execute();
@@ -98,8 +102,16 @@ abstract class Collection implements Iterator
         return $model;
     }
 
-    public function loadAll() {
+    /**
+     * @param null|string $order
+     * @return $this
+     */
+    public function loadAll($order = null) {
         $query = "SELECT * FROM {$this->_table}";
+
+        if ($order) {
+            $query .= " ORDER BY ".$order;
+        }
 
         $stmt = $this->_db->prepareQuery($query);
         $results = $stmt->execute();
