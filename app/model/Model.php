@@ -112,4 +112,17 @@ Abstract class Model
             return false;
         }
     }
+
+    /**
+     * Supprime le model de sa table
+     * 
+     * @return bool
+     */
+    public function remove() {
+        $query = "DELETE FROM {$this->_table} WHERE {$this->_key}=:{$this->_key}";
+
+        $stmt = $this->_db->prepareQuery($query, [$this->_key => $this->getAttribute($this->_key)]);
+
+        return $stmt->execute() !== false;
+    }
 }
