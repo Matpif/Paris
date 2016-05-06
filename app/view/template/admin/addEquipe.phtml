@@ -7,6 +7,7 @@
  */
 /** @var AdminController $_admin */
 $_admin = $this;
+$_allPoule = $_admin->getAllPoule();
 ?>
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
@@ -17,6 +18,26 @@ $_admin = $this;
             <div class="panel-body">
                 <form action="<?php echo $_admin->getUrlAction('addEquipe'); ?>" method="POST">
 
+                    <div class="form-group">
+                        <label for="name">Nom *</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nom de l'équipe" name="name" value="" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="text" class="form-control" id="image" placeholder="Image, drapeau, ..." name="image" value="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="poule">Poule *</label>
+                        <select name="poule_id" >
+                            <?php /** @var PouleModel $poule */ ?>
+                            <?php foreach ($_allPoule as $poule): ?>
+                                <option value="<?php echo $poule->getAttribute('id') ?>"><?php echo $poule->getAttribute('name') ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
                     <button type="submit" class="btn btn-default">Enregistrer</button>
                 </form>
             </div>
