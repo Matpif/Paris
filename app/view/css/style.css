@@ -159,3 +159,8 @@ footer .width {
 .center {
     text-align: center;
 }
+.small_grey{
+    font-weight:normal;
+    color:#6E6E6E;
+    font-family:helvetica, sans-serif;line-height:1;
+}

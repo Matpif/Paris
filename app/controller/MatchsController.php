@@ -12,6 +12,7 @@ class MatchsController extends Controller
     {
         parent::__construct();
         $this->_url = '/Matchs';
+        $this->setTemplate('/matchs.phtml');
         $this->_title = 'Les Matchs';
         $this->_page = 'Matchs';
     }
