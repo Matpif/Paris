@@ -45,13 +45,13 @@ class Access
     function __construct()
     {
         $this->_pageAccess = [
-                                'Accueil' => ['connect' => true, 'level' => '0'],
-                                'Matchs' => ['connect' => true, 'level' => '0'],
-                                'MesParis' => ['connect' => true, 'level' => '0'],
-                                'MonProfil' => ['connect' => true, 'level' => '0'],
-                                'Classement' => ['connect' => true, 'level' => '0'],
-                                'Login' => ['connect' => false, 'level' => '0'],
-                                'Admin' => ['connect' => true, 'level' => '9'],
+                                'Accueil' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Matchs' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'MesParis' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'MonProfil' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Classement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Login' => ['connect' => false, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Admin' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
                                 ];
     }
 
