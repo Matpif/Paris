@@ -9,7 +9,7 @@
 class AdminController extends Controller
 {
 
-    const DEFAULT_PRIVILEGE = 0;
+    const DEFAULT_PRIVILEGE = UtilisateurModel::PRIVILEGE_USER;
 
     /**
      * @var UtilisateurModel
@@ -27,6 +27,11 @@ class AdminController extends Controller
     }
 
     public function newUserAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])) {
+            $this->_newUser = (new UtilisateurCollection())->loadById($get['id']);
+        }
+
         $this->setTemplate('/admin/addUser.phtml');
         $this->_title = 'Création de profil';
     }
@@ -44,6 +49,11 @@ class AdminController extends Controller
     public function newEquipeAction() {
         $this->setTemplate('/admin/addEquipe.phtml');
         $this->_title = 'Création d\'équipe';
+    }
+
+    public function listUserAction() {
+        $this->setTemplate('/admin/listUser.phtml');
+        $this->_title = 'Liste des utilisateurs';
     }
 
     public function addUserAction(){
@@ -74,7 +84,6 @@ class AdminController extends Controller
 
             if ($utilisateur->save()) {
 
-                Access::getInstance()->setCurrentUser($utilisateur);
                 $messages = new MessageManager();
                 $messages->newMessage('L\'utilisateur a été sauvegardé correctement', Message::LEVEL_SUCCESS);
             } else {
@@ -176,6 +185,24 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteUserAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])){
+            /** @var UtilisateurModel $utilisateur */
+            $utilisateur = (new UtilisateurCollection())->loadById($get['id']);
+
+            if ($utilisateur->remove()) {
+                $messages = new MessageManager();
+                $messages->newMessage('L\'utilisateur a été correctement supprimé', Message::LEVEL_SUCCESS);
+            } else {
+                $messages = new MessageManager();
+                $messages->newMessage('L\'utilisateur n\'a pas été correctement supprimé', Message::LEVEL_ERROR);
+            }
+        }
+
+        $this->setTemplate('/admin/listUser.phtml');
+    }
+
     /**
      * @return UtilisateurModel
      */
@@ -198,5 +225,10 @@ class AdminController extends Controller
     public function getAllPoule() {
         $_pouleCollection = new PouleCollection();
         return $_pouleCollection->loadAll(["name" => Collection::SORT_ASC]);
+    }
+
+    public function getAllUser() {
+        $_utilisateurCollection = new UtilisateurCollection();
+        return $_utilisateurCollection->loadAll(["login" => Collection::SORT_ASC]);
     }
 }

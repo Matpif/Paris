@@ -1,0 +1,46 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 09/05/16
+ * Time: 15:33
+ */
+/** @var AdminController $_admin */
+$_admin = $this;
+$_utilisteurs = $_admin->getAllUser();
+$_currentUtilistateur = Access::getInstance()->getCurrentUser();
+?>
+<div class="row">
+    <div class="col-md-3 col-md-offset-9">
+        <a href="<?php echo $_admin->getUrlAction('newUser'); ?>" class="btn btn-primary btn-lg btn-block">Ajouter un utilisateur</a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Login</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php /** @var UtilisateurModel $utilisteur */ ?>
+            <?php foreach ($_utilisteurs as $utilisteur): ?>
+            <tr>
+               <td><?php echo $utilisteur->getAttribute('login'); ?></td>
+               <td><?php echo $utilisteur->getAttribute('lastName'); ?></td>
+               <td><?php echo $utilisteur->getAttribute('firstName'); ?></td>
+               <td><?php echo $utilisteur->getAttribute('email'); ?></td>
+                <td>
+                    <a href="<?php echo $_admin->getUrlAction('newUser?id='.$utilisteur->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+               <td>
+                   <?php if ($_currentUtilistateur->getAttribute('id') != $utilisteur->getAttribute('id')): ?>
+                       <a href="<?php echo $_admin->getUrlAction('deleteUser?id='.$utilisteur->getAttribute('id')); ?>"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                   <?php endif; ?>
+               </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
