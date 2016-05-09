@@ -20,7 +20,7 @@ $_utilisateur = $_profil->getUtilisateur();
 			<th>Equipe 2</th>
 			<th>Image 2</th>
 		</tr>
-<?
+<?php
 
 $collection_matchs = new MatchCollection();
 $collection_matchs->loadAll('date');
@@ -36,18 +36,16 @@ foreach ($collection_matchs as $match):
     $pari = $collection_paris->load(array("utilisateur_id" => $_utilisateur->getAttribute('utilisateur_id'), "match_id" => $match->getAttribute('id')));
 ?>
 		<tr>
-			<td><? echo $match->getAttribute("date") ?></td>
-			<td><? echo '<img width="35px" src="/images/pays/' . $equipe_1->getAttribute('image') . '" />' ?></td>
-			<td><? echo $equipe_1->getAttribute('name') ?></td>
+			<td><?php echo $match->getAttribute("date") ?></td>
+			<td><?php echo '<img width="35px" src="/images/pays/' . $equipe_1->getAttribute('image') . '" />' ?></td>
+			<td><?php echo $equipe_1->getAttribute('name') ?></td>
 			<td>
-				<? echo $pari->getAttribute("score_equipe_1")." - ".$pari->getAttribute("score_equipe_1") ?>
-				<span class="small_grey"><? echo $match->getAttribute('score_equipe_1')." - ".$match->getAttribute('score_equipe_2') ?></span>
+				<?php echo $pari->getAttribute("score_equipe_1")." - ".$pari->getAttribute("score_equipe_1") ?>
+				<span class="small_grey"><?php echo $match->getAttribute('score_equipe_1')." - ".$match->getAttribute('score_equipe_2') ?></span>
 			</td>
-			<td><? echo $equipe_2->getAttribute('name') ?></td>
-			<td><? echo '<img width="35px" src="/images/pays/' . $equipe_2->getAttribute('image') . '" />' ?></td>
+			<td><?php echo $equipe_2->getAttribute('name') ?></td>
+			<td><?php echo '<img width="35px" src="/images/pays/' . $equipe_2->getAttribute('image') . '" />' ?></td>
 		</tr>
-<?
-endfor;
-?>
+<?php endforeach; ?>
 	</table>
 </div>
