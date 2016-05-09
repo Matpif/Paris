@@ -8,7 +8,7 @@
  */
 class Controller
 {
-    const PATH_TEMPLATE = '../view/template';
+    const PATH_TEMPLATE = '../view/template/';
 
     /**
      * @var string
@@ -27,6 +27,10 @@ class Controller
      */
     private $_rootUrl;
     /**
+     * @var string
+     */
+    private $_imageUrl;
+    /**
      * Path of template
      * @var string
      */
@@ -39,6 +43,11 @@ class Controller
      * @var string
      */
     protected $_page;
+    /**
+     * @var string
+     */
+    protected $_theme;
+
 
     private static $_instance;
     public static function getController($controller) {
@@ -53,6 +62,8 @@ class Controller
     {
         $this->_url = '';
         $this->_rootUrl = ReadIni::getInstance()->getAttribute('general', 'root_url');
+        $this->_imageUrl = ReadIni::getInstance()->getAttribute('general', 'image_url');
+        $this->_theme = ReadIni::getInstance()->getAttribute('general', 'theme_template');
         $this->setTemplate('/default.phtml');
         $this->setTemplateHeader('/header.phtml');
         $this->setTemplateFooter('/footer.phtml');
@@ -148,22 +159,30 @@ class Controller
      * @param $template string
      */
     public function setTemplate($template) {
-        $this->_template = self::PATH_TEMPLATE.$template;
+        $this->_template = self::PATH_TEMPLATE.$this->_theme.$template;
     }
 
     protected  function setTemplateHeader($template) {
-        $this->_header = self::PATH_TEMPLATE.$template;
+        $this->_header = self::PATH_TEMPLATE.$this->_theme.$template;
     }
 
     protected  function setTemplateFooter($template) {
-        $this->_footer = self::PATH_TEMPLATE.$template;
+        $this->_footer = self::PATH_TEMPLATE.$this->_theme.$template;
     }
 
     /**
      * @param $file string
      * @return string
      */
-    public function getUrlfile($file) {
+    public function getUrlFile($file) {
         return $this->_rootUrl.$file;
+    }
+
+    /**
+     * @param $image string
+     * @return string
+     */
+    public function getUrlImage($image) {
+        return $this->_rootUrl.$this->_imageUrl.$image;
     }
 }

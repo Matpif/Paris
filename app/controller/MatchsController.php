@@ -8,6 +8,11 @@
  */
 class MatchsController extends Controller
 {
+    /**
+     * @var PariCollection
+     */
+    private $_pariCollection;
+
     function __construct()
     {
         parent::__construct();
@@ -31,5 +36,27 @@ class MatchsController extends Controller
             echo '<br/><br/>';
         }
         die;
+    }
+
+    /**
+     * @return MatchCollection
+     */
+    public function getAllMatch() {
+        $matchCollection = new MatchCollection();
+        return $matchCollection->loadAll(["date" => Collection::SORT_ASC]);
+    }
+
+    /**
+     * @param MatchModel $match
+     * @return null | PariModel
+     */
+    public function getPari($match) {
+
+        $_utilisateur = Access::getInstance()->getCurrentUser();
+        if ($this->_pariCollection == null) {
+            $this->_pariCollection = new PariCollection();
+        }
+
+        return $this->_pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('utilisateur_id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
     }
 }

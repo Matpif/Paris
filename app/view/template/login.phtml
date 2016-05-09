@@ -11,7 +11,7 @@
 $_login = $this;
 ?>
 <div class="login-card">
-    <img class="profile-img-card" src="/images/avatar.png">
+    <img class="profile-img-card" src="<?php echo $_login->getUrlImage('/avatar.png') ?>">
     <p class="center"><b>Bienvenue</b><br/>Merci de vous identifier pour continuer</p>
     <form class="form-signin" action="<?php echo $_login->getUrlAction('signIn') ?>" method="post">
         <span class="reauth-email"></span>

@@ -55,7 +55,7 @@ abstract class Collection implements Iterator
      * Load Models by attributes values
      * @param $attributes
      * @param null|array $sort
-     * @return $this
+     * @return Collection
      */
     public function load($attributes, $sort = null) {
 
@@ -111,7 +111,7 @@ abstract class Collection implements Iterator
     
     /**
      * @param null|array $sort
-     * @return $this
+     * @return Collection
      */
     public function loadAll($sort = null) {
         $query = "SELECT * FROM {$this->_table}";

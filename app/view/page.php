@@ -52,11 +52,11 @@ $messages = $messageManager->getMessages();
 <html>
     <head>
         <title><?php echo $_controller->getTitle(); ?></title>
-        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/bootstrap.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/bootstrap-theme.min.css'); ?>">
-        <link rel="stylesheet" href="<?php echo $_controller->getUrlfile('/css/style.css'); ?>">
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlFile('/css/bootstrap.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlFile('/css/bootstrap-theme.min.css'); ?>">
+        <link rel="stylesheet" href="<?php echo $_controller->getUrlFile('/css/style.css'); ?>">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-        <script src="<?php echo $_controller->getUrlfile('/js/bootstrap.min.js'); ?>"></script>
+        <script src="<?php echo $_controller->getUrlFile('/js/bootstrap.min.js'); ?>"></script>
     </head>
     <body>
         <?php echo $_controller->getHeader(); ?>
