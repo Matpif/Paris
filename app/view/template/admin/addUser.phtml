@@ -13,10 +13,13 @@ $_newUser = $_admin->getNewUser();
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Nouvel Utilisateur</h3>
+                <h3 class="panel-title">Utilisateur</h3>
             </div>
             <div class="panel-body">
                 <form action="<?php echo $_admin->getUrlAction('addUser'); ?>" method="POST">
+                    <?php if ($_newUser->getAttribute('id')): ?>
+                        <input type="hidden" name="id" value="<?php echo $_newUser->getAttribute('id'); ?>"/>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label for="login">Login *</label>
                         <input type="text" class="form-control" id="login" placeholder="Login" name="login" value="<?php echo $_newUser->getAttribute('login') ?>" required>
@@ -37,6 +40,14 @@ $_newUser = $_admin->getNewUser();
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?php echo $_newUser->getAttribute('email') ?>" required>
                     </div>
 
+<!--                    <div class="form-group">-->
+<!--                        <label for="privilege">Privilège *</label>-->
+<!--                        <select name="privilege" id="privilege">-->
+<!--                            <option value="--><?php //echo UtilisateurModel::PRIVILEGE_USER; ?><!--">Utilisateur</option>-->
+<!--                            <option value="--><?php //echo UtilisateurModel::PRIVILEGE_ADMIN; ?><!--">Administrateur</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+                    
                     <div class="form-group">
                         <label for="password">Mot de passe *</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
