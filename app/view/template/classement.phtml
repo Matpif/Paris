@@ -1,0 +1,36 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 10/05/16
+ * Time: 13:39
+ */
+/** @var ClassementController $_classement */
+$_classement = $this;
+$_utilisateurs = $_classement->getAllUtilisateurWithScore();
+?>
+<div class="row">
+    <div class="col-lg-7 col-lg-offset-2">
+        <table class="table table-striped">
+            <tr>
+                <th>Place</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Score</th>
+            </tr>
+            <?php
+            $i = 1;
+            /** @var UtilisateurModel $utilisateur */
+            foreach ($_utilisateurs as $utilisateur):
+
+                ?>
+                <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo $utilisateur->getAttribute('lastName'); ?></td>
+                    <td><?php echo $utilisateur->getAttribute('firstName'); ?></td>
+                    <td><?php echo $utilisateur->getAttribute('score') ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+</div>

@@ -59,7 +59,7 @@ abstract class Collection implements Iterator
      */
     public function load($attributes, $sort = null) {
 
-        $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ');
+        $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ', true);
         $query = "SELECT * FROM {$this->_table} WHERE ".$dataParamList;
 
         if (is_array($sort)) {
@@ -162,5 +162,29 @@ abstract class Collection implements Iterator
     }
     public function rewind() {
         $this->_position = 0;
+    }
+
+    /**
+     * @param $field string
+     * @return Collection
+     */
+    public function sort($field) {
+        global $_field;
+        $_field = $field;
+        usort($this->_rows, array($this, 'compare'));
+        return $this;
+    }
+
+    /**
+     * @param $a Model
+     * @param $b Model
+     * @return int
+     */
+    private function compare($a, $b) {
+        global $_field;
+        if ($a->getAttribute($_field) == $b->getAttribute($_field)) {
+            return 0;
+        }
+        return ($a->getAttribute($_field) < $b->getAttribute($_field)) ? 1 :-1;
     }
 }

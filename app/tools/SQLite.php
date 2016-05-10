@@ -37,7 +37,12 @@ class SQLite extends SQLite3
        
         if ($stmt !== false && is_array($params)) {
             foreach ($params as $key => $param) {
-                $stmt->bindValue(":{$key}", $param);
+
+                if (is_array($param)) {
+                    $stmt->bindValue(":{$key}", $param[1]);
+                } else {
+                    $stmt->bindValue(":{$key}", $param);
+                }
             }
         }
 
@@ -51,11 +56,17 @@ class SQLite extends SQLite3
      * @param string $delimiter
      * @return string
      */
-    public function dataParamList($data, $keyTable, $delimiter = ', '){
+    public function dataParamList($data, $keyTable, $delimiter = ', ', $withId = false){
         $string = "";
         foreach($data as $key => $value){
-            if($keyTable != $key)
-                $string .= "{$key}=:{$key}{$delimiter}";
+            if($keyTable != $key || $withId) {
+                if (is_array($value)) {
+                    $signe = $value[0];
+                    $string .= "{$key}{$signe}:{$key}{$delimiter}";
+                } else {
+                    $string .= "{$key}=:{$key}{$delimiter}";
+                }
+            }
         }
         $string = substr($string, 0, -strlen($delimiter));
         return $string;
