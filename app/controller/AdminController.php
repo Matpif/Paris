@@ -56,6 +56,11 @@ class AdminController extends Controller
         $this->_title = 'Liste des utilisateurs';
     }
 
+    public function listMatchAction() {
+        $this->setTemplate('/admin/listMatch.phtml');
+        $this->_title = 'Liste des matchs';
+    }
+
     public function addUserAction(){
         $post = Access::getRequest();
 
@@ -207,6 +212,39 @@ class AdminController extends Controller
         $this->setTemplate('/admin/listUser.phtml');
     }
 
+    public function addScoreMatchAction() {
+        $post = Access::getRequest();
+
+        if (isset($post['match'])) {
+            $matchCollection = new MatchCollection();
+            foreach ($post['match'] as $matchId => $scores) {
+                /** @var MatchModel $match */
+                $match = $matchCollection->loadById($matchId);
+
+                if ($match) {
+
+                    if (trim($scores['score_equipe_1']) != "" && trim($scores['score_equipe_2']) != "") {
+                        $match->setAttribute('score_equipe_1', $scores['score_equipe_1']);
+                        $match->setAttribute('score_equipe_2', $scores['score_equipe_2']);
+                    } else {
+                        $match->setAttribute('score_equipe_1', null);
+                        $match->setAttribute('score_equipe_2', null);
+                    }
+
+                    $match->save();
+                }
+            }
+
+            $messages = new MessageManager();
+            $messages->newMessage('Les scores ont bien été sauvegardés', Message::LEVEL_SUCCESS);
+        } else {
+            $messages = new MessageManager();
+            $messages->newMessage('Match non trouvé', Message::LEVEL_ERROR);
+        }
+
+        $this->setTemplate('/admin/listMatch.phtml');
+    }
+
     /**
      * @return UtilisateurModel
      */
@@ -231,8 +269,27 @@ class AdminController extends Controller
         return $_pouleCollection->loadAll(["name" => Collection::SORT_ASC]);
     }
 
+    /**
+     * @return Collection
+     */
     public function getAllUser() {
         $_utilisateurCollection = new UtilisateurCollection();
         return $_utilisateurCollection->loadAll(["login" => Collection::SORT_ASC]);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMatchBegin() {
+        $_matchCollection = new MatchCollection();
+        return $_matchCollection->load(["date" => ["<", date('Y-m-d H:i:s')]], ["date" => Collection::SORT_DESC]);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMatchNotBegin() {
+        $_matchCollection = new MatchCollection();
+        return $_matchCollection->load(["date" => [">", date('Y-m-d H:i:s')]], ["date" => Collection::SORT_ASC]);
     }
 }

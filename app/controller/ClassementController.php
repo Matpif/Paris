@@ -37,7 +37,8 @@ class ClassementController extends Controller
         $score = 0;
         /** @var PariModel $pari */
         foreach ($pariCollection as $pari) {
-            $match = $matchCollection->load(['id' => $pari->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')]])->getFirstRow();
+            $match = $matchCollection->load(['id' => $pari->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')]])
+                                        ->getFirstRow();
 
             /** @var MatchModel $match */
             if ($match) {

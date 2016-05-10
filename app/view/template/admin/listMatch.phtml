@@ -1,0 +1,71 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 10/05/16
+ * Time: 19:31
+ */
+/** @var AdminController $_admin */
+$_admin = $this;
+$matchsBegin = $_admin->getMatchBegin();
+$matchsNotBegin = $_admin->getMatchNotBegin();
+$equipeCollection = new EquipeCollection();
+?>
+<div class="row">
+    <div class="col-md-3 col-md-offset-9">
+        <a href="<?php echo $_admin->getUrlAction('newMatch'); ?>" class="btn btn-primary btn-lg btn-block">Ajouter un match</a>
+    </div>
+    <div class="col-lg-6 col-lg-offset-3">
+        <h2>Matchs terminés</h2>
+        <form action="<?php echo $_admin->getUrlAction('addScoreMatch'); ?>" method="post">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Equipe 1</th>
+                        <th>Score</th>
+                        <th>Score</th>
+                        <th>Equipe 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php /** @var MatchModel $match */ ?>
+                <?php foreach ($matchsBegin as $match): ?>
+                    <?php $equipe1 = $equipeCollection->loadById($match->getAttribute('equipe_id_1')); ?>
+                    <?php $equipe2 = $equipeCollection->loadById($match->getAttribute('equipe_id_2')); ?>
+                    <tr>
+                        <td><?php echo $equipe1->getAttribute('name'); ?></td>
+                        <td><input type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
+                        <td><input type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
+                        <td><?php echo $equipe2->getAttribute('name'); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <button type="submit" class="hidden">Valider</button>
+        </form>
+        <h2>Prochains matchs</h2>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Equipe 1</th>
+                <th>Score</th>
+                <th>Score</th>
+                <th>Equipe 2</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php /** @var MatchModel $match */ ?>
+            <?php foreach ($matchsNotBegin as $match): ?>
+                <?php $equipe1 = $equipeCollection->loadById($match->getAttribute('equipe_id_1')); ?>
+                <?php $equipe2 = $equipeCollection->loadById($match->getAttribute('equipe_id_2')); ?>
+                <tr>
+                    <td><?php echo $equipe1->getAttribute('name'); ?></td>
+                    <td><?php echo $match->getAttribute('score_equipe_1'); ?></td>
+                    <td><?php echo $match->getAttribute('score_equipe_2'); ?></td>
+                    <td><?php echo $equipe2->getAttribute('name'); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
