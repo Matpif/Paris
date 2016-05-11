@@ -95,6 +95,7 @@ class AdminController extends Controller
 
                 $messages = new MessageManager();
                 $messages->newMessage('L\'utilisateur a été sauvegardé correctement', Message::LEVEL_SUCCESS);
+                $this->redirect($this->getUrlAction('listUser'));
             } else {
                 $this->_newUser = $utilisateur;
                 $messages = new MessageManager();
@@ -125,6 +126,7 @@ class AdminController extends Controller
 
                     $messages = new MessageManager();
                     $messages->newMessage('Le match a été sauvegardé correctement', Message::LEVEL_SUCCESS);
+                    $this->redirect($this->getUrlAction('listMatch'));
                 } else {
 
                     $messages = new MessageManager();
@@ -154,6 +156,7 @@ class AdminController extends Controller
             if ($poule->save()) {
                 $messages = new MessageManager();
                 $messages->newMessage('La poule a été sauvegardée correctement', Message::LEVEL_SUCCESS);
+                //$this->redirect($this->getUrlAction('listPoule'));
             } else {
 
                 $messages = new MessageManager();
@@ -209,7 +212,8 @@ class AdminController extends Controller
             }
         }
 
-        $this->setTemplate('/admin/listUser.phtml');
+        $this->redirect($this->getUrlAction('listUser'));
+        //$this->setTemplate('/admin/listUser.phtml');
     }
 
     public function addScoreMatchAction() {
@@ -242,7 +246,8 @@ class AdminController extends Controller
             $messages->newMessage('Match non trouvé', Message::LEVEL_ERROR);
         }
 
-        $this->setTemplate('/admin/listMatch.phtml');
+        $this->redirect($this->getUrlAction('listMatch'));
+        //$this->setTemplate('/admin/listMatch.phtml');
     }
 
     /**

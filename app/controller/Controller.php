@@ -185,4 +185,9 @@ class Controller
     public function getUrlImage($image) {
         return $this->_rootUrl.$this->_imageUrl.$image;
     }
+
+    public function redirect($url) {
+        header('Location: '.$url);
+        exit;
+    }
 }

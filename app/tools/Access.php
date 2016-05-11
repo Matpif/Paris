@@ -50,7 +50,7 @@ class Access
                                 'MesParis' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'MonProfil' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Classement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
-                                'Login' => ['connect' => false, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Login' => ['connect' => false, 'level' => null],
                                 'Admin' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
                                 ];
     }
