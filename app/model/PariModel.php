@@ -14,4 +14,32 @@ class PariModel extends Model
         $this->_key = 'id';
         $this->_table = 'pari';
     }
+
+    /**
+     * @return int
+     */
+    function getScore() {
+        $score = 0;
+        $matchCollection = new MatchCollection();
+        $match = $matchCollection->load(['id' => $this->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')]])
+                                    ->getFirstRow();
+
+        /** @var MatchModel $match */
+        if ($match) {
+            // Si l'utilisateur à le bon score
+            if ($match->getAttribute('score_equipe_1') == $this->getAttribute('score_equipe_1')
+                && $match->getAttribute('score_equipe_2') == $this->getAttribute('score_equipe_2')) {
+                $score += 5;
+
+                // Sinon si l'utilisateur à la bonne équipe gagnante
+            } else if (($match->getAttribute('score_equipe_1') < $match->getAttribute('score_equipe_2')
+                    && $this->getAttribute('score_equipe_1') < $this->getAttribute('score_equipe_2'))
+                || ($match->getAttribute('score_equipe_1') > $match->getAttribute('score_equipe_2')
+                    && $this->getAttribute('score_equipe_1') > $this->getAttribute('score_equipe_2'))) {
+                $score += 3;
+            } // Sinon pas de point
+        }
+
+        return $score;
+    }
 }

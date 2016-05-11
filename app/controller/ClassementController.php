@@ -30,31 +30,13 @@ class ClassementController extends Controller
      * @return int
      */
     private function getScoreUtilisateur($utilisateurId) {
-        $matchCollection = new MatchCollection();
         $pariCollection = new PariCollection();
         $pariCollection->load(['utilisateur_id' => $utilisateurId]);
         
         $score = 0;
         /** @var PariModel $pari */
         foreach ($pariCollection as $pari) {
-            $match = $matchCollection->load(['id' => $pari->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')]])
-                                        ->getFirstRow();
-
-            /** @var MatchModel $match */
-            if ($match) {
-                // Si l'utilisateur à le bon score
-                if ($match->getAttribute('score_equipe_1') == $pari->getAttribute('score_equipe_1')
-                    && $match->getAttribute('score_equipe_2') == $pari->getAttribute('score_equipe_2')) {
-                    $score += 5;
-
-                    // Sinon si l'utilisateur à la bonne équipe gagnante
-                } else if (($match->getAttribute('score_equipe_1') < $match->getAttribute('score_equipe_2')
-                                && $pari->getAttribute('score_equipe_1') < $pari->getAttribute('score_equipe_2'))
-                            || ($match->getAttribute('score_equipe_1') > $match->getAttribute('score_equipe_2')
-                                && $pari->getAttribute('score_equipe_1') > $pari->getAttribute('score_equipe_2'))) {
-                    $score += 3;
-                } // Sinon pas de point
-            }
+            $score += $pari->getScore();
         }
         
         return $score;
