@@ -37,7 +37,7 @@ $_equipeCollection = new EquipeCollection();
 					<td><?php echo $equipe_1->getAttribute('name') ?></td>
 					<td>
 						<input type="number" name="score_equipe_1" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1")?>"> - <input type="number" name="score_equipe_2" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2")?>">
-						<span class="small_grey"><?php echo $match->getScore('score_equipe_1')." - ".$match->getScore('score_equipe_2') ?></span>
+						<span class="small_grey"><?php echo $match->getScore(1)." - ".$match->getScore(2) ?></span>
 					</td>
 					<td><?php echo $equipe_2->getAttribute('name') ?></td>
 					<td><?php echo '<img width="35px" src="'.$_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image')) . '" />' ?></td>
