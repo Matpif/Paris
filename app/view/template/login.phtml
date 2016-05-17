@@ -17,7 +17,9 @@ $_login = $this;
         <span class="reauth-email"></span>
         <input type="email" name="email" class="form-control" id="email" autofocus required placeholder="Email">
         <input type="password" name="password" class="form-control" id="password" required placeholder="Mot de passe">
-
         <button type="submit" class="btn btn-default">Se connecter</button>
     </form>
+    <?php if (ReadIni::getInstance()->getAttribute('general', 'functionForgetPassword') == true): ?>
+        <a href="<?php echo $_login->getUrlAction('forgetPassword') ?>">Mot de passe oublié</a>
+    <?php endif; ?>
 </div>

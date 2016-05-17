@@ -35,16 +35,16 @@ class LoginController extends Controller
             
             if ($utilisateur) {
                 Access::getInstance()->setCurrentUser($utilisateur);
-                header('Location: /');
+                $this->redirect('/');
             } else {
                 (new MessageManager())->newMessage("Erreur d'identification", Message::LEVEL_ERROR);
                 unset ($_SESSION['utilisateur']);
-                header('Location: '.$this->getUrl());
+                $this->redirect($this->getUrl());
             }
             exit;
         }
 
-        header('Location: '.$this->getUrl());
+        $this->redirect($this->getUrl());
         exit;
     }
 
@@ -52,7 +52,45 @@ class LoginController extends Controller
         if (isset($_SESSION['utilisateur']))
             unset ($_SESSION['utilisateur']);
 
-        header('Location: '.$this->getUrl());
+        $this->redirect($this->getUrl());
         exit;
+    }
+    
+    public function forgetPasswordAction() {
+
+        if (ReadIni::getInstance()->getAttribute('general', 'functionForgetPassword') == false) {
+            $this->redirect($this->getUrl());
+        }
+
+        $post = Access::getRequest();
+
+        if (isset($post['action'], $post['email']) && $post['action'] == 'forgetPassword') {
+
+            $utilisateurCollection = new UtilisateurCollection();
+
+            /** @var UtilisateurModel $utilisateur */
+            if ($utilisateur = $utilisateurCollection->load(['email' => $post['email']])->getFirstRow()) {
+                $newPassword = $utilisateur->newPassword();
+                $utilisateur->setAttribute('password', $newPassword);
+                if ($utilisateur->save()) {
+                    $message = "Vous avez demandé un nouveau mot de passe.\r\nEmail: ".$utilisateur->getAttribute('email')."\r\nMot de passe: ".$newPassword;
+                    if (mail($utilisateur->getAttribute('email'), 'Mot de passe oublié', $message)) {
+                        $messageManager = new MessageManager();
+                        $messageManager->newMessage("Une nouveau mot de passe vient de vous être envoyé.", Message::LEVEL_SUCCESS);
+                    } else {
+                        $messageManager = new MessageManager();
+                        $messageManager->newMessage("Un problème est survenu lors de l'envoie du mail<br/>Merci de contacter l'administrateur.", Message::LEVEL_ERROR);
+                    }
+                }
+            } else {
+                $messageManager = new MessageManager();
+                $messageManager->newMessage("Adresse mail inconnue", Message::LEVEL_ERROR);
+            }
+
+            $this->redirect($this->getUrl());
+        } else {
+            $this->setTemplate('/forgetPassword.phtml');
+            $this->_title = 'Mot de passe oublié';
+        }
     }
 }
