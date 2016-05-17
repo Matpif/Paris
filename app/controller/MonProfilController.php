@@ -28,6 +28,7 @@ class MonProfilController extends Controller
         $post = Access::getRequest();
 
         if (isset($post['login'], $post['email'])) {
+            /** @var UtilisateurModel $utilisateur */
             $utilisateur = (new UtilisateurCollection())->loadById($this->getUtilisateur()->getAttribute('id'));
             //$utilisateur = $this->getUtilisateur();
             
@@ -41,7 +42,7 @@ class MonProfilController extends Controller
                 && !empty($post['password2'])
                 && $post['password'] == $post['password2']) {
 
-                $utilisateur->setAttribute('password', sha1($post['password']));
+                $utilisateur->setPassword($post['password']);
             }
 
             if ($utilisateur->save()) {
