@@ -47,6 +47,14 @@ class Controller
      * @var string
      */
     protected $_theme;
+    /**
+     * @var array
+     */
+    private $_jsFile;
+    /**
+     * @var array
+     */
+    private $_cssFile;
 
 
     private static $_instance;
@@ -68,7 +76,8 @@ class Controller
         $this->setTemplateHeader('/header.phtml');
         $this->setTemplateFooter('/footer.phtml');
         $this->_title = 'Paris Euro 2016';
-
+        $this->_jsFile = [];
+        $this->_cssFile = [];
     }
 
     /**
@@ -186,8 +195,49 @@ class Controller
         return $this->_rootUrl.$this->_imageUrl.$image;
     }
 
-    public function redirect($url) {
-        header('Location: '.$url);
+    /**
+     * @param string|Controller|null $url
+     */
+    public function redirect($url=null) {
+
+        if ($url instanceof Controller) {
+            header('Location: '.$url->getUrl());
+        } else if (empty($url)){
+            header('Location: /');
+        }else {
+            header('Location: '.$url);
+        }
+
         exit;
+    }
+
+    /**
+     * @param string $jsFile
+     */
+    public function addJS($jsFile) {
+        $this->_jsFile[] = $jsFile;
+    }
+
+    /**
+     * @param string $cssFile
+     */
+    public function addCSS($cssFile) {
+        $this->_cssFile[] = $cssFile;
+    }
+
+    /**
+     * @return array
+     */
+    public function getJsFile()
+    {
+        return $this->_jsFile;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCssFile()
+    {
+        return $this->_cssFile;
     }
 }

@@ -63,7 +63,7 @@ class Access
                 if (!isset($_SESSION['utilisateur'])) {
                     /** @var LoginController $login */
                     $login = Controller::getController('LoginController');
-                    header('Location: ' . $login->getUrl());
+                    $login->redirect($login);
                     exit;
                 } else {
                     /**
