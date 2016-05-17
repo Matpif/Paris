@@ -39,12 +39,12 @@ class SQLite extends SQLite3
             foreach ($params as $key => $param) {
 
                 if (is_array($param)) {
-                    if ($param[1] != null)
+                    if ($param[1] !== null)
                         $stmt->bindValue(":{$key}", $param[1]);
                     else
                         $stmt->bindValue(":{$key}", $param[1], SQLITE3_NULL);
                 } else {
-                    if ($param != null)
+                    if ($param !== null)
                         $stmt->bindValue(":{$key}", $param);
                     else
                         $stmt->bindValue(":{$key}", $param, SQLITE3_NULL);
