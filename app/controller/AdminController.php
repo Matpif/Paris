@@ -82,7 +82,7 @@ class AdminController extends Controller
                 && !empty($post['password2'])
                 && $post['password'] == $post['password2']) {
 
-                $utilisateur->setAttribute('password', sha1($post['password']));
+                $utilisateur->setPassword($post['password']);
             } else {
                 $this->_newUser = $utilisateur;
                 $messages = new MessageManager();

@@ -22,4 +22,8 @@ class UtilisateurModel extends Model
         $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         return substr(str_shuffle($letters), 0, $chars);
     }
+
+    public function setPassword($password) {
+        $this->setAttribute('password', sha1($password));
+    }
 }
