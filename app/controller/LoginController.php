@@ -81,6 +81,9 @@ class LoginController extends Controller
                         $messageManager = new MessageManager();
                         $messageManager->newMessage("Un problème est survenu lors de l'envoie du mail<br/>Merci de contacter l'administrateur.", Message::LEVEL_ERROR);
                     }
+                } else {
+                    $messageManager = new MessageManager();
+                    $messageManager->newMessage("Une erreur est survenue merci de réessayer plus tard", Message::LEVEL_ERROR);
                 }
             } else {
                 $messageManager = new MessageManager();
