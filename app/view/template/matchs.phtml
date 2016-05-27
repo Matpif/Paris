@@ -21,17 +21,17 @@ $_equipeCollection = new EquipeCollection();
 			$equipe_1 = $_equipeCollection->loadById($match->getAttribute('equipe_id_1'));
 			$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
 			$pari = $_match->getPari($match);
-			//echo $match->getAttribute("date")
 			?>
 			<div class="test" align="center">
+				<div class="row center"><?php echo $match->getAttribute("date"); ?></div>
 			    <div class="row cont">
 			        <div class="col-lg-5" align="left">
-			            <img src="<? echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>"><?php echo $equipe_1->getAttribute('name') ?>
+			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>"><?php echo $equipe_1->getAttribute('name') ?>
 			        </div>
 			        <div class="col-lg-2 score">
-			            <input type="number" name="score_equipe_1" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input type="number" name="score_equipe_2" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
+			            <input class="form-control" type="number" name="score_equipe_1" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control" type="number" name="score_equipe_2" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
 			        </div>
-			        <div class="col-lg-5" align="right"><?php echo $equipe_2->getAttribute('name') ?><img src="<?$_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>">
+			        <div class="col-lg-5" align="right"><?php echo $equipe_2->getAttribute('name') ?><img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>">
 			        </div>
 			    </div>
 			    <div class="row">
