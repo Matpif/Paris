@@ -14,7 +14,9 @@ $_equipeCollection = new EquipeCollection();
 ?>
 <div>
 	<form action="<?php echo $_match->getUrlAction('save'); ?>" method="POST">
-        <button class="btn btn-default col-lg-2 col-lg-offset-10" type="submit">ENREGISTRER</button>
+		<div class="row">
+        	<button class="btn btn-info mrg col-lg-1" type="submit">SAVE</button>
+		</div>
 		<?php
 		$array_id = array();
 		/** @var MatchModel $match */
@@ -28,16 +30,16 @@ $_equipeCollection = new EquipeCollection();
             array_push($array_id, $id);
 			?>
 			<input name="id" value="<?php echo $id?>" type="hidden">
-			<div class="test" align="center">
+			<div class="test row" align="center">
 				<div class="row center"><?php echo $match->getAttribute("date"); ?></div>
 			    <div class="row cont">
 			        <div class="col-lg-5" align="left">
-			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>"><?php echo $equipe_1->getAttribute('name') ?>
+			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>"><p><?php echo $equipe_1->getAttribute('name') ?></p>
 			        </div>
 			        <div class="col-lg-2 score">
 			            <input class="form-control" type="number" name="score_equipe_1<?php echo $id?>" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control" type="number" name="score_equipe_2<?php echo $id?>" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
 			        </div>
-			        <div class="col-lg-5" align="right"><?php echo $equipe_2->getAttribute('name') ?><img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>">
+			        <div class="col-lg-5" align="right"><p><?php echo $equipe_2->getAttribute('name') ?></p><img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>">
 			        </div>
 			    </div>
 			    <div class="row">
@@ -49,5 +51,8 @@ $_equipeCollection = new EquipeCollection();
 		<?php endforeach; ?>
 		<?php $json = json_encode($array_id); ?>
 		<input type="hidden" name="ids" value="<?php echo $json ?>">
+		<div class="row">
+			<button class="btn btn-info mrg col-lg-1" type="submit">SAVE</button>
+		</div>
 	</form>
 </div>

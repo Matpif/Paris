@@ -169,9 +169,6 @@ img{
     width: 70px;
     height: 50px;
     overflow:hidden;
-    -webkit-border-radius:50px;
-    -moz-border-radius:50px;
-    border-radius:50px;
     -moz-box-shadow: 0px 0px 10px #343434;
     -webkit-box-shadow: 0px 0px 10px #343434;
     -o-box-shadow: 0px 0px 10px #343434;
@@ -197,6 +194,10 @@ img{
     display: inline;
 }
 
+.mrg{
+    margin-left: 20px;
+}
+
 input {
     width: 40%;
     text-align: center;
@@ -213,4 +214,12 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 70%;
     text-decoration-color: #444444;
     text-align: center;
+}
+
+p{
+    text-transform: uppercase;
+    color: #959595;
+    fon-weight: 700;
+    letter-spacing: 1px;
+    display: inline;
 }
