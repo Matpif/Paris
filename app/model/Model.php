@@ -104,11 +104,11 @@ Abstract class Model
         $query = "INSERT INTO {$this->_table} ($fieldList) VALUES ($paramList)";
 
         $stmt = $this->_db->prepareQuery($query, $this->_data);
-
         if ($stmt->execute() !== false) {
             $this->_data[$this->_key] = $this->_db->lastInsertRowID();
             return true;
         } else {
+            echo $this->_db->lastErrorMsg();
             return false;
         }
     }
