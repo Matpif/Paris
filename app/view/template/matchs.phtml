@@ -7,51 +7,139 @@
 /** @var MatchsController $_match */
 $_match = $this;
 $_utilisateur = Access::getInstance()->getCurrentUser();
-$_matchsCollection = $_match->getAllMatch();
+$_matchsAvailableCollection = $_match->getMatchAvailable();
+$_matchsInProgressCollection = $_match->getMatchInProgress();
+$_matchsFinishCollection = $_match->getMatchFinish();
 $_equipeCollection = new EquipeCollection();
 /** Début tableau matchs **/
 ?>
-<div>
+<div style="margin-top: 30px;">
 	<form action="<?php echo $_match->getUrlAction('save'); ?>" method="POST">
 		<div class="row">
-        	<button class="btn btn-info mrg col-lg-1" type="submit">SAVE</button>
-		</div>
-		<?php
-		$array_id = array();
-		/** @var MatchModel $match */
-		foreach ($_matchsCollection as $match):
-			/* Récuperer le score du match réel si déjà joué, sinon "-" */
-			$equipe_1 = $_equipeCollection->loadById($match->getAttribute('equipe_id_1'));
-			$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
-			
-            $pari = $_match->getPari($match);
-			?>
-			<div class="row row_match center">
-				<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
-			    <div class="row cont">
-			        <div class="col-lg-5" align="left">
-			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
-						<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
-			        </div>
-			        <div class="col-lg-2 score">
-			            <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
-			        </div>
-			        <div class="col-lg-5" align="right">
-						<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-						<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
-			        </div>
-			    </div>
-			    <div class="row">
-			        <div class="col-lg-offset-5 col-lg-2">
-						<?php if ($match->getScore(1) && $match->getScore(2)): ?>
-			            	<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
-						<?php endif; ?>
-			        </div>
-			    </div>
+			<div class="col-lg-8 col-lg-offset-2">
+				<div>
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#matchAvailable" aria-controls="matchAvailable" role="tab" data-toggle="tab">Match / Paris</a></li>
+						<li role="presentation"><a href="#matchInProgress" aria-controls="matchInProgress" role="tab" data-toggle="tab">Match en cours</a></li>
+						<li role="presentation"><a href="#matchFinish" aria-controls="matchFinish" role="tab" data-toggle="tab">Match fini</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active marginContentTab" id="matchAvailable">
+							<div class="row">
+								<button class="btn btn-info mrg col-lg-1" type="submit">Sauvegarder</button>
+							</div>
+							<?php
+							/** @var MatchModel $match */
+							foreach ($_matchsAvailableCollection as $match):
+								/* Récuperer le score du match réel si déjà joué, sinon "-" */
+								$equipe_1 = $_equipeCollection->loadById($match->getAttribute('equipe_id_1'));
+								$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
+
+								$pari = $_match->getPari($match);
+								?>
+								<div class="row row_match center">
+									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+									<div class="row">
+										<div class="col-lg-5" align="left">
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+										</div>
+										<div class="col-lg-2 score">
+											<input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
+										</div>
+										<div class="col-lg-5" align="right">
+											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-offset-5 col-lg-2">
+											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
+												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+							<div class="row">
+								<button class="btn btn-info mrg col-lg-1" type="submit">Sauvegarder</button>
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane marginContentTab" id="matchInProgress">
+							<?php
+							/** @var MatchModel $match */
+							foreach ($_matchsInProgressCollection as $match):
+								/* Récuperer le score du match réel si déjà joué, sinon "-" */
+								$equipe_1 = $_equipeCollection->loadById($match->getAttribute('equipe_id_1'));
+								$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
+
+								$pari = $_match->getPari($match);
+								?>
+								<div class="row row_match center">
+									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+									<div class="row">
+										<div class="col-lg-5" align="left">
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+										</div>
+										<div class="col-lg-2 score">
+											<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+										</div>
+										<div class="col-lg-5" align="right">
+											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-offset-5 col-lg-2">
+											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
+												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+						<div role="tabpanel" class="tab-pane marginContentTab" id="matchFinish">
+							<?php
+							/** @var MatchModel $match */
+							foreach ($_matchsFinishCollection as $match):
+								/* Récuperer le score du match réel si déjà joué, sinon "-" */
+								$equipe_1 = $_equipeCollection->loadById($match->getAttribute('equipe_id_1'));
+								$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
+
+								$pari = $_match->getPari($match);
+								?>
+								<div class="row row_match center">
+									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+									<div class="row">
+										<div class="col-lg-5" align="left">
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+										</div>
+										<div class="col-lg-2 score">
+											<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+										</div>
+										<div class="col-lg-5" align="right">
+											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-offset-5 col-lg-2">
+											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
+												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
+											<?php endif; ?>
+										</div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+
 			</div>
-		<?php endforeach; ?>
-		<div class="row">
-			<button class="btn btn-info mrg col-lg-1" type="submit">SAVE</button>
 		</div>
 	</form>
 </div>

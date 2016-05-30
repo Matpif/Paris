@@ -30,6 +30,21 @@ class MatchsController extends Controller
         return $matchCollection->loadAll(["date" => Collection::SORT_ASC]);
     }
 
+    public function getMatchAvailable() {
+        $matchCollection = new MatchCollection();
+        return $matchCollection->load(["date" => [">", date('Y-m-d H:i:s')]], ["date" => Collection::SORT_ASC]);
+    }
+
+    public function getMatchInProgress() {
+        $matchCollection = new MatchCollection();
+        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s', time() + 5400)]], ["date" => Collection::SORT_ASC]);
+    }
+
+    public function getMatchFinish() {
+        $matchCollection = new MatchCollection();
+        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s', time() + 5400)]], ["date" => Collection::SORT_ASC]);
+    }
+
     /**
      * @param MatchModel $match
      * @return null | PariModel

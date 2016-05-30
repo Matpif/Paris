@@ -224,3 +224,7 @@ p.match{
 .accueil {
     font-size: 37px;
 }
+
+.marginContentTab {
+    margin-top: 25px;
+}
