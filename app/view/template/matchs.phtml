@@ -37,7 +37,7 @@ $_equipeCollection = new EquipeCollection();
 			            <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
 			        </div>
 			        <div class="col-lg-5" align="right">
-						<p><?php echo $equipe_2->getAttribute('name') ?></p>
+						<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
 						<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 			        </div>
 			    </div>
