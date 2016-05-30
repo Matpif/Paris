@@ -183,11 +183,6 @@ footer .width {
     font-weight: bold;
 }
 
-.form-control{
-    width: 40%;
-    display: inline;
-}
-
 .mrg{
     margin-left: 20px;
 }
@@ -195,6 +190,7 @@ footer .width {
 input.match {
     width: 40%;
     text-align: center;
+    display: inline;
 }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
