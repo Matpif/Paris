@@ -44,7 +44,7 @@ $_newUser = $_admin->getNewUser();
                         <label for="privilege">Privilège *</label>
                         <select name="privilege" id="privilege">
                             <option value="<?php echo UtilisateurModel::PRIVILEGE_USER; ?>" <?php echo ($_newUser->getAttribute('privilege') == UtilisateurModel::PRIVILEGE_USER)?'selected':''; ?> >Utilisateur</option>
-                            <option value="<?php echo UtilisateurModel::PRIVILEGE_ADMIN; ?> <?php echo ($_newUser->getAttribute('privilege') == UtilisateurModel::PRIVILEGE_ADMIN)?'selected':''; ?>">Administrateur</option>
+                            <option value="<?php echo UtilisateurModel::PRIVILEGE_ADMIN; ?>" <?php echo ($_newUser->getAttribute('privilege') == UtilisateurModel::PRIVILEGE_ADMIN)?'selected':''; ?>>Administrateur</option>
                         </select>
                     </div>
 
