@@ -66,7 +66,7 @@ class AdminController extends Controller
 
         $utilisateur = new UtilisateurModel();
 
-        if (isset($post['login'], $post['email'], $post['password'], $post['password2'])) {
+        if (isset($post['login'], $post['email'])) {
 
             if (isset($post['id'])) {
                 $utilisateur->setAttribute('id', $post['id']);
