@@ -37,24 +37,12 @@ class MatchsController extends Controller
     public function getPari($match) {
 
         /** @var UtilisateurModel $_utilisateur */
-        $_utilisateur = Access::getInstance()->getCurrentUser();
+        $_utilisateur = $this->getUtilisateur();
         if ($this->_pariCollection == null) {
             $this->_pariCollection = new PariCollection();
         }
-        $pari = $this->_pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('utilisateur_id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
-        if(is_null($pari)){
-            $pari = new PariModel();
-            $pari->setAttribute("utilisateur_id", $_utilisateur->getAttribute('utilisateur_id'));
-            $pari->setAttribute("match_id", $match->getAttribute('id'));
-            $pari->setAttribute("score_equipe_1", 0);
-            $pari->setAttribute("score_equipe_2", 0);
-            if(!$pari->save()){
-                $message = new MessageManager();
-                $message->newMessage("Une erreur est survenue");
-            }
-        }
-        $pari = $this->_pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('utilisateur_id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
-        return $pari;
+        
+        return $this->_pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
     }
 
     /**
@@ -65,24 +53,44 @@ class MatchsController extends Controller
     }
     
     public function saveAction() {
-        $flag = 0;
+
+        $erreur = false;
         $post = Access::getRequest();
-        $ids = json_decode($post['ids']);
-        foreach($ids as $id) {
-            $pari = (new PariCollection())->loadById($id);
-            $pari->setAttribute('score_equipe_1', $post['score_equipe_1'.$id]);
-            $pari->setAttribute('score_equipe_2', $post['score_equipe_2'.$id]);
-            if(!$pari->save()){
-                $flag = 1;
+
+        /** @var UtilisateurModel $_utilisateur */
+        $_utilisateur = $this->getUtilisateur();
+
+        $pariCollection = new PariCollection();
+        $matchCollection = new MatchCollection();
+
+        foreach($post['paris'] as $matchId => $score) {
+
+            if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != '') {
+                $match = $matchCollection->loadById($matchId);
+                $pari = $pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
+
+                if ($pari == null) {
+                    $pari = new PariModel();
+                    $pari->setAttribute('utilisateur_id', $_utilisateur->getAttribute('id'));
+                    $pari->setAttribute('match_id', $match->getAttribute('id'));
+                }
+
+                $pari->setAttribute('score_equipe_1', $score['score_equipe_1']);
+                $pari->setAttribute('score_equipe_2', $score['score_equipe_2']);
+
+                if(!$pari->save())
+                    $erreur = false;
             }
         }
-        if($flag == 0){
+
+        if(!$erreur){
             $messages = new MessageManager();
             $messages->newMessage('Vos paris ont été sauvegardé correctement', Message::LEVEL_SUCCESS);
-        }
-        else{
+        } else {
             $messages = new MessageManager();
-            $messages->newMessage('Un problème est survenue', Message::LEVEL_ERROR);
+            $messages->newMessage('Un problème est survenu, tous vos paris n\'ont pas été enregistrés correctement.', Message::LEVEL_ERROR);
         }
+
+        $this->redirect($this);
     }
 }

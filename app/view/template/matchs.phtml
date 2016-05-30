@@ -8,7 +8,6 @@
 $_match = $this;
 $_utilisateur = Access::getInstance()->getCurrentUser();
 $_matchsCollection = $_match->getAllMatch();
-$_pariCollection = new PariCollection();
 $_equipeCollection = new EquipeCollection();
 /** Début tableau matchs **/
 ?>
@@ -26,20 +25,20 @@ $_equipeCollection = new EquipeCollection();
 			$equipe_2 = $_equipeCollection->loadById($match->getAttribute('equipe_id_2'));
 			
             $pari = $_match->getPari($match);
-			$id = $pari->getAttribute('id');
-            array_push($array_id, $id);
 			?>
-			<input name="id" value="<?php echo $id?>" type="hidden">
-			<div class="test row" align="center">
-				<div class="row center"><?php echo $match->getAttribute("date"); ?></div>
+			<div class="row row_match center">
+				<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
 			    <div class="row cont">
 			        <div class="col-lg-5" align="left">
-			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>"><p><?php echo $equipe_1->getAttribute('name') ?></p>
+			            <img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+						<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
 			        </div>
 			        <div class="col-lg-2 score">
-			            <input class="form-control" type="number" name="score_equipe_1<?php echo $id?>" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control" type="number" name="score_equipe_2<?php echo $id?>" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
+			            <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
 			        </div>
-			        <div class="col-lg-5" align="right"><p><?php echo $equipe_2->getAttribute('name') ?></p><img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>">
+			        <div class="col-lg-5" align="right">
+						<p><?php echo $equipe_2->getAttribute('name') ?></p>
+						<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 			        </div>
 			    </div>
 			    <div class="row">
@@ -49,8 +48,6 @@ $_equipeCollection = new EquipeCollection();
 			    </div>
 			</div>
 		<?php endforeach; ?>
-		<?php $json = json_encode($array_id); ?>
-		<input type="hidden" name="ids" value="<?php echo $json ?>">
 		<div class="row">
 			<button class="btn btn-info mrg col-lg-1" type="submit">SAVE</button>
 		</div>
