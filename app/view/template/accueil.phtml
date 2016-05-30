@@ -8,13 +8,17 @@
 /** @var AccueilController $_accueil */
 $_accueil = $this;
 $_utilisateur = $_accueil->getUtilisateur();
+$_match = new MatchsController();
 ?>
 <div class="row" style="margin-top: 74px;">
     <div class="col-lg-6 col-lg-offset-3">
-        <p class="center">
+        <p class="center accueil">
             Bienvenue <?php echo $_utilisateur->getAttribute('firstName'). ' '. $_utilisateur->getAttribute('lastName'); ?><br/>
             <?php $score = $_accueil->getScore(); ?>
         </p>
         <h3 class="center">Vous avez actuellement <?php echo $score; ?> point<?php echo ($score>1)?'s':''; ?></h3>
+        <p class="center">
+            <a href="<?php echo $_match->getUrl() ?>">Voir mes paris</a>
+        </p>
     </div>
 </div>
