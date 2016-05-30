@@ -16,4 +16,21 @@ class AccueilController extends Controller
         $this->_title = 'Accueil';
         $this->_page = 'Accueil';
     }
+
+    public function getUtilisateur() {
+        return Access::getInstance()->getCurrentUser();
+    }
+
+    public function getScore() {
+        $pariCollection = new PariCollection();
+        $pariCollection->load(['utilisateur_id' => $this->getUtilisateur()->getAttribute('id')]);
+
+        $score = 0;
+        /** @var PariModel $pari */
+        foreach ($pariCollection as $pari) {
+            $score += $pari->getScore();
+        }
+
+        return $score;
+    }
 }

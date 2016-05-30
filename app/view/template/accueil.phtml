@@ -7,5 +7,14 @@
  */
 /** @var AccueilController $_accueil */
 $_accueil = $this;
+$_utilisateur = $_accueil->getUtilisateur();
 ?>
-... Accueil ...
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <p class="center">
+            Bienvenue <?php echo $_utilisateur->getAttribute('firstName'). ' '. $_utilisateur->getAttribute('lastName'); ?><br/>
+            <?php $score = $_accueil->getScore(); ?>
+        </p>
+        <h3 class="center">Vous avez actuellement <?php echo $score; ?> point<?php echo ($score>1)?'s':''; ?></h3>
+    </div>
+</div>
