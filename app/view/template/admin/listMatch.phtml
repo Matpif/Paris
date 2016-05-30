@@ -34,8 +34,8 @@ $equipeCollection = new EquipeCollection();
                     <?php $equipe2 = $equipeCollection->loadById($match->getAttribute('equipe_id_2')); ?>
                     <tr>
                         <td><?php echo $equipe1->getAttribute('name'); ?></td>
-                        <td><input type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
-                        <td><input type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
+                        <td><input class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
+                        <td><input class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
                         <td><?php echo $equipe2->getAttribute('name'); ?></td>
                     </tr>
                 <?php endforeach; ?>

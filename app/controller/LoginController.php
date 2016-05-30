@@ -77,10 +77,11 @@ class LoginController extends Controller
                     $sendMail = new SendMail();
                     $sendMail->setDestinataire($utilisateur->getAttribute('email'));
                     $sendMail->setTemplate('forgetPassword.phtml', ['email' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
+                    $sendMail->setObjet('Mot de passe perdu');
 
                     if ($sendMail->envoi()) {
                         $messageManager = new MessageManager();
-                        $messageManager->newMessage("Une nouveau mot de passe vient de vous être envoyé.", Message::LEVEL_SUCCESS);
+                        $messageManager->newMessage("Un nouveau mot de passe vient de vous être envoyé.", Message::LEVEL_SUCCESS);
                     } else {
                         $messageManager = new MessageManager();
                         $messageManager->newMessage("Un problème est survenu lors de l'envoie du mail<br/>Merci de contacter l'administrateur.", Message::LEVEL_ERROR);

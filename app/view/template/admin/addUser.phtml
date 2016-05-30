@@ -40,22 +40,12 @@ $_newUser = $_admin->getNewUser();
                         <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?php echo $_newUser->getAttribute('email') ?>" required>
                     </div>
 
-<!--                    <div class="form-group">-->
-<!--                        <label for="privilege">Privilège *</label>-->
-<!--                        <select name="privilege" id="privilege">-->
-<!--                            <option value="--><?php //echo UtilisateurModel::PRIVILEGE_USER; ?><!--">Utilisateur</option>-->
-<!--                            <option value="--><?php //echo UtilisateurModel::PRIVILEGE_ADMIN; ?><!--">Administrateur</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-                    
                     <div class="form-group">
-                        <label for="password">Mot de passe *</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password2">Confirmer mot de passe *</label>
-                        <input type="password" class="form-control" id="password2" name="password2"placeholder="Confirmer mot de passe" required>
+                        <label for="privilege">Privilège *</label>
+                        <select name="privilege" id="privilege">
+                            <option value="<?php echo UtilisateurModel::PRIVILEGE_USER; ?>" <?php echo ($_newUser->getAttribute('privilege') == UtilisateurModel::PRIVILEGE_USER)?'selected':''; ?> >Utilisateur</option>
+                            <option value="<?php echo UtilisateurModel::PRIVILEGE_ADMIN; ?> <?php echo ($_newUser->getAttribute('privilege') == UtilisateurModel::PRIVILEGE_ADMIN)?'selected':''; ?>">Administrateur</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-default">Enregistrer</button>

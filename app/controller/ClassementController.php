@@ -52,7 +52,7 @@ class ClassementController extends Controller
             $score = $this->getScoreUtilisateur($utilisateur->getAttribute('id'));
             $utilisateur->setAttribute('score', $score);
         }
-        // TODO: Sort Order by Score
+        
         return $utilisateurCollection->sort('score');
     }
 }

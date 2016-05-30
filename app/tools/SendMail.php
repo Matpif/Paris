@@ -113,7 +113,7 @@ class SendMail
 
     /**
      * Définition de l'objet du mail
-     * @param type $objet
+     * @param string $objet
      */
     public function setObjet($objet) {
         $this->objet = $objet;

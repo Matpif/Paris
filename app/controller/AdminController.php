@@ -76,23 +76,24 @@ class AdminController extends Controller
             $utilisateur->setAttribute('email', $post['email']);
             $utilisateur->setAttribute('lastName', $post['lastName']);
             $utilisateur->setAttribute('firstName', $post['firstName']);
-            $utilisateur->setAttribute('privilege', self::DEFAULT_PRIVILEGE);
+            $utilisateur->setAttribute('privilege', $post['privilege']);
 
-            if (!empty($post['password'])
-                && !empty($post['password2'])
-                && $post['password'] == $post['password2']) {
-
-                $utilisateur->setPassword($post['password']);
-            } else {
-                $this->_newUser = $utilisateur;
-                $messages = new MessageManager();
-                $messages->newMessage('Les mots de passe ne sont pas identiques', Message::LEVEL_ERROR);
-                $this->setTemplate('/admin/addUser.phtml');
-                return;
+            $newPassword = $utilisateur->newPassword();
+            if (!isset($post['id'])) {
+                $utilisateur->setPassword($newPassword);
             }
-
+            
             if ($utilisateur->save()) {
 
+                if (!isset($post['id'])) {
+                    $sendMail = new SendMail();
+                    $sendMail->setDestinataire($utilisateur->getAttribute('email'));
+                    $sendMail->setTemplate('nouvelUtilisateur.phtml', ['email' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
+                    $sendMail->setObjet('Bienvenue sur Paris');
+
+                    $sendMail->envoi();
+                }
+                
                 $messages = new MessageManager();
                 $messages->newMessage('L\'utilisateur a été sauvegardé correctement', Message::LEVEL_SUCCESS);
                 $this->redirect($this->getUrlAction('listUser'));
