@@ -73,8 +73,12 @@ class LoginController extends Controller
                 $newPassword = $utilisateur->newPassword();
                 $utilisateur->setPassword($newPassword);
                 if ($utilisateur->save()) {
-                    $message = "Vous avez demandé un nouveau mot de passe.\r\nEmail: ".$utilisateur->getAttribute('email')."\r\nMot de passe: ".$newPassword;
-                    if (mail($utilisateur->getAttribute('email'), 'Mot de passe oublié', $message)) {
+
+                    $sendMail = new SendMail();
+                    $sendMail->setDestinataire($utilisateur->getAttribute('email'));
+                    $sendMail->setTemplate('forgetPassword.phtml', ['email' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
+
+                    if ($sendMail->envoi()) {
                         $messageManager = new MessageManager();
                         $messageManager->newMessage("Une nouveau mot de passe vient de vous être envoyé.", Message::LEVEL_SUCCESS);
                     } else {
