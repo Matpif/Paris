@@ -33,28 +33,9 @@ class MatchModel extends Model
     
     /**
      * Get score by team name key
-     * @param $key int
      * @return mixed|string
      */
-    public function getScore($key) {
-        if($key == 1){
-            if (is_array($this->_data) && array_key_exists('score_equipe_1', $this->_data)){
-                return $this->_data['score_equipe_1'];
-            }
-            else{
-                return '-';
-            }
-        }
-        elseif($key == 2){
-            if (is_array($this->_data) && array_key_exists('score_equipe_2', $this->_data)){
-                return $this->_data['score_equipe_2'];
-            }
-            else{
-                return '-';
-            }
-        }
-        else{
-            return '-';
-        }
+    public function getScore() {
+        return (isset($this->_data['score_equipe_1'], $this->_data['score_equipe_2']))?$this->_data['score_equipe_1'].' - '.$this->_data['score_equipe_2']:'';
     }
 }

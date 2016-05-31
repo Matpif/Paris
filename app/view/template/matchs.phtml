@@ -27,7 +27,7 @@ $_equipeCollection = new EquipeCollection();
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active marginContentTab" id="matchAvailable">
 							<div class="row">
-								<button class="btn btn-info mrg col-lg-1" type="submit">Sauvegarder</button>
+								<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
 							</div>
 							<?php
 							/** @var MatchModel $match */
@@ -53,17 +53,10 @@ $_equipeCollection = new EquipeCollection();
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-lg-offset-5 col-lg-2">
-											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
-												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
-											<?php endif; ?>
-										</div>
-									</div>
 								</div>
 							<?php endforeach; ?>
 							<div class="row">
-								<button class="btn btn-info mrg col-lg-1" type="submit">Sauvegarder</button>
+								<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
 							</div>
 						</div>
 						<div role="tabpanel" class="tab-pane marginContentTab" id="matchInProgress">
@@ -91,13 +84,6 @@ $_equipeCollection = new EquipeCollection();
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-lg-offset-5 col-lg-2">
-											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
-												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
-											<?php endif; ?>
-										</div>
-									</div>
 								</div>
 							<?php endforeach; ?>
 						</div>
@@ -119,7 +105,7 @@ $_equipeCollection = new EquipeCollection();
 											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
 										</div>
 										<div class="col-lg-2 score">
-											<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+											<?php echo $match->getScore(); ?>
 										</div>
 										<div class="col-lg-5" align="right">
 											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
@@ -127,10 +113,11 @@ $_equipeCollection = new EquipeCollection();
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-offset-5 col-lg-2">
-											<?php if ($match->getScore(1) && $match->getScore(2)): ?>
-												<?php echo $match->getScore(1)." - ".$match->getScore(2) ?>
-											<?php endif; ?>
+										<div class="col-lg-offset-5 col-lg-2 monParis">
+											mon paris : <?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+											<br/>
+											<?php $score = $pari->getScore(); ?>
+											(<?php echo $score; ?> point<?php echo ($score > 1)?'s':''; ?>)
 										</div>
 									</div>
 								</div>
@@ -138,7 +125,6 @@ $_equipeCollection = new EquipeCollection();
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</form>
