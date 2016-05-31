@@ -76,7 +76,7 @@ class LoginController extends Controller
 
                     $sendMail = new SendMail();
                     $sendMail->setDestinataire($utilisateur->getAttribute('email'));
-                    $sendMail->setTemplate('forgetPassword.phtml', ['email' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
+                    $sendMail->setTemplate('forgetPassword.phtml', ['mail' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
                     $sendMail->setObjet('Mot de passe perdu');
 
                     if ($sendMail->envoi()) {
