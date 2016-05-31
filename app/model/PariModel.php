@@ -29,7 +29,25 @@ class PariModel extends Model
             // Si l'utilisateur à le bon score
             if ($match->getAttribute('score_equipe_1') == $this->getAttribute('score_equipe_1')
                 && $match->getAttribute('score_equipe_2') == $this->getAttribute('score_equipe_2')) {
-                $score += 5;
+                
+                if ($match->getAttribute('score_equipe_1') == $match->getAttribute('score_equipe_2')
+                    && $match->getAttribute('flag_phase_finale') == 1) {
+
+                    if ($match->getAttribute('score_tir_but_1') == $this->getAttribute('score_tir_but_1')
+                        && $match->getAttribute('score_tir_but_2') == $this->getAttribute('score_tir_but_2')) {
+
+                        $score += 5;
+                        
+                    } else if (($match->getAttribute('score_tir_but_1') < $match->getAttribute('score_tir_but_2')
+                            && $this->getAttribute('score_tir_but_1') < $this->getAttribute('score_tir_but_2'))
+                        || ($match->getAttribute('score_tir_but_1') > $match->getAttribute('score_tir_but_2')
+                            && $this->getAttribute('score_tir_but_1') > $this->getAttribute('score_tir_but_2'))){
+
+                        $score += 3;
+                    }
+                } else {
+                    $score += 5;
+                }
 
                 // Sinon si l'utilisateur à la bonne équipe gagnante
             } else if (($match->getAttribute('score_equipe_1') < $match->getAttribute('score_equipe_2')

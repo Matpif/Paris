@@ -133,6 +133,15 @@ if (isset($result['user_version'])) {
                 ',
         ];
     }
+
+    if ($result['user_version'] < 2) {
+        $queries["Add column score_tir_but_1 into match"] = "ALTER TABLE match ADD COLUMN score_tir_but_1 INTEGER;";
+        $queries["Add column score_tir_but_2 into match"] = "ALTER TABLE match ADD COLUMN score_tir_but_2 INTEGER;";
+        $queries["Add column flag_phase_final into match"] = "ALTER TABLE match ADD COLUMN flag_phase_finale INTEGER;";
+
+        $queries["Add column score_tir_but_1 into paris"] = "ALTER TABLE pari ADD COLUMN score_tir_but_1 INTEGER;";
+        $queries["Add column score_tir_but_2 into paris"] = "ALTER TABLE pari ADD COLUMN score_tir_but_2 INTEGER;";
+    }
 }
 
 $_error = false;

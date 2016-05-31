@@ -117,11 +117,15 @@ class AdminController extends Controller
 
         if (isset($post['date'], $post['equipe_id_1'], $post['equipe_id_2'])) {
 
-
             if (!empty($post['date']) && $post['equipe_id_1'] != $post['equipe_id_2']) {
                 $match->setAttribute('date', $post['date']);
                 $match->setAttribute('equipe_id_1', $post['equipe_id_1']);
                 $match->setAttribute('equipe_id_2', $post['equipe_id_2']);
+
+                if (isset($post['flag_phase_finale']))
+                    $match->setAttribute('flag_phase_finale', 1);
+                else
+                    $match->setAttribute('flag_phase_finale', 0);
 
                 if ($match->save()) {
 
