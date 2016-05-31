@@ -22,7 +22,7 @@ class ClassementController extends Controller
      */
     private function getAllUtilisateur() {
         $utilisateurCollection = new UtilisateurCollection();
-        return $utilisateurCollection->loadAll();
+        return $utilisateurCollection->load(['privilege' => ['!=', 9]]);
     }
 
     /**
