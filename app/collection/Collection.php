@@ -61,7 +61,7 @@ abstract class Collection implements Iterator
 
         $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ', true);
         $query = "SELECT * FROM {$this->_table} WHERE ".$dataParamList;
-
+        
         if (is_array($sort)) {
             foreach ($sort as $key => $value) {
                 $query .= " ORDER BY ".$key.' '.$value.',';
