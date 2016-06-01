@@ -192,6 +192,15 @@ input.match {
     text-align: center;
     display: inline;
 }
+
+input.tab {
+    width: 4%;
+    height: 3%;
+    text-align: center;
+    display: inline;
+    font-size: x-small;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -231,4 +240,8 @@ p.match{
 
 .monParis {
     font-size: 13px;
+}
+
+.hidden{
+    display: none;
 }
