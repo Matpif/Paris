@@ -88,7 +88,7 @@ class AdminController extends Controller
                 if (!isset($post['id'])) {
                     $sendMail = new SendMail();
                     $sendMail->setDestinataire($utilisateur->getAttribute('email'));
-                    $sendMail->setTemplate('nouvelUtilisateur.phtml', ['email' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
+                    $sendMail->setTemplate('nouvelUtilisateur.phtml', ['mail' => $utilisateur->getAttribute('email'), 'password' => $newPassword]);
                     $sendMail->setObjet('Bienvenue sur Paris');
 
                     $sendMail->envoi();
