@@ -81,20 +81,25 @@ class MatchsController extends Controller
         foreach($post['paris'] as $matchId => $score) {
 
             if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != '') {
-                $match = $matchCollection->loadById($matchId);
-                $pari = $pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
 
-                if ($pari == null) {
-                    $pari = new PariModel();
-                    $pari->setAttribute('utilisateur_id', $_utilisateur->getAttribute('id'));
-                    $pari->setAttribute('match_id', $match->getAttribute('id'));
+                $match = $matchCollection->load(array("id" => $matchId, 'date' => [">", date('Y-m-d H:i:s')]))->getFirstRow();
+
+                if ($match) {
+                    $pari = $pariCollection->load(array("utilisateur_id" => $_utilisateur->getAttribute('id'), "match_id" => $match->getAttribute('id')))->getFirstRow();
+
+                    if ($pari == null) {
+                        $pari = new PariModel();
+                        $pari->setAttribute('utilisateur_id', $_utilisateur->getAttribute('id'));
+                        $pari->setAttribute('match_id', $match->getAttribute('id'));
+                    }
+
+                    $pari->setAttribute('score_equipe_1', $score['score_equipe_1']);
+                    $pari->setAttribute('score_equipe_2', $score['score_equipe_2']);
+
+
+                    if (!$pari->save())
+                        $erreur = false;
                 }
-
-                $pari->setAttribute('score_equipe_1', $score['score_equipe_1']);
-                $pari->setAttribute('score_equipe_2', $score['score_equipe_2']);
-
-                if(!$pari->save())
-                    $erreur = false;
             }
         }
 
