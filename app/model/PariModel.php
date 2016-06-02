@@ -33,17 +33,19 @@ class PariModel extends Model
                 if ($match->getAttribute('score_equipe_1') == $match->getAttribute('score_equipe_2')
                     && $match->getAttribute('flag_phase_finale') == 1) {
 
+                    $score += 5;
+
                     if ($match->getAttribute('score_tir_but_1') == $this->getAttribute('score_tir_but_1')
                         && $match->getAttribute('score_tir_but_2') == $this->getAttribute('score_tir_but_2')) {
 
-                        $score += 5;
+                        $score += 3;
                         
                     } else if (($match->getAttribute('score_tir_but_1') < $match->getAttribute('score_tir_but_2')
                             && $this->getAttribute('score_tir_but_1') < $this->getAttribute('score_tir_but_2'))
                         || ($match->getAttribute('score_tir_but_1') > $match->getAttribute('score_tir_but_2')
                             && $this->getAttribute('score_tir_but_1') > $this->getAttribute('score_tir_but_2'))){
 
-                        $score += 3;
+                        $score += 1;
                     }
                 } else {
                     $score += 5;
