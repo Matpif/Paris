@@ -118,7 +118,7 @@ class MatchsController extends Controller
                         $pari->setAttribute('score_tir_but_2', null);
                     }
 
-                    if (!$info && !$pari->save())
+                    if (!$info || !$pari->save())
                         $erreur = false;
                 }
             }
