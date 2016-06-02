@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
 
-    $_scores = $('.score > input');
+    $_scores = $('.score > input[data-flag="1"]');
 
     $_scores.on('keyup', function () {
         $_sibling = $('input[name="' + $(this).attr('data-name') + '"]');
