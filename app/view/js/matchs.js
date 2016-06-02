@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     $_scores.on('keyup', function () {
         $_sibling = $('input[name="' + $(this).attr('data-name') + '"]');
-        if ($_sibling.val() == $(this).val()) {
+        if ($_sibling.val() == $(this).val() && $.trim($(this).val()) != '') {
             $(this).parent().parent().next().removeClass('hidden');
         }
         else {

@@ -20,6 +20,7 @@ class MatchsController extends Controller
         $this->setTemplate('/matchs.phtml');
         $this->_title = 'Les Matchs';
         $this->_page = 'Matchs';
+        $this->addJS('/js/matchs.js');
     }
 
     /**
@@ -99,32 +100,25 @@ class MatchsController extends Controller
 
                     if($match->getAttribute('flag_phase_finale') == 1 && $score['score_equipe_1'] == $score['score_equipe_2']){
                         if(isset($score['score_tir_but_1']) && isset($score['score_tir_but_2'])) {
-                            if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != '' && $score['score_tir_but_1'] != $score['score_tir_but_2']) {
+
+                            if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != ''
+                                && $score['score_tir_but_1'] != $score['score_tir_but_2']) {
+
                                 $pari->setAttribute('score_tir_but_1', $score['score_tir_but_1']);
                                 $pari->setAttribute('score_tir_but_2', $score['score_tir_but_2']);
                             }
-                            else{
-                                $pari->setAttribute('score_equipe_1', '');
-                                $pari->setAttribute('score_equipe_2', '');
-                                $pari->setAttribute('score_tir_but_1', '');
-                                $pari->setAttribute('score_tir_but_2', '');
+                            else
                                 $info = false;
-                            }
                         }
-                        else{
-                            $pari->setAttribute('score_equipe_1', '');
-                            $pari->setAttribute('score_equipe_2', '');
-                            $pari->setAttribute('score_tir_but_1', '');
-                            $pari->setAttribute('score_tir_but_2', '');
+                        else
                             $info = false;
-                        }
                     }
                     else{
-                        $pari->setAttribute('score_tir_but_1', '');
-                        $pari->setAttribute('score_tir_but_2', '');
+                        $pari->setAttribute('score_tir_but_1', null);
+                        $pari->setAttribute('score_tir_but_2', null);
                     }
 
-                    if (!$pari->save())
+                    if (!$info && !$pari->save())
                         $erreur = false;
                 }
             }
