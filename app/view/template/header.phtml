@@ -18,6 +18,8 @@ $_monProfil = Controller::getController('MonProfilController');
 $_admin = Controller::getController('AdminController');
 /** @var LoginController $_login */
 $_login = Controller::getController('LoginController');
+/** @var ShareController $_share */
+$_share = Controller::getController('ShareController');
 ?>
 <header>
     <nav class="navbar navbar-default">
@@ -34,6 +36,7 @@ $_login = Controller::getController('LoginController');
             <div class="collapse navbar-collapse" id="menu_header">
                 <ul class="nav navbar-nav">
                     <li class="<?php echo ($_access->isActivePage($_matchs->getPage()))?'active':''; ?>"><a href="<?php echo $_matchs->getUrl(); ?>">Matchs / Paris</a></li>
+                    <li class="<?php echo ($_access->isActivePage($_share->getPage()))?'active':''; ?>"><a href="<?php echo $_share->getUrl(); ?>">Paris partagés</a></li>
                     <li class="<?php echo ($_access->isActivePage($_classement->getPage()))?'active':''; ?>"><a href="<?php echo $_classement->getUrl(); ?>">Classement</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

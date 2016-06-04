@@ -168,6 +168,11 @@ footer .width {
     box-shadow: 0px 0px 10px #343434;
 }
 
+.small-flag {
+    width: 35px;
+    height: 25px;
+}
+
 .row_match {
     font-size: 18px;
     margin-bottom:15px;
@@ -244,4 +249,12 @@ p.match{
 
 .hidden{
     display: none;
+}
+
+.right {
+    text-align: right;
+}
+
+.shareMatch {
+    margin-bottom: 30px;
 }

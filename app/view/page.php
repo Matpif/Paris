@@ -24,6 +24,16 @@ $_page = ReadIni::getInstance()->getAttribute('general', 'index_page');
 if (isset($_GET['page'])) {
     $_page = $_GET['page'];
 }
+
+$rewrite = Access::getInstance()->rewrite($_SERVER['REQUEST_URI']);
+if (is_array($rewrite) && isset($rewrite['controller'], $rewrite['action'])) {
+    $_page = $rewrite['controller'];
+    if ($rewrite['action'])
+        $_GET['action'] = $rewrite['action'];
+    else
+        unset($_GET['action']);
+}
+
 Access::getInstance()->controlAccess($_page);
 
 if (Access::getInstance()->getErrorController()) {

@@ -13,6 +13,10 @@ class Access
      */
     private $_pageAccess;
     /**
+     * @var array
+     */
+    private $_rewritePage;
+    /**
      * @var string
      */
     private $_currentPage;
@@ -50,8 +54,12 @@ class Access
                                 'MesParis' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'MonProfil' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Classement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'Share' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Login' => ['connect' => false, 'level' => null],
                                 'Admin' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
+                                ];
+        $this->_rewritePage = [
+                                '/ParisPartages' => ['controller' => 'Share', 'action' => ''],
                                 ];
     }
 
@@ -78,6 +86,10 @@ class Access
         } else {
             $this->pageNotFound();
         }
+    }
+
+    public function rewrite($url) {
+        return (isset($this->_rewritePage[$url]))?$this->_rewritePage[$url]:null;
     }
 
     /**

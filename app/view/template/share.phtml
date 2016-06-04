@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 03/06/16
+ * Time: 14:45
+ */
+/** @var ShareController $_share */
+$_share = $this;
+$_equipeCollection = new EquipeCollection();
+$_allMatch = $_share->getAllMatch();
+?>
+<div>
+    <?php /** @var MatchModel $_match */ ?>
+    <?php foreach ($_allMatch as $_match): ?>
+        <?php
+        $equipe_1 = $_equipeCollection->loadById($_match->getAttribute('equipe_id_1'));
+        $equipe_2 = $_equipeCollection->loadById($_match->getAttribute('equipe_id_2'));
+        ?>
+        <div class="row shareMatch">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="row">
+                    <div class="col-lg-5 right">
+                        <p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+                        <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag small-flag">
+                    </div>
+                    <div class="col-lg-5 col-lg-offset-2">
+                        <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_2->getAttribute('image')) ?>" class="flag small-flag">
+                        <p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+                    </div>
+                </div>
+                <?php $_paris = $_share->getPari($_match->getAttribute('id')); ?>
+                <?php /** @var PariModel $pari */ ?>
+                <?php foreach ($_paris as $pari): ?>
+                    <?php $utilisateur = $_share->getUtilisateur($pari->getAttribute('utilisateur_id')) ?>
+                    <?php if ($utilisateur->getAttribute('share')): ?>
+                        <div class="row">
+                            <div class="col-lg-5 right">
+                                <?php echo $utilisateur->getAttribute('login'); ?>
+                            </div>
+                            <div class="col-lg-2 center">
+                                <?php echo $pari->getAttribute('score_equipe_1').' - '.$pari->getAttribute('score_equipe_2'); ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php if ($_paris->count() < 1): ?>
+                    <div class="row">
+                        <div class="col-lg-2 col-lg-offset-5 center">
+                            Aucun pari pour le moment.
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
