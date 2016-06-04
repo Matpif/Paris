@@ -142,6 +142,10 @@ if (isset($result['user_version'])) {
         $queries["Add column score_tir_but_1 into paris"] = "ALTER TABLE pari ADD COLUMN score_tir_but_1 INTEGER;";
         $queries["Add column score_tir_but_2 into paris"] = "ALTER TABLE pari ADD COLUMN score_tir_but_2 INTEGER;";
     }
+
+    if ($result['user_version'] < 3) {
+        $queries["Add column share into utilisateur"] = "ALTER TABLE utilisateur ADD COLUMN share INTEGER DEFAULT 1;";
+    }
 }
 
 $_error = false;

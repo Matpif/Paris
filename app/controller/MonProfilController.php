@@ -37,6 +37,11 @@ class MonProfilController extends Controller
             $utilisateur->setAttribute('lastName', $post['lastName']);
             $utilisateur->setAttribute('firstName', $post['firstName']);
 
+            if (isset($post['share']))
+                $utilisateur->setAttribute('share', 1);
+            else
+                $utilisateur->setAttribute('share', 0);
+
             if (isset($post['password'], $post['password2'])
                 && !empty($post['password'])
                 && !empty($post['password2'])

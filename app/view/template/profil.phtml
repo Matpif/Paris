@@ -44,7 +44,13 @@ $_utilisateur = $_profil->getUtilisateur();
 
                     <div class="form-group">
                         <label for="password2">Confirmer mot de passe</label>
-                        <input type="password" class="form-control" id="password2" name="password2"placeholder="Confirmer mot de passe">
+                        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmer mot de passe">
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="share" <?php echo ($_utilisateur->getAttribute('share'))?'checked':''; ?>> Partager mes paris
+                        </label>
                     </div>
 
                     <button type="submit" class="btn btn-default">Enregistrer</button>
