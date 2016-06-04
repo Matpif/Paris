@@ -73,6 +73,7 @@ abstract class Collection implements Iterator
         $results = $stmt->execute();
 
         unset($this->_rows);
+        $this->_rows = [];
 
         while ($result = $results->fetchArray(SQLITE3_ASSOC)) {
             /**
@@ -127,6 +128,7 @@ abstract class Collection implements Iterator
         $results = $stmt->execute();
 
         unset($this->_rows);
+        $this->_rows = [];
 
         while ($result = $results->fetchArray(SQLITE3_ASSOC)) {
             /**
