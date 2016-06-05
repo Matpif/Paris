@@ -142,6 +142,31 @@ abstract class Collection implements Iterator
         return $this;
     }
 
+    /**
+     * @param $query string
+     * @param $attributes array
+     * @return Model
+     */
+    public function loadByQuery($query, $attributes = null) {
+
+        $stmt = $this->_db->prepareQuery($query, $attributes);
+        $results = $stmt->execute();
+
+        unset($this->_rows);
+        $this->_rows = [];
+
+        while ($result = $results->fetchArray(SQLITE3_ASSOC)) {
+            /**
+             * @var $model Model
+             */
+            $model = new $this->_model;
+            $model->setData($result);
+            $this->_rows[] = $model;
+        }
+
+        return $this;
+    }
+
     public function getFirstRow() {
         return (isset($this->_rows[0]))?$this->_rows[0]:null;
     }
