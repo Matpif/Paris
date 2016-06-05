@@ -25,7 +25,7 @@ class MonClassementController extends Controller
         $_equipeCollection = new EquipeCollection();
         $_equipeCollection->loadByQuery('
                     SELECT equipe.*,
-                                CASE WHEN pari.id IS NULL THEN 0 
+                                SUM (CASE WHEN pari.id IS NULL THEN 0 
                                     WHEN  equipe.id = match.equipe_id_1 AND pari.score_equipe_1 > pari.score_equipe_2 THEN 3
                                     WHEN  equipe.id = match.equipe_id_1 AND pari.score_equipe_1 = pari.score_equipe_2 THEN 1
                                     WHEN equipe.id = match.equipe_id_1 AND pari.score_equipe_1 < pari.score_equipe_2 THEN 0
@@ -33,7 +33,7 @@ class MonClassementController extends Controller
                                     WHEN  equipe.id = match.equipe_id_2 AND pari.score_equipe_2 = pari.score_equipe_1 THEN 1
                                     WHEN equipe.id = match.equipe_id_2 AND pari.score_equipe_2 < pari.score_equipe_1 THEN 0
                                     ELSE 0
-                                END as score
+                                END) as score
                     FROM equipe
                     INNER JOIN match
                     ON match.equipe_id_1 = equipe.id
