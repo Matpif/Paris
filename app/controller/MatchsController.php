@@ -81,7 +81,7 @@ class MatchsController extends Controller
         $matchCollection = new MatchCollection();
 
         foreach($post['paris'] as $matchId => $score) {
-
+            $same = false;
             if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != '') {
 
                 $match = $matchCollection->load(array("id" => $matchId, 'date' => [">", date('Y-m-d H:i:s')]))->getFirstRow();
@@ -95,11 +95,16 @@ class MatchsController extends Controller
                         $pari->setAttribute('match_id', $match->getAttribute('id'));
                     }
 
+                    $same = ($pari->getAttribute('score_equipe_1') == $score['score_equipe_1'] && $pari->getAttribute('score_equipe_2') == $score['score_equipe_2']);
+
                     $pari->setAttribute('score_equipe_1', $score['score_equipe_1']);
                     $pari->setAttribute('score_equipe_2', $score['score_equipe_2']);
 
                     if($match->getAttribute('flag_phase_finale') == 1 && $score['score_equipe_1'] == $score['score_equipe_2']){
+
                         if(isset($score['score_tir_but_1']) && isset($score['score_tir_but_2'])) {
+
+                            $same = $same && ($pari->getAttribute('score_tir_but_1') == $score['score_tir_but_1'] && $pari->getAttribute('score_tir_but_2') == $score['score_tir_but_2']);
 
                             if (trim($score['score_equipe_1']) != '' && trim($score['score_equipe_2']) != ''
                                 && $score['score_tir_but_1'] != $score['score_tir_but_2']) {
@@ -118,8 +123,10 @@ class MatchsController extends Controller
                         $pari->setAttribute('score_tir_but_2', null);
                     }
 
-                    if (!$info || !$pari->save())
-                        $erreur = false;
+                    if (!$same) {
+                        if (!$info || !$pari->save())
+                            $erreur = false;
+                    }
                 }
             }
         }
