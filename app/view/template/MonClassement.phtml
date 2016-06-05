@@ -1,0 +1,39 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 05/06/16
+ * Time: 11:01
+ */
+/** @var MonClassementController $_monClassement */
+$_monClassement = $this;
+$_pouleCollection = $_monClassement->getAllPoule();
+?>
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3 center">
+        <p>Voici le classement des équipes au sein de leur poule en fonction de vos paris</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <?php /** @var PouleModel $poule */ ?>
+        <?php foreach ($_pouleCollection as $poule): ?>
+            <?php $equipesPoule = $_monClassement->getEquipesOrder($poule->getAttribute('id')) ?>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Poule <?php echo $poule->getAttribute('name'); ?></h3>
+                        </div>
+                        <div class="panel-body">
+                            <?php /** @var EquipeModel $equipe */ ?>
+                            <?php $position = 1; ?>
+                            <?php foreach ($equipesPoule as $equipe): ?>
+                                <?php echo $position++.' - '.$equipe->getAttribute('name'); ?>(<?php echo $equipe->getAttribute('score'); ?>)<br/>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+        <?php endforeach; ?>
+    </div>
+</div>

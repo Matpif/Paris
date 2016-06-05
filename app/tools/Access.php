@@ -55,6 +55,7 @@ class Access
                                 'MonProfil' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Classement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Share' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
+                                'MonClassement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Login' => ['connect' => false, 'level' => null],
                                 'Admin' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
                                 ];

@@ -20,6 +20,8 @@ $_admin = Controller::getController('AdminController');
 $_login = Controller::getController('LoginController');
 /** @var ShareController $_share */
 $_share = Controller::getController('ShareController');
+/** @var MonClassementController $_share */
+$_monclassement = Controller::getController('MonClassementController');
 ?>
 <header>
     <nav class="navbar navbar-default">
@@ -36,6 +38,7 @@ $_share = Controller::getController('ShareController');
             <div class="collapse navbar-collapse" id="menu_header">
                 <ul class="nav navbar-nav">
                     <li class="<?php echo ($_access->isActivePage($_matchs->getPage()))?'active':''; ?>"><a href="<?php echo $_matchs->getUrl(); ?>">Matchs / Paris</a></li>
+                    <li class="<?php echo ($_access->isActivePage($_monclassement->getPage()))?'active':''; ?>"><a href="<?php echo $_monclassement->getUrl(); ?>">Mon Classement par poule</a></li>
                     <li class="<?php echo ($_access->isActivePage($_share->getPage()))?'active':''; ?>"><a href="<?php echo $_share->getUrl(); ?>">Paris partagés</a></li>
                     <li class="<?php echo ($_access->isActivePage($_classement->getPage()))?'active':''; ?>"><a href="<?php echo $_classement->getUrl(); ?>">Classement</a></li>
                 </ul>
