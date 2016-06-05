@@ -151,6 +151,10 @@ if (isset($result['user_version'])) {
         $queries["Fix Error Match Irlande poule C - 1"] = "UPDATE match SET equipe_id_1 = 10 WHERE id IN (6, 17);";
         $queries["Fix Error Match Irlande poule C - 2"] = "UPDATE match SET equipe_id_2 = 10 WHERE id = 30;";
     }
+    
+    if ($result['user_version'] < 5) {
+        $queries["Change image Irlande Nord"] = "UPDATE equipe SET image = 'Irlande du Nord.jpg' WHERE id = 10;";
+    }
 }
 
 $_error = false;
