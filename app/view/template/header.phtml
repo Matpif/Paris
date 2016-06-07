@@ -22,6 +22,8 @@ $_login = Controller::getController('LoginController');
 $_share = Controller::getController('ShareController');
 /** @var MonClassementController $_share */
 $_monclassement = Controller::getController('MonClassementController');
+/** @var AboutController $_about */
+$_about = Controller::getController('AboutController');
 ?>
 <header>
     <nav class="navbar navbar-default">
@@ -50,6 +52,7 @@ $_monclassement = Controller::getController('MonClassementController');
                             <li><a href="<?php echo $_monProfil->getUrl(); ?>">Profil</a></li>
                             <li><a href="<?php echo $_admin->getUrl(); ?>">Administration</a></li>
                             <li><a href="<?php echo $_login->getUrlAction('disconnect'); ?>">Se déconnecter</a></li>
+                            <li><a href="<?php echo $_about->getUrl(); ?>">About</a></li>
                         </ul>
                     </li>
                 </ul>

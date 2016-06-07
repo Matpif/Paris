@@ -1,0 +1,18 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 07/06/16
+ * Time: 19:24
+ */
+
+?>
+<b>Attention !</b><br/>
+Vous n'avez pas parié sur les matchs suivant, il vous reste moins de 24 heures pour le faire. <br/><br/>
+
+<ul>
+    <?php /** @var MatchModel $match */
+    <?php foreach ($params as $match): ?>
+        <li><?php echo $match->getAttribute('') ?></li>
+    <?php endforeach; ?>
+</ul>
