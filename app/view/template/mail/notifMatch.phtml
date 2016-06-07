@@ -11,8 +11,8 @@
 Vous n'avez pas parié sur les matchs suivant, il vous reste moins de 24 heures pour le faire. <br/><br/>
 
 <ul>
-    <?php /** @var MatchModel $match */
+    <?php /** @var MatchModel $match */ ?>
     <?php foreach ($params as $match): ?>
-        <li><?php echo $match->getAttribute('') ?></li>
+        <li><?php echo $match->getEquipe_1()->getAttribute('name').' - '.$match->getEquipe_2()->getAttribute('name'); ?></li>
     <?php endforeach; ?>
 </ul>

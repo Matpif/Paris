@@ -8,6 +8,7 @@
  */
 class MatchModel extends Model
 {
+    private $_equipeCollection;
 
     function __construct() {
         parent::__construct();
@@ -19,16 +20,18 @@ class MatchModel extends Model
      * @return EquipeModel|null
      */
     public function getEquipe_1() {
-        $equipeCollection = new EquipeCollection();
-        return $equipeCollection->loadById($this->getAttribute('equipe_id_1'));
+        if ($this->_equipeCollection == null)
+            $this->_equipeCollection = new EquipeCollection();
+        return $this->_equipeCollection->loadById($this->getAttribute('equipe_id_1'));
     }
 
     /**
      * @return EquipeModel|null
      */
     public function getEquipe_2() {
-        $equipeCollection = new EquipeCollection();
-        return $equipeCollection->loadById($this->getAttribute('equipe_id_2'));
+        if ($this->_equipeCollection == null)
+            $this->_equipeCollection = new EquipeCollection();
+        return $this->_equipeCollection->loadById($this->getAttribute('equipe_id_2'));
     }
     
     /**
