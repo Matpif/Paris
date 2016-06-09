@@ -54,7 +54,9 @@ server {
 
 # Accéder à l'application
 Lors de l'installation de la base de données l'utilisateur admin a été créé.
+
 Identifiant: admin@admin
+
 Mot de passe: admin
 
 Noubliez pas de changer le mot de passe dans le profil.
