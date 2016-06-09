@@ -2,19 +2,20 @@
 Application web de paris sur l'Euro 2016.
 
 # Installation
-Récupérer les sources de l'application
-Configuration de la base de données:
+Récupérer les sources de l'application. 
+## Configuration de la base de données:
   Indiquer le chemin absolu vers le fichier SQLite dans app/tools/config.ini section "sqlite" attribut "dbname"
 
-Configuration du site:
+## Configuration du site:
   Indiquer l'url d'accès à l'application dans app/tools/config.ini section "genral" attribut "root_url" (exemple: https://exemple.com)
 
-Configuration des mails:
+## Configuration des mails:
   Section "mail" vous pouvez renseigner le l'expéditeur, attribut "from" ainsi que le mail de réponse, attribut "reply_to"
 
 Lancer l'installation des tables avec le script app/tools/database.php (commande: php app/tools/database.php)
 
-L'application fonctionne aussi bien sous Apache2 que Nginx
+## Config Nginx
+L'application fonctionne aussi bien sous Apache2 que Nginx. 
 Voici un exemple de configuration sur Nginx:
 
 Les trois paramètres obligatoires sont:
