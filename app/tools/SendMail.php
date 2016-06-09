@@ -132,15 +132,19 @@ class SendMail
      * @return boolean
      */
     public function envoi(){
-        $headers  = 'MIME-Version: 1.0' . "\n";
-        $headers .= 'From: '.ReadIni::getInstance()->getAttribute('mail', 'from')."\n";
-        $headers .= 'Reply-To: '.ReadIni::getInstance()->getAttribute('mail', 'reply_to')."\n";
 
-        $headers .= "Content-type: multipart/alternative; boundary=\"".$this->limite."\"\n";
-        return mail($this->getDestinataire(),
-            utf8_decode($this->getObjet()),
-            $this->getMessage().$this->attachement,
-            $headers);
+        if (ReadIni::getInstance()->getAttribute('mail', 'mail')) {
+            $headers = 'MIME-Version: 1.0' . "\n";
+            $headers .= 'From: ' . ReadIni::getInstance()->getAttribute('mail', 'from') . "\n";
+            $headers .= 'Reply-To: ' . ReadIni::getInstance()->getAttribute('mail', 'reply_to') . "\n";
+
+            $headers .= "Content-type: multipart/alternative; boundary=\"" . $this->limite . "\"\n";
+            return mail($this->getDestinataire(),
+                utf8_decode($this->getObjet()),
+                $this->getMessage() . $this->attachement,
+                $headers);
+        } else
+            return true;
     }
     
     public function setTemplate($template, $params = null) {
