@@ -17,10 +17,10 @@ Lancer l'installation des tables avec le script app/tools/database.php (commande
 L'application fonctionne aussi bien sous Apache2 que Nginx
 Voici un exemple de configuration sur Nginx:
 
-Les deux paramètres obligatoires sont:
-  La page index (page.php)
-  Le dossier de l'application (jusqu'au dossier view)
-  La réécriture d'url (section location @rewrites)
+Les trois paramètres obligatoires sont:
+  * La page index (page.php)
+  * Le dossier de l'application (jusqu'au dossier view)
+  * La réécriture d'url (section location @rewrites)
 ```
 server {
         listen 8888;
