@@ -82,10 +82,10 @@ class Crowdscores
         $http = curl_init($url);
         $response = curl_exec($http);
 
-        $header_size = curl_getinfo($this->ch,CURLINFO_HEADER_SIZE);
+        $header_size = curl_getinfo($http, CURLINFO_HEADER_SIZE);
         $result['header'] = substr($response, 0, $header_size);
         $result['body'] = substr( $response, $header_size );
-        $result['http_code'] = curl_getinfo($this -> ch,CURLINFO_HTTP_CODE);
+        $result['http_code'] = curl_getinfo($http, CURLINFO_HTTP_CODE);
 
         if ($result['http_code'] == '200') {
             var_dump($result['body']);
