@@ -63,17 +63,35 @@ class Crowdscores
      */
     private function sendRequest($function, $attribute = null) {
 
-        $r = new HttpRequest('https://api.crowdscores.com/api/v1/'.$function, HttpRequest::METH_GET);
-        if (is_array($attribute))
-            $r->addQueryData($attribute);
+        $url = 'https://api.crowdscores.com/api/v1/'.$function;
+        if (is_array($attribute)) {
 
-        try {
-            $r->send();
-            if ($r->getResponseCode() == 200) {
-                return json_decode($r->getResponseBody());
+            $i = 0;
+            foreach ($attribute as $key => $value) {
+                if ($i == 0)
+                    $url .= '?';
+
+                $url .= $key.'='.$value.'&';
+
+                $i++;
             }
-        } catch (HttpException $ex) {
+
+            $url = substr($url, 0, -1);
         }
+
+        $http = curl_init($url);
+        $response = curl_exec($http);
+
+        $header_size = curl_getinfo($this->ch,CURLINFO_HEADER_SIZE);
+        $result['header'] = substr($response, 0, $header_size);
+        $result['body'] = substr( $response, $header_size );
+        $result['http_code'] = curl_getinfo($this -> ch,CURLINFO_HTTP_CODE);
+
+        if ($result['http_code'] == '200') {
+            var_dump($result['body']);
+        }
+
+        curl_close($http);
 
         return null;
     }
