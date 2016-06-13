@@ -7,7 +7,7 @@
  * Time: 18:58
  */
 
-class NotifMatch implements Cron
+class GetScore implements Cron
 {
     public function _run()
     {
