@@ -62,7 +62,7 @@ class Crowdscores
      * @return array | null
      */
     private function sendRequest($function, $attribute = null) {
-
+        var_dump($attribute);
         $url = 'https://api.crowdscores.com/api/v1/'.$function;
         if (is_array($attribute)) {
 
@@ -78,7 +78,7 @@ class Crowdscores
 
             $url = substr($url, 0, -1);
         }
-
+        var_dump($url);
         $http = curl_init($url);
         $response = curl_exec($http);
 
