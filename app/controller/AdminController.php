@@ -302,4 +302,17 @@ class AdminController extends Controller
         $_matchCollection = new MatchCollection();
         return $_matchCollection->load(["date" => [">", date('Y-m-d H:i:s')]], ["date" => Collection::SORT_ASC]);
     }
+
+    public function testAction() {
+        $cs = new Crowdscores();
+
+        if ($cs->isActive()) {
+            $retour = $cs->getScore((new MatchCollection())->loadById(1));
+            var_dump($retour);
+        } else {
+            echo 'Not Active';
+        }
+
+        die;
+    }
 }

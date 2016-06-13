@@ -155,6 +155,10 @@ if (isset($result['user_version'])) {
     if ($result['user_version'] < 5) {
         $queries["Change image Irlande Nord"] = "UPDATE equipe SET image = 'Irlande du Nord.jpg' WHERE id = 10;";
     }
+
+    if ($result['user_version'] < 6) {
+        $queries["Add crowdscores_id"] = "ALTER TABLE equipe ADD COLUMN crowdscores_id INTEGER DEFAULT NULL;";
+    }
 }
 
 $_error = false;
