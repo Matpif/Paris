@@ -88,7 +88,7 @@ class Crowdscores
         $result['http_code'] = curl_getinfo($http, CURLINFO_HTTP_CODE);
 
         if ($result['http_code'] == '200') {
-            var_dump($result['body']);
+            var_dump(json_decode($result['body']));
         }
 
         curl_close($http);
