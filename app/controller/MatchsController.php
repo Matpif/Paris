@@ -43,7 +43,7 @@ class MatchsController extends Controller
 
     public function getMatchFinish() {
         $matchCollection = new MatchCollection();
-        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s', time() - 5400)], 'score_equipe_1' => [' IS NOT ', null], 'score_equipe_2' => [' IS NOT ', null]], ["date" => Collection::SORT_ASC]);
+        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s', time() - 5400)], 'score_equipe_1' => [' IS NOT ', null], 'score_equipe_2' => [' IS NOT ', null]], ["date" => Collection::SORT_DESC]);
     }
 
     /**
