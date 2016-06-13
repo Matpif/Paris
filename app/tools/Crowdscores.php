@@ -48,9 +48,9 @@ class Crowdscores
                 , 'to' => (new DateTime($match->getAttribute('date')))->add(new DateInterval('P1D'))->format(DATE_ATOM)
                 , 'team_id' => $equipe_1->getAttribute('crowdscores_id')
             ]);
-
-            $retour['score_equipe_1'] = $match['homeGoals'];
-            $retour['score_equipe_2'] = $match['awayGoals'];
+            var_dump($_match);
+            $retour['score_equipe_1'] = $_match['homeGoals'];
+            $retour['score_equipe_2'] = $_match['awayGoals'];
         }
 
         return $retour;
@@ -62,7 +62,8 @@ class Crowdscores
      * @return array | null
      */
     private function sendRequest($function, $attribute = null) {
-        var_dump($attribute);
+
+        $retour = null;
         $url = 'https://api.crowdscores.com/api/v1/'.$function;
         if (is_array($attribute)) {
 
@@ -70,29 +71,26 @@ class Crowdscores
             foreach ($attribute as $key => $value) {
                 if ($i == 0)
                     $url .= '?';
-
                 $url .= $key.'='.$value.'&';
-
                 $i++;
             }
-
             $url = substr($url, 0, -1);
         }
-        var_dump($url);
+
         $http = curl_init($url);
         $response = curl_exec($http);
 
         $header_size = curl_getinfo($http, CURLINFO_HEADER_SIZE);
         $result['header'] = substr($response, 0, $header_size);
-        $result['body'] = substr( $response, $header_size );
+        $result['body'] = substr( $response, $header_size);
         $result['http_code'] = curl_getinfo($http, CURLINFO_HTTP_CODE);
 
         if ($result['http_code'] == '200') {
-            var_dump(json_decode($result['body']));
+            $retour = json_decode($result['body']);
         }
 
         curl_close($http);
 
-        return null;
+        return $retour;
     }
 }
