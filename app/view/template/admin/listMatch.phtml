@@ -10,6 +10,7 @@ $_admin = $this;
 $matchsBegin = $_admin->getMatchBegin();
 $matchsNotBegin = $_admin->getMatchNotBegin();
 $equipeCollection = new EquipeCollection();
+$cs = new Crowdscores();
 ?>
 <div class="row">
     <div class="col-md-3 col-md-offset-9">
@@ -34,8 +35,8 @@ $equipeCollection = new EquipeCollection();
                     <?php $equipe2 = $equipeCollection->loadById($match->getAttribute('equipe_id_2')); ?>
                     <tr>
                         <td><?php echo $equipe1->getAttribute('name'); ?></td>
-                        <td><input class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
-                        <td><input class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
+                        <td><input <?php echo ($cs->isActive())?'disabled':''; ?> class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
+                        <td><input <?php echo ($cs->isActive())?'disabled':''; ?> class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
                         <td><?php echo $equipe2->getAttribute('name'); ?></td>
                     </tr>
                 <?php endforeach; ?>
