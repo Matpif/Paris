@@ -48,9 +48,9 @@ class Crowdscores
                 , 'to' => (new DateTime($match->getAttribute('date')))->add(new DateInterval('P1D'))->format(DATE_ATOM)
                 , 'team_id' => $equipe_1->getAttribute('crowdscores_id')
             ]);
-            var_dump($_match);
-            $retour['score_equipe_1'] = $_match['homeGoals'];
-            $retour['score_equipe_2'] = $_match['awayGoals'];
+            
+            $retour['score_equipe_1'] = $_match[0]['homeGoals'];
+            $retour['score_equipe_2'] = $_match[0]['awayGoals'];
         }
 
         return $retour;
@@ -78,15 +78,14 @@ class Crowdscores
         }
 
         $http = curl_init($url);
+        curl_setopt($http, CURLOPT_RETURNTRANSFER,1);
         $response = curl_exec($http);
 
         $header_size = curl_getinfo($http, CURLINFO_HEADER_SIZE);
-        $result['header'] = substr($response, 0, $header_size);
-        $result['body'] = substr( $response, $header_size);
         $result['http_code'] = curl_getinfo($http, CURLINFO_HTTP_CODE);
 
         if ($result['http_code'] == '200') {
-            $retour = json_decode($result['body'], true);
+            $retour = json_decode($response, true);
         }
 
         curl_close($http);
