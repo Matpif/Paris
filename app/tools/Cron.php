@@ -24,10 +24,10 @@ interface Cron
     public function _run();
 }
 
-if (isset($argv[0]) && file_exists('cron/'.$argv[0].'.php')) {
+if (isset($argv[1]) && file_exists('cron/'.$argv[1].'.php')) {
 
-    include_once 'cron/'.$argv[0].'.php';
-    $_cron = new $argv[0];
+    include_once 'cron/'.$argv[1].'.php';
+    $_cron = new $argv[1];
 
     if ($_cron instanceof Cron) {
         $_cron->_run();
