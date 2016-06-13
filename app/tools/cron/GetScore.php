@@ -20,7 +20,7 @@ class GetScore implements Cron
         /** @var MatchModel $match */
         foreach ($matchCollection as $match) {
             $score = $cs->getScore($match);
-            if ($score['score_equipe_1'] != null && $score['score_equipe_2'] != null) {
+            if ($score['score_equipe_1'] !== null && $score['score_equipe_2'] !== null) {
                 $match->setAttribute('score_equipe_1', $score['score_equipe_1']);
                 $match->setAttribute('score_equipe_2', $score['score_equipe_2']);
                 $match->save();
