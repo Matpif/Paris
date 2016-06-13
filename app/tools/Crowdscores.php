@@ -41,7 +41,7 @@ class Crowdscores
 
         $retour = [];
         if ($equipe_1->getAttribute('crowdscores_id')) {
-            $_match = $this->sendRequest('matchs', [
+            $_match = $this->sendRequest('matches', [
                 'competition_id' => $this->competition_id
                 , 'api_key' => $this->api_key
                 , 'from' => (new DateTime($match->getAttribute('date')))->format(DATE_ATOM)
