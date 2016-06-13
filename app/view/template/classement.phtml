@@ -20,6 +20,7 @@ $_utilisateurs = $_classement->getAllUtilisateurWithScore();
             </tr>
             <?php
             $i = 1;
+            $j = 1;
             $lastScore = null;
             $sentencePosition = '';
             /** @var UtilisateurModel $utilisateur */
@@ -27,14 +28,16 @@ $_utilisateurs = $_classement->getAllUtilisateurWithScore();
 
                 if ($lastScore === $utilisateur->getAttribute('score')) {
                     $i--;
-                    $sentencePosition = ' (ex aequo)';
-                } else
+                    $sentencePosition = ' (ex &Aeligquo)';
+                } else {
+                    $i = $j;
                     $sentencePosition = '';
+                }
 
                 $lastScore = $utilisateur->getAttribute('score');
                 ?>
                 <tr>
-                    <td><?php echo $i++; ?><?php echo $sentencePosition; ?></td>
+                    <td><?php echo $i++; $j++; ?><?php echo $sentencePosition; ?></td>
                     <td><?php echo $utilisateur->getAttribute('lastName'); ?></td>
                     <td><?php echo $utilisateur->getAttribute('firstName'); ?></td>
                     <td><?php echo $utilisateur->getAttribute('score') ?></td>

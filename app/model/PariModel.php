@@ -57,7 +57,10 @@ class PariModel extends Model
                 || ($match->getAttribute('score_equipe_1') > $match->getAttribute('score_equipe_2')
                     && $this->getAttribute('score_equipe_1') > $this->getAttribute('score_equipe_2'))) {
                 $score += 3;
-            } // Sinon pas de point
+            } else if (($match->getAttribute('score_equipe_1') == $match->getAttribute('score_equipe_2'))
+                    && ($this->getAttribute('score_equipe_1') == $this->getAttribute('score_equipe_2'))) {
+                $score += 3;
+            }// Sinon pas de point
         }
 
         return $score;
