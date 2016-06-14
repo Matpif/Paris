@@ -8,6 +8,8 @@
  */
 class Crowdscores
 {
+
+    const URL = "https://api.crowdscores.com/api/v1/";
     /**
      * @var string
      */
@@ -64,7 +66,7 @@ class Crowdscores
     private function sendRequest($function, $attribute = null) {
 
         $retour = null;
-        $url = 'https://api.crowdscores.com/api/v1/'.$function;
+        $url = self::URL.$function;
         if (is_array($attribute)) {
 
             $i = 0;
