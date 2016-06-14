@@ -18,6 +18,9 @@ $cs = new Crowdscores();
     </div>
     <div class="col-lg-6 col-lg-offset-3">
         <h2>Matchs terminés</h2>
+        <?php if ($cs->isActive()): ?>
+            <p class="center">Vous ne pouvez pas enregistrer manuellement les scores car la récupération automatique est activée.</p>
+        <?php endif; ?>
         <form action="<?php echo $_admin->getUrlAction('addScoreMatch'); ?>" method="post">
             <table class="table table-hover">
                 <thead>
