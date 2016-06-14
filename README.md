@@ -2,17 +2,23 @@
 Application web de paris sur l'Euro 2016.
 
 # Installation
-Récupérer les sources de l'application. 
-## Configuration de la base de données:
+Récupérer les sources de l'application.
+## Configuration
+### Base de données
   Indiquer le chemin absolu vers le fichier SQLite dans app/tools/config.ini section "sqlite" attribut "dbname"
 
-## Configuration du site:
+### Site
   Indiquer l'url d'accès à l'application dans app/tools/config.ini section "genral" attribut "root_url" (exemple: https://exemple.com)
 
-## Configuration des mails:
+### Mails
   Section "mail" vous pouvez renseigner le l'expéditeur, attribut "from" ainsi que le mail de réponse, attribut "reply_to"
 
 Lancer l'installation des tables avec le script app/tools/database.php (commande: php app/tools/database.php)
+
+### Crowdscores
+La récupération des scores se fait par l'API _Crowdscores_. ( [https://docs.crowdscores.com/]() )
+Pour activé cette fonctionnalité il faut compléter le fichier de configuration en indiquant la clé (api_key) ainsi que l'id de la compétition.
+Il sera nécessaire de compléter également le champs _crowdscores_id_ la table _Equipe_.
 
 ## Config Nginx
 L'application fonctionne aussi bien sous Apache2 que Nginx. 
@@ -54,9 +60,8 @@ server {
 
 # Accéder à l'application
 Lors de l'installation de la base de données l'utilisateur admin a été créé.
-
+```
 Identifiant: admin@admin
-
 Mot de passe: admin
-
+```
 Noubliez pas de changer le mot de passe dans le profil.
