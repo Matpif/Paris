@@ -21,7 +21,7 @@ class PariModel extends Model
     function getScore() {
         $score = 0;
         $matchCollection = new MatchCollection();
-        $match = $matchCollection->load(['id' => $this->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')]])
+        $match = $matchCollection->load(['id' => $this->getAttribute('match_id'), 'date' => ['<=', date('Y-m-d H:i:s')], 'score_equipe_1' => [' IS NOT ', null], 'score_equipe_2' => [' IS NOT ', null]])
                                     ->getFirstRow();
 
         /** @var MatchModel $match */
