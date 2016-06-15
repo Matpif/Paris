@@ -86,6 +86,16 @@ $_equipeCollection = new EquipeCollection();
 								?>
 								<div class="row row_match center">
 									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+									<div class="row center date">
+										<?php
+										/** @var ChannelModel $channel */
+										$channel = $_match->getChannel($match->getAttribute('channel_id'));
+										if ($channel && $channel->getAttribute('image')): ?>
+											<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
+										<?php elseif ($channel): ?>
+											<?php echo $channel->getAttribute('name'); ?>
+										<?php endif; ?>
+									</div>
 									<div class="row">
 										<div class="col-lg-5" align="left">
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
@@ -114,6 +124,16 @@ $_equipeCollection = new EquipeCollection();
 								?>
 								<div class="row row_match center">
 									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+									<div class="row center date">
+										<?php
+										/** @var ChannelModel $channel */
+										$channel = $_match->getChannel($match->getAttribute('channel_id'));
+										if ($channel && $channel->getAttribute('image')): ?>
+											<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
+										<?php elseif ($channel): ?>
+											<?php echo $channel->getAttribute('name'); ?>
+										<?php endif; ?>
+									</div>
 									<div class="row">
 										<div class="col-lg-5" align="left">
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">

@@ -29,6 +29,7 @@ $cs = new Crowdscores();
                         <th>Score</th>
                         <th>Score</th>
                         <th>Equipe 2</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,7 @@ $cs = new Crowdscores();
                         <td><input <?php echo ($cs->isActive())?'disabled':''; ?> class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_1]" value="<?php echo $match->getAttribute('score_equipe_1'); ?>" /></td>
                         <td><input <?php echo ($cs->isActive())?'disabled':''; ?> class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
                         <td><?php echo $equipe2->getAttribute('name'); ?></td>
+                        <td><a href="<?php echo $_admin->getUrlAction('newMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -52,8 +54,6 @@ $cs = new Crowdscores();
             <thead>
             <tr>
                 <th>Equipe 1</th>
-                <th>Score</th>
-                <th>Score</th>
                 <th>Equipe 2</th>
             </tr>
             </thead>
@@ -64,9 +64,8 @@ $cs = new Crowdscores();
                 <?php $equipe2 = $equipeCollection->loadById($match->getAttribute('equipe_id_2')); ?>
                 <tr>
                     <td><?php echo $equipe1->getAttribute('name'); ?></td>
-                    <td><?php echo $match->getAttribute('score_equipe_1'); ?></td>
-                    <td><?php echo $match->getAttribute('score_equipe_2'); ?></td>
                     <td><?php echo $equipe2->getAttribute('name'); ?></td>
+                    <td><a href="<?php echo $_admin->getUrlAction('newMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

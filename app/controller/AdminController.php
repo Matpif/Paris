@@ -15,6 +15,10 @@ class AdminController extends Controller
      * @var UtilisateurModel
      */
     private $_newUser;
+    /**
+     * @var MatchModel
+     */
+    private $_newMatch;
 
     function __construct()
     {
@@ -37,6 +41,11 @@ class AdminController extends Controller
     }
 
     public function newMatchAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])) {
+            $this->_newMatch = (new MatchCollection())->loadById($get['id']);
+        }
+
         $this->setTemplate('/admin/addMatch.phtml');
         $this->_title = 'Création de match';
     }
@@ -118,6 +127,11 @@ class AdminController extends Controller
         if (isset($post['date'], $post['equipe_id_1'], $post['equipe_id_2'])) {
 
             if (!empty($post['date']) && $post['equipe_id_1'] != $post['equipe_id_2']) {
+
+                if (isset($post['id'])) {
+                    $match->setAttribute('id', $post['id']);
+                }
+
                 $match->setAttribute('date', $post['date']);
                 $match->setAttribute('equipe_id_1', $post['equipe_id_1']);
                 $match->setAttribute('equipe_id_2', $post['equipe_id_2']);
@@ -266,6 +280,14 @@ class AdminController extends Controller
     public function getNewUser()
     {
         return ($this->_newUser)?$this->_newUser:new UtilisateurModel();
+    }
+
+    /**
+     * @return MatchModel
+     */
+    public function getNewMatch()
+    {
+        return ($this->_newMatch)?$this->_newMatch:new MatchModel();
     }
 
     /**
