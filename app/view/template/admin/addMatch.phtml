@@ -8,6 +8,7 @@
 /** @var AdminController $_admin */
 $_admin = $this;
 $_allEquipe = $_admin->getAllEquipe();
+$_allChannel = $_admin->getAllChannel();
 ?>
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
@@ -55,6 +56,22 @@ $_allEquipe = $_admin->getAllEquipe();
                                 <label for="flag_phase_finale" class="col-sm-5 control-label">Phase finale</label>
                                 <div class="col-sm-7">
                                     <input type="checkbox" class="form-control" id="flag_phase_finale" name="flag_phase_finale">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="datetime" class="col-sm-5 control-label">Chaine du match</label>
+                                <div class="col-sm-7">
+                                    <select name="channel_id" class="form-control .col-xs-5">
+                                        <option value=""></option>
+                                        <?php /** @var EquipeModel $_equipe */ ?>
+                                        <?php foreach ($_allChannel as $_channel): ?>
+                                            <option value="<?php echo $_channel->getAttribute('id') ?>"><?php echo $_channel->getAttribute("name") ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>

@@ -122,6 +122,11 @@ class AdminController extends Controller
                 $match->setAttribute('equipe_id_1', $post['equipe_id_1']);
                 $match->setAttribute('equipe_id_2', $post['equipe_id_2']);
 
+                if (!empty($post['channel_id']))
+                    $match->setAttribute('channel_id', $post['channel_id']);
+                else
+                    $match->setAttribute('channel_id', null);
+
                 if (isset($post['flag_phase_finale']))
                     $match->setAttribute('flag_phase_finale', 1);
                 else
@@ -303,16 +308,8 @@ class AdminController extends Controller
         return $_matchCollection->load(["date" => [">", date('Y-m-d H:i:s')]], ["date" => Collection::SORT_ASC]);
     }
 
-    public function testAction() {
-        $cs = new Crowdscores();
-
-        if ($cs->isActive()) {
-            $retour = $cs->getScore((new MatchCollection())->loadById(1));
-            var_dump($retour);
-        } else {
-            echo 'Not Active';
-        }
-
-        die;
+    public function getAllChannel() {
+        $channelCollection = (new ChannelCollection())->loadAll();
+        return $channelCollection;
     }
 }

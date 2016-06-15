@@ -12,6 +12,10 @@ class MatchsController extends Controller
      * @var PariCollection
      */
     private $_pariCollection;
+    /**
+     * @var ChannelCollection
+     */
+    private $_channelCollection;
 
     function __construct()
     {
@@ -66,6 +70,23 @@ class MatchsController extends Controller
      */
     public function getUtilisateur() {
         return Access::getInstance()->getCurrentUser();
+    }
+
+    /**
+     * @param $channel_id
+     * @return ChannelModel|null
+     */
+    public function getChannel($channel_id) {
+        if ($this->_channelCollection == null)
+            $this->_channelCollection = (new ChannelCollection())->loadAll();
+        
+        /** @var ChannelModel $channel */
+        foreach ($this->_channelCollection as $channel) {
+            if ($channel->getAttribute('id') == $channel_id)
+                return $channel;
+        }
+
+        return null;
     }
     
     public function saveAction() {

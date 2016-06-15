@@ -159,6 +159,17 @@ if (isset($result['user_version'])) {
     if ($result['user_version'] < 6) {
         $queries["Add crowdscores_id"] = "ALTER TABLE equipe ADD COLUMN crowdscores_id INTEGER DEFAULT NULL;";
     }
+
+    if ($result['user_version'] < 7) {
+        $queries["Create channel table"] = "CREATE TABLE `channel` (
+            `id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+            `name`	TEXT NOT NULL)";
+        $queries["Add column channel id"] = "ALTER TABLE match ADD COLUMN channel_id INTEGER DEFAULT NULL;";
+    }
+
+    if ($result['user_version'] < 8) {
+        $queries["Add column image"] = "ALTER TABLE channel ADD COLUMN image TEXT DEFAULT NULL;";
+    }
 }
 
 $_error = false;
