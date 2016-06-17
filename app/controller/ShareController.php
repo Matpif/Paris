@@ -37,6 +37,20 @@ class ShareController extends Controller
         return (new MatchCollection())->loadAll(['date' => Collection::SORT_ASC]);
     }
 
+    /**
+     * @return MatchCollection
+     */
+    public function getMatchAvailable() {
+        return (new MatchCollection())->load(["date" => [">", date('Y-m-d H:i:s', time() - 5400)]], ["date" => Collection::SORT_ASC]);
+    }
+
+    /**
+     * @return MatchCollection
+     */
+    public function getMatchFinished() {
+        return (new MatchCollection())->load(["date" => ["<", date('Y-m-d H:i:s', time() - 5400)]], ["date" => Collection::SORT_DESC]);
+    }
+
     public function getUtilisateur($utilisateurId) {
 
         if ($this->_utilisateurCollection == null) {
