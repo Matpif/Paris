@@ -30,11 +30,11 @@ $_matchFinished = $_share->getMatchFinished();
             <div class="row shareMatch">
                 <div class="col-lg-10 col-sm-offset-1">
                     <div class="row">
-                        <div class="col-sm-5 right">
+                        <div class="col-xs-5 right">
                             <p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
                             <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag small-flag">
                         </div>
-                        <div class="col-sm-5 col-sm-offset-2">
+                        <div class="col-xs-5 col-sm-offset-2">
                             <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_2->getAttribute('image')) ?>" class="flag small-flag">
                             <p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
                         </div>
@@ -45,10 +45,10 @@ $_matchFinished = $_share->getMatchFinished();
                         <?php $utilisateur = $_share->getUtilisateur($pari->getAttribute('utilisateur_id')) ?>
                         <?php if ($utilisateur->getAttribute('share')): ?>
                             <div class="row">
-                                <div class="col-sm-5 right">
+                                <div class="col-xs-5 right">
                                     <?php echo $utilisateur->getAttribute('login'); ?>
                                 </div>
-                                <div class="col-sm-2 center">
+                                <div class="col-xs-2 center">
                                     <?php echo $pari->getAttribute('score_equipe_1').' - '.$pari->getAttribute('score_equipe_2'); ?>
                                 </div>
                             </div>
@@ -85,11 +85,11 @@ $_matchFinished = $_share->getMatchFinished();
             <div class="row shareMatch">
                 <div class="col-lg-10 col-sm-offset-1">
                     <div class="row">
-                        <div class="col-sm-5 right">
+                        <div class="col-xs-5 right">
                             <p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
                             <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag small-flag">
                         </div>
-                        <div class="col-sm-5 col-sm-offset-2">
+                        <div class="col-xs-5 col-xs-offset-2">
                             <img src="<?php echo $_share->getUrlImage('/pays/' . $equipe_2->getAttribute('image')) ?>" class="flag small-flag">
                             <p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
                         </div>
@@ -100,10 +100,10 @@ $_matchFinished = $_share->getMatchFinished();
                         <?php $utilisateur = $_share->getUtilisateur($pari->getAttribute('utilisateur_id')) ?>
                         <?php if ($utilisateur->getAttribute('share')): ?>
                             <div class="row">
-                                <div class="col-sm-5 right">
+                                <div class="col-xs-5 right">
                                     <?php echo $utilisateur->getAttribute('login'); ?>
                                 </div>
-                                <div class="col-sm-2 center">
+                                <div class="col-xs-2 center">
                                     <?php echo $pari->getAttribute('score_equipe_1').' - '.$pari->getAttribute('score_equipe_2'); ?>
                                 </div>
                             </div>

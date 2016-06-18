@@ -225,7 +225,6 @@ input[type=number] {
 p.match{
     text-transform: uppercase;
     color: #959595;
-    fon-weight: 700;
     letter-spacing: 1px;
     display: inline;
 }
@@ -257,4 +256,22 @@ p.match{
 
 .shareMatch {
     margin-bottom: 30px;
+}
+
+@media (max-width: 1260px) {
+    .flag {
+        margin: 10px 20px 10px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flag {
+        width: 50px;
+        height: 35px;
+        margin: 10px 20px 10px 20px;
+    }
+
+    p.match{
+        font-size: 15px;
+    }
 }

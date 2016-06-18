@@ -101,14 +101,18 @@ $_equipeCollection = new EquipeCollection();
 										<?php endif; ?>
 									</div>
 									<div class="row">
-										<div class="col-lg-5" align="left">
+										<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
 											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+										</div>
+										<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
+											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
 										<div class="col-lg-2 score">
 											<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
 										</div>
-										<div class="col-lg-5" align="right">
+										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
 											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
@@ -139,14 +143,18 @@ $_equipeCollection = new EquipeCollection();
 										<?php endif; ?>
 									</div>
 									<div class="row">
-										<div class="col-lg-5" align="left">
+										<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
 											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+										</div>
+										<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
+											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
 										<div class="col-lg-2 score">
 											<?php echo $match->getScore(); ?>
 										</div>
-										<div class="col-lg-5" align="right">
+										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
 											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
 											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
 										</div>
