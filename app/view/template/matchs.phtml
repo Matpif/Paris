@@ -25,9 +25,14 @@ $_equipeCollection = new EquipeCollection();
 					</ul>
 
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active marginContentTab" id="matchAvailable">
+						<div role="tabpanel" class="tab-pane active mrg marginContentTab" id="matchAvailable">
 							<div class="row">
-								<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
+								<div class="hidden-lg hidden-md col-lg-12">
+									<button class="btn btn-info btn-block" type="submit">Sauvegarder</button>
+								</div>
+								<div class="visible-lg visible-md">
+									<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
+								</div>
 							</div>
 							<?php
 							/** @var MatchModel $match */
@@ -75,7 +80,12 @@ $_equipeCollection = new EquipeCollection();
 								</div>
 							<?php endforeach; ?>
 							<div class="row">
-								<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
+								<div class="hidden-lg hidden-md col-lg-12">
+									<button class="btn btn-info btn-block" type="submit">Sauvegarder</button>
+								</div>
+								<div class="visible-lg visible-md">
+									<button class="btn btn-info mrg" type="submit">Sauvegarder</button>
+								</div>
 							</div>
 						</div>
 						<div role="tabpanel" class="tab-pane marginContentTab" id="matchInProgress">
