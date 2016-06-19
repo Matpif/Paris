@@ -8,6 +8,15 @@
  */
 class ClassementController extends Controller
 {
+    /**
+     * @var UtilisateurModel
+     */
+    private $_userSelected;
+    /**
+     * @var MatchCollection
+     */
+    private $_matchCollection;
+
     function __construct()
     {
         parent::__construct();
@@ -15,6 +24,7 @@ class ClassementController extends Controller
         $this->_title = 'Classement';
         $this->_page = 'Classement';
         $this->setTemplate('/classement.phtml');
+        $this->addJS('/js/classement.js');
     }
 
     /**
@@ -54,5 +64,35 @@ class ClassementController extends Controller
         }
         
         return $utilisateurCollection->sort('score');
+    }
+
+    public function userPointAction() {
+        $this->setTemplate('/userPoint.phtml');
+        $post = Access::getRequest();
+        
+        if (isset($post['user'])) {
+            $this->_userSelected = (new UtilisateurCollection())->loadById($post['user']);
+        }
+    }
+
+    /**
+     * @param $matchId
+     * @return MatchModel|null
+     */
+    public function getMatch($matchId) {
+
+        if ($this->_matchCollection == null) {
+            $this->_matchCollection = new MatchCollection();
+        }
+
+        return $this->_matchCollection->loadById($matchId);
+    }
+
+    /**
+     * @return UtilisateurModel
+     */
+    public function getUserSelected()
+    {
+        return $this->_userSelected;
     }
 }

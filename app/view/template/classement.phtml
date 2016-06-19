@@ -8,6 +8,7 @@
 /** @var ClassementController $_classement */
 $_classement = $this;
 $_utilisateurs = $_classement->getAllUtilisateurWithScore();
+$_currentUser = Access::getInstance()->getCurrentUser();
 ?>
 <div class="row">
     <div class="col-lg-7 col-lg-offset-2">
@@ -36,7 +37,7 @@ $_utilisateurs = $_classement->getAllUtilisateurWithScore();
 
                 $lastScore = $utilisateur->getAttribute('score');
                 ?>
-                <tr>
+                <tr data-user-id="<?php echo $utilisateur->getAttribute('id'); ?>" class="hand<?php echo ($utilisateur->getAttribute('id') == $_currentUser->getAttribute('id'))?' info':''; ?>">
                     <td><?php echo $i++; $j++; ?><?php echo $sentencePosition; ?></td>
                     <td><?php echo $utilisateur->getAttribute('lastName'); ?></td>
                     <td><?php echo $utilisateur->getAttribute('firstName'); ?></td>
@@ -44,5 +45,22 @@ $_utilisateurs = $_classement->getAllUtilisateurWithScore();
                 </tr>
             <?php endforeach; ?>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalUserPoint">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Points par match</h4>
+            </div>
+            <div class="modal-body" id="bodyModal">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
