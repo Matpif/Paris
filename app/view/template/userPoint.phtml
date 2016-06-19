@@ -11,10 +11,11 @@ $_userSelected = $_userPoint->getUserSelected();
 
 if ($_userSelected): ?>
     <?php $_paris = (new PariCollection())->loadByQuery("SELECT pari.*
-                                            FROM pari
-                                            INNER JOIN match
-                                                ON match.id = pari.id
-                                                AND match.date < date()", ['utilisateur_id' => $_userSelected->getAttribute('id')]); ?>
+                                        FROM pari
+                                        INNER JOIN match
+                                            ON match.id = pari.match_id
+                                            AND match.date < datetime('now')
+                                        WHERE pari.utilisateur_id = :utilisateur_id", ['utilisateur_id' => $_userSelected->getAttribute('id')]); ?>
     <table class="table table-striped">
         <tr>
             <th>Match</th>
