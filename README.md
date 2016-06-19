@@ -6,14 +6,13 @@ Récupérer les sources de l'application.
 ## Configuration
 ### Base de données
   Indiquer le chemin absolu vers le fichier SQLite dans app/tools/config.ini section "sqlite" attribut "dbname"
+  Lancer l'installation des tables avec le script app/tools/database.php (commande: php app/tools/database.php)
 
 ### Site
   Indiquer l'url d'accès à l'application dans app/tools/config.ini section "genral" attribut "root_url" (exemple: https://exemple.com)
 
 ### Mails
   Section "mail" vous pouvez renseigner le l'expéditeur, attribut "from" ainsi que le mail de réponse, attribut "reply_to"
-
-Lancer l'installation des tables avec le script app/tools/database.php (commande: php app/tools/database.php)
 
 ### Crowdscores
 La récupération des scores se fait par l'API _Crowdscores_. ( [https://docs.crowdscores.com/]() )
