@@ -15,4 +15,23 @@ $(document).ready(function () {
             $(this).parent().parent().next().addClass('hidden');
         }
     });
+
+    $('form').submit(function() {
+
+        var method = $(this).attr('method');
+        var action = $(this).attr('action');
+        var data = $(this).serialize();
+
+        $.ajax({
+            method: method,
+            url: action,
+            data: data
+        }).success(function(data) {
+
+        }).error(function(message) {
+
+        }).complete(function() {
+
+        });
+    });
 });

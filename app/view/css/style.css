@@ -136,16 +136,44 @@ footer .width {
     footer .width {
         width: 750px;
     }
+
+    input.tab {
+        width: 20%;
+        text-align: center;
+        display: inline;
+        font-size: x-small;
+    }
+
+    .flag {
+        width: 50px;
+        height: 35px;
+        margin: 10px 20px 10px 20px;
+    }
+
+    p.match{
+        font-size: 15px;
+    }
 }
 @media (min-width: 992px) {
     footer .width {
         width: 990px;
+    }
+
+    input.tab {
+        width: 45px;
+        text-align: center;
+        display: inline;
+        font-size: x-small;
     }
 }
 @media (min-width: 1260px) {
     footer .width {
         width: 1230px;
     }
+    .flag {
+        margin: 10px 20px 10px 20px;
+    }
+
 }
 .rotation180 {
     transform: rotate(180deg);
@@ -199,8 +227,7 @@ input.match {
 }
 
 input.tab {
-    width: 4%;
-    height: 3%;
+    width: 62px;
     text-align: center;
     display: inline;
     font-size: x-small;
@@ -256,24 +283,6 @@ p.match{
 
 .shareMatch {
     margin-bottom: 30px;
-}
-
-@media (max-width: 1260px) {
-    .flag {
-        margin: 10px 20px 10px 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .flag {
-        width: 50px;
-        height: 35px;
-        margin: 10px 20px 10px 20px;
-    }
-
-    p.match{
-        font-size: 15px;
-    }
 }
 
 .hand {
