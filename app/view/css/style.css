@@ -288,3 +288,7 @@ p.match{
 .hand {
     cursor: pointer;
 }
+
+.shareTirBut {
+    font-size: 11px;
+}

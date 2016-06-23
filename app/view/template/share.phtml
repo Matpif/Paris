@@ -50,6 +50,9 @@ $_matchFinished = $_share->getMatchFinished();
                                 </div>
                                 <div class="col-xs-2 center">
                                     <?php echo $pari->getAttribute('score_equipe_1').' - '.$pari->getAttribute('score_equipe_2'); ?>
+                                    <?php if ($_match->getAttribute('flag_phase_finale') && $pari->getAttribute('score_tir_but_1') != null && $pari->getAttribute('score_tir_but_2') != null): ?>
+                                        <span class="shareTirBut">(<?php echo $pari->getAttribute('score_tir_but_1').' - '.$pari->getAttribute('score_tir_but_2'); ?>)</span>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endif; ?>
