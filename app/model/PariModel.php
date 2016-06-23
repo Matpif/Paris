@@ -59,7 +59,23 @@ class PariModel extends Model
                 $score += 3;
             } else if (($match->getAttribute('score_equipe_1') == $match->getAttribute('score_equipe_2'))
                     && ($this->getAttribute('score_equipe_1') == $this->getAttribute('score_equipe_2'))) {
+
                 $score += 3;
+
+                if ($match->getAttribute('flag_phase_finale') == 1) {
+                    if ($match->getAttribute('score_tir_but_1') == $this->getAttribute('score_tir_but_1')
+                        && $match->getAttribute('score_tir_but_2') == $this->getAttribute('score_tir_but_2')) {
+
+                        $score += 3;
+
+                    } else if (($match->getAttribute('score_tir_but_1') < $match->getAttribute('score_tir_but_2')
+                            && $this->getAttribute('score_tir_but_1') < $this->getAttribute('score_tir_but_2'))
+                        || ($match->getAttribute('score_tir_but_1') > $match->getAttribute('score_tir_but_2')
+                            && $this->getAttribute('score_tir_but_1') > $this->getAttribute('score_tir_but_2'))) {
+
+                        $score += 1;
+                    }
+                }
             }// Sinon pas de point
         }
 
