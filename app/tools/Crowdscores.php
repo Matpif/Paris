@@ -81,7 +81,7 @@ class Crowdscores
             }
             $url = substr($url, 0, -1);
         }
-var_dump($url);die;
+        
         $http = curl_init($url);
         curl_setopt($http, CURLOPT_RETURNTRANSFER,1);
         $response = curl_exec($http);
