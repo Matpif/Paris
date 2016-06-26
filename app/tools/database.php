@@ -170,6 +170,10 @@ if (isset($result['user_version'])) {
     if ($result['user_version'] < 8) {
         $queries["Add column image"] = "ALTER TABLE channel ADD COLUMN image TEXT DEFAULT NULL;";
     }
+
+    if ($result['user_version'] < 9) {
+        $queries["Add column is_finish"] = "ALTER TABLE match ADD COLUMN is_finish INTEGER DEFAULT 0 NOT NULL;";
+    }
 }
 
 $_error = false;

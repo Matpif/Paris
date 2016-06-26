@@ -30,6 +30,9 @@ $cs = new Crowdscores();
                         <th>Score</th>
                         <th>Equipe 2</th>
                         <th></th>
+                        <?php if ($cs->isActive()): ?>
+                            <th></th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +46,9 @@ $cs = new Crowdscores();
                         <td><input <?php echo ($cs->isActive())?'disabled':''; ?> class="form-control input-sm score" type="text" name="match[<?php echo $match->getAttribute('id'); ?>][score_equipe_2]" value="<?php echo $match->getAttribute('score_equipe_2'); ?>" /></td>
                         <td><?php echo $equipe2->getAttribute('name'); ?></td>
                         <td><a href="<?php echo $_admin->getUrlAction('newMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <?php if ($cs->isActive()): ?>
+                            <td><a href="<?php echo $_admin->getUrlAction('getScoreMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-refresh"></span></a></td>
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

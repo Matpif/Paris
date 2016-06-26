@@ -42,12 +42,12 @@ class MatchsController extends Controller
 
     public function getMatchInProgress() {
         $matchCollection = new MatchCollection();
-        return $matchCollection->load(["date" => ["between", [date('Y-m-d H:i:s', time() - 5400), date('Y-m-d H:i:s')]]], ["date" => Collection::SORT_ASC]);
+        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s')], 'is_finish' => 0], ["date" => Collection::SORT_ASC]);
     }
 
     public function getMatchFinish() {
         $matchCollection = new MatchCollection();
-        return $matchCollection->load(["date" => ["<", date('Y-m-d H:i:s', time() - 5400)], 'score_equipe_1' => [' IS NOT ', null], 'score_equipe_2' => [' IS NOT ', null]], ["date" => Collection::SORT_DESC]);
+        return $matchCollection->load(["is_finish" => 1], ["date" => Collection::SORT_DESC]);
     }
 
     /**

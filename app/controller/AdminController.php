@@ -274,6 +274,42 @@ class AdminController extends Controller
         //$this->setTemplate('/admin/listMatch.phtml');
     }
 
+    public function getScoreMatchAction() {
+        $post = Access::getRequest();
+
+        if (isset($post['id'])) {
+            /** @var MatchModel $match */
+            $match = (new MatchCollection())->loadById($post['id']);
+
+            if ($match) {
+                $cs = new Crowdscores();
+                $score = $cs->getScore($match);
+
+                if (isset($score['score_equipe_1'], $score['score_equipe_2'])) {
+                    $match->setAttribute('score_equipe_1', $score['score_equipe_1']);
+                    $match->setAttribute('score_equipe_2', $score['score_equipe_2']);
+                    $match->setAttribute('score_tir_but_1', $score['score_tir_but_1']);
+                    $match->setAttribute('score_tir_but_2', $score['score_tir_but_2']);
+                    $match->setAttribute('is_finish', $score['is_finish']);
+
+                    if ($match->save()) {
+                        $messages = new MessageManager();
+                        $messages->newMessage('Le score récupéré', Message::LEVEL_SUCCESS);
+                    } else {
+                        $messages = new MessageManager();
+                        $messages->newMessage('Le score non sauvegardé', Message::LEVEL_ERROR);
+                    }
+                } else {
+                    $messages = new MessageManager();
+                    $messages->newMessage('Imossible de récupérer le score', Message::LEVEL_ERROR);
+                }
+            } else {
+                $messages = new MessageManager();
+                $messages->newMessage('Match non trouvé', Message::LEVEL_ERROR);
+            }
+        }
+    }
+
     /**
      * @return UtilisateurModel
      */

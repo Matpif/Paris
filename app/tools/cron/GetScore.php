@@ -14,7 +14,7 @@ class GetScore implements Cron
         $cs = new Crowdscores();
         $matchCollection = (new MatchCollection())->load([
             "date" => ["<", date('Y-m-d H:i:s', time() - 5400)]
-            , 'score_equipe_1' => [' IS ', null], 'score_equipe_2' => [' IS ', null]
+            , 'is_finish' => 0
         ]);
 
         /** @var MatchModel $match */
@@ -23,6 +23,7 @@ class GetScore implements Cron
             if ($score['score_equipe_1'] !== null && $score['score_equipe_2'] !== null) {
                 $match->setAttribute('score_equipe_1', $score['score_equipe_1']);
                 $match->setAttribute('score_equipe_2', $score['score_equipe_2']);
+                $match->setAttribute('is_finish', $score['is_finish']);
                 $match->save();
             }
         }
