@@ -68,6 +68,7 @@ class ClassementController extends Controller
 
     public function userPointAction() {
         $this->setTemplate('/userPoint.phtml');
+        $this->setFormat(Controller::FORMAT_SIMPLE);
         $post = Access::getRequest();
         
         if (isset($post['user'])) {
