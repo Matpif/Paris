@@ -41,4 +41,12 @@ class MatchModel extends Model
     public function getScore() {
         return (isset($this->_data['score_equipe_1'], $this->_data['score_equipe_2']))?$this->_data['score_equipe_1'].' - '.$this->_data['score_equipe_2']:'';
     }
+
+    public function getTirBut() {
+
+        if ($this->_data['score_tir_but_1'] === null && $this->_data['score_tir_but_2'] == null)
+            return false;
+        
+        return $this->_data['score_tir_but_1'].' - '.$this->_data['score_tir_but_2'];
+    }
 }

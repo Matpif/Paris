@@ -41,14 +41,14 @@ class ShareController extends Controller
      * @return MatchCollection
      */
     public function getMatchAvailable() {
-        return (new MatchCollection())->load(["date" => [">", date('Y-m-d H:i:s')], 'is_finish' => 0], ["date" => Collection::SORT_ASC]);
+        return (new MatchCollection())->load(['is_finish' => 0], ["date" => Collection::SORT_ASC]);
     }
 
     /**
      * @return MatchCollection
      */
     public function getMatchFinished() {
-        return (new MatchCollection())->load(["date" => ["<", date('Y-m-d H:i:s')], 'is_finish' => 1], ["date" => Collection::SORT_DESC]);
+        return (new MatchCollection())->load(['is_finish' => 1], ["date" => Collection::SORT_DESC]);
     }
 
     public function getUtilisateur($utilisateurId) {

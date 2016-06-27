@@ -163,6 +163,10 @@ $_equipeCollection = new EquipeCollection();
 										</div>
 										<div class="col-lg-2 score">
 											<?php echo $match->getScore(); ?>
+											<?php $tir_but = $match->getTirBut(); ?>
+											<?php if ($tir_but): ?>
+												<br/><span class="tirBut">(<?php echo $tir_but; ?>)</span>
+											<?php endif; ?>
 										</div>
 										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
 											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
@@ -172,6 +176,9 @@ $_equipeCollection = new EquipeCollection();
 									<div class="row">
 										<div class="col-lg-offset-5 col-lg-2 monParis">
 											mon paris : <?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+											<?php if ($pari->getAttribute('score_tir_but_1') && $pari->getAttribute('score_tir_but_2')): ?>
+												(<?php echo $pari->getAttribute('score_tir_but_1') . ' - ' . $pari->getAttribute('score_tir_but_2'); ?>)
+											<?php endif; ?>
 											<br/>
 											<?php $score = $pari->getScore(); ?>
 											(<?php echo $score; ?> point<?php echo ($score > 1)?'s':''; ?>)
