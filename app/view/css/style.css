@@ -143,16 +143,6 @@ footer .width {
         display: inline;
         font-size: x-small;
     }
-
-    .flag {
-        width: 50px;
-        height: 35px;
-        margin: 10px 20px 10px 20px;
-    }
-
-    p.match{
-        font-size: 15px;
-    }
 }
 @media (min-width: 992px) {
     footer .width {
@@ -170,10 +160,6 @@ footer .width {
     footer .width {
         width: 1230px;
     }
-    .flag {
-        margin: 10px 20px 10px 20px;
-    }
-
 }
 .rotation180 {
     transform: rotate(180deg);
@@ -291,4 +277,22 @@ p.match{
 
 .shareTirBut {
     font-size: 11px;
+}
+
+@media (max-width: 1260px) {
+    .flag {
+        margin: 10px 20px 10px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flag {
+        width: 50px;
+        height: 35px;
+        margin: 10px 20px 10px 20px;
+    }
+
+    p.match{
+        font-size: 15px;
+    }
 }
