@@ -55,7 +55,7 @@ class Crowdscores
             $retour['score_equipe_2'] = $_match[0]['awayGoals'];
             $retour['score_tir_but_1'] = (isset($_match[0]['penaltyShootout']['score']['home']))?$_match[0]['penaltyShootout']['score']['home']:null;
             $retour['score_tir_but_2'] = (isset($_match[0]['penaltyShootout']['score']['away']))?$_match[0]['penaltyShootout']['score']['away']:null;
-            $retour['is_finish'] = $_match[0]['isResult']?1:0;
+            $retour['is_finish'] = is_array($_match[0]['outcome'])?1:0;
         }
 
         return $retour;
