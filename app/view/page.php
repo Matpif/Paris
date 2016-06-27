@@ -58,10 +58,10 @@ if (Access::getInstance()->getErrorController()) {
 }
 $messageManager = new MessageManager();
 $messages = $messageManager->getMessages();
-if(isset($_GET['format']) && $_GET['format'] == 'json'):
+if($_controller->getFormat() == Controller::FORMAT_JSON):
     header('Content-Type: application/json');
-    echo $_controller->getHtml();
-elseif (isset($_GET['format']) && $_GET['format'] == 'simple'):
+    echo $_controller->getJson();
+elseif ($_controller->getFormat() == Controller::FORMAT_SIMPLE):
     echo $_controller->getHtml(); ?>
 <?php else: ?>
 <html>

@@ -9,6 +9,9 @@
 class Controller
 {
     const PATH_TEMPLATE = '../view/template/';
+    const FORMAT_HTML = 0;
+    const FORMAT_JSON = 1;
+    const FORMAT_SIMPLE = 2;
 
     /**
      * @var string
@@ -55,6 +58,14 @@ class Controller
      * @var array
      */
     private $_cssFile;
+    /**
+     * @var int
+     */
+    private $_format;
+    /**
+     * @var string
+     */
+    private $_jsonData;
 
 
     private static $_instance;
@@ -78,6 +89,7 @@ class Controller
         $this->_title = 'Paris Euro 2016';
         $this->_jsFile = [];
         $this->_cssFile = [];
+        $this->_format = self::FORMAT_HTML;
     }
 
     /**
@@ -92,6 +104,12 @@ class Controller
             $returned = ob_get_contents();
             ob_end_clean();
         }
+
+        return $returned;
+    }
+
+    public function getJson() {
+        $returned = $this->getJsonData();
 
         return $returned;
     }
@@ -239,5 +257,37 @@ class Controller
     public function getCssFile()
     {
         return $this->_cssFile;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFormat()
+    {
+        return $this->_format;
+    }
+
+    /**
+     * @param int $format
+     */
+    public function setFormat($format)
+    {
+        $this->_format = $format;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsonData()
+    {
+        return $this->_jsonData;
+    }
+
+    /**
+     * @param string $jsonData
+     */
+    public function setJsonData($jsonData)
+    {
+        $this->_jsonData = $jsonData;
     }
 }
