@@ -2,7 +2,29 @@
 Application web de paris sur l'Euro 2016.
 
 # Installation
-Récupérer les sources de l'application.
+
+## Ansible
+
+Sur votre poste installer ansible
+```
+# apt-get install ansible 
+```
+
+Ouvrez le fichier 'hosts', et remplacer l'adresse IP par celle de votre serveur.
+Ouvrez le fichier 'playbook.yml' et modifier les différentes variables.
+
+Prérequis : Le serveur doit avoir 'python' d'installer
+```
+# apt-get install python
+```
+
+Puis lancez la commande suivante depuis votre poste :
+```
+ansible-playbook --ask-pass --ask-become-pass -i hosts playbook.yml
+```
+
+Le script va installer la configuration nécessaire pour que l'application foncitonne. 
+
 ## Configuration
 ### Base de données
   Indiquer le chemin absolu vers le fichier SQLite dans app/tools/config.ini section "sqlite" attribut "dbname"
@@ -15,7 +37,7 @@ Récupérer les sources de l'application.
   Section "mail" vous pouvez renseigner le l'expéditeur, attribut "from" ainsi que le mail de réponse, attribut "reply_to"
 
 ### Crowdscores
-La récupération des scores se fait par l'API _Crowdscores_. ( [https://docs.crowdscores.com/]() )
+La récupération des scores se fait par l'API _Crowdscores_. ( https://docs.crowdscores.com/ )
 Pour activé cette fonctionnalité il faut compléter le fichier de configuration en indiquant la clé (api_key) ainsi que l'id de la compétition.
 Il sera nécessaire de compléter également le champs _crowdscores_id_ la table _Equipe_.
 
