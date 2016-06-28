@@ -1,13 +1,13 @@
 ---
 - name: Installation de l'application
   hosts: paris
-  remote_user: root
+  remote_user: matpif
   vars:
-    - domain: exemple.com
-    - port: 80
+    - domain: paris.matpif.xyz
+    - port: 9999
     - web_root: /var/www
     - git_repo: https://github.com/Matpif/Paris.git
-    - git_root: /root/Paris
+    - git_root: /media/external/web/Paris
     - git_branch: master
 
   roles:
@@ -24,7 +24,7 @@
       service: name=nginx state=reloaded
       become: true
     - name: Reload PHP-FPM
-      service: name=php7.0-fpm state=reloaded
+      service: name=php5-fpm state=reloaded
       become: true
     - name: Mise à jour du dépôt
       git: repo={{git_repo}}
@@ -34,5 +34,27 @@
                  accept_hostkey=yes
     - name: Deploy to web root
       command: rsync -ac {{git_root}}/ {{web_root}}/{{domain}} --delete-after --chown=www-data:www-data
+      become: true
+
+    - name: Config Application Paris
+      lineinfile: dest={{web_root}}/{{domain}}/app/tools/config.ini regexp='^{{ item.name }} =' line='{{ item.name }} = {{ item.value }}'
+      become: true
+      with_items:
+          - { name: 'dbname', value: '/var/www/paris.db' }
+          - { name: 'index_page', value: 'Accueil' }
+          - { name: 'debug', value: 'false' }
+          - { name: 'root_url', value: '//exemple.com' }
+          - { name: 'image_url', value: '/images' }
+          - { name: 'theme_template', value: '' }
+          - { name: 'functionForgetPassword', value: 'false' }
+          - { name: 'google_analytics', value: '' }
+          - { name: 'from', value: '' }
+          - { name: 'reply_to', value: '' }
+          - { name: 'mail', value: 'false' }
+          - { name: 'api_key', value: '' }
+          - { name: 'competition_id', value: '267' }
+
+    - name: "Update Database {{web_root}}/{{domain}}/app/tools/database.php"
+      shell: php {{web_root}}/{{domain}}/app/tools/database.php --force
       become: true
 ...

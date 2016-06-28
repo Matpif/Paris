@@ -13,6 +13,8 @@ Sur votre poste installer ansible
 Ouvrez le fichier 'hosts', et remplacer l'adresse IP par celle de votre serveur.
 Ouvrez le fichier 'playbook.yml' et modifier les différentes variables.
 
+Vous pouvez configurer l'application Paris (/app/tools/config.ini) directement dans le fichier playbook.yml (Config Application Paris)
+
 Prérequis : Le serveur doit avoir 'python' d'installer
 ```
 # apt-get install python
