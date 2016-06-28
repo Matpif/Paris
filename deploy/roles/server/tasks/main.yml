@@ -1,0 +1,19 @@
+---
+- name: Installation de Git
+  apt: name=git state=latest
+  become: true
+- name: Installation de Ngnix
+  apt: name=nginx state=latest
+  become: true
+- name: Installation de PHP-fpm
+  apt: name=php-fpm state=latest
+  become: true
+- name: Installation de php-sqlite
+  apt: name=php-sqlite3 state=latest
+  become: true
+- name: Installation de curl
+  apt: name=curl state=latest
+  become: true
+- name: Installation php-curl
+  apt: name=php-curl state=latest
+  become: true

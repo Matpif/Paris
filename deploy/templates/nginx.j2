@@ -1,0 +1,28 @@
+server {
+    listen {{ port }};
+    root /var/www/{{ domain }}/app/view;
+    index page.php;
+
+	location / {
+	   	set $page_to_view "/page.php";
+        try_files $uri $uri/ @rewrites;
+	}
+
+	location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+            expires 14d;
+    }
+	
+	location ~ \.php$ {
+        include /etc/nginx/fastcgi_params;
+		try_files $uri $uri/ @rewrites;
+		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+	# rewrites
+	location @rewrites {
+		rewrite ^/(.*)/(.*)$ /page.php?page=$1&action=$2;
+		rewrite ^/(.*)$ /page.php?page=$1;
+	}
+}
