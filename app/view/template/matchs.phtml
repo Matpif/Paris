@@ -44,39 +44,41 @@ $_equipeCollection = new EquipeCollection();
 								$pari = $_match->getPari($match);
 								?>
 								<div class="row row_match center">
-									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
-									<div class="row center date">
-										<?php
-										/** @var ChannelModel $channel */
-										$channel = $_match->getChannel($match->getAttribute('channel_id'));
-										if ($channel && $channel->getAttribute('image')): ?>
-											<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
-										<?php elseif ($channel): ?>
-											<?php echo $channel->getAttribute('name'); ?>
+									<div class="col-lg-12">
+										<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+										<div class="row center date">
+											<?php
+											/** @var ChannelModel $channel */
+											$channel = $_match->getChannel($match->getAttribute('channel_id'));
+											if ($channel && $channel->getAttribute('image')): ?>
+												<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
+											<?php elseif ($channel): ?>
+												<?php echo $channel->getAttribute('name'); ?>
+											<?php endif; ?>
+										</div>
+										<div class="row">
+											<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+												<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+											</div>
+											<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
+											<div class="col-lg-2 score" data-id="<?php echo $match->getAttribute('id') ?>">
+												<input data-flag="<?php echo ($match->getAttribute('flag_phase_finale')==null)?0:$match->getAttribute('flag_phase_finale'); ?>" class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" data-name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" data-flag="<?php echo ($match->getAttribute('flag_phase_finale')==null)?0:$match->getAttribute('flag_phase_finale'); ?>" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" data-name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
+											</div>
+											<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
+										</div>
+										<?php if($match->getAttribute("flag_phase_finale") == 1):?>
+											<div class="row <?php echo (!is_null($pari))?((!is_null($pari->getAttribute('score_tir_but_1')) && $pari->getAttribute('score_tir_but_1') != '' && $pari->getAttribute('score_equipe_1') == $pari->getAttribute("score_equipe_2"))?'':'hidden'):'hidden';?>" >
+												<input class="form-control tab" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_tir_but_1]" value="<?php echo ($pari)?$pari->getAttribute("score_tir_but_1"):'' ?>"> - <input class="form-control tab" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_tir_but_2]" value="<?php echo ($pari)?$pari->getAttribute("score_tir_but_2"):'' ?>">
+											</div>
 										<?php endif; ?>
 									</div>
-									<div class="row">
-										<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
-											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
-										</div>
-										<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
-										</div>
-										<div class="col-lg-2 score" data-id="<?php echo $match->getAttribute('id') ?>">
-											<input data-flag="<?php echo ($match->getAttribute('flag_phase_finale')==null)?0:$match->getAttribute('flag_phase_finale'); ?>" class="form-control match" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" data-name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):'' ?>"> - <input class="form-control match" type="number" data-flag="<?php echo ($match->getAttribute('flag_phase_finale')==null)?0:$match->getAttribute('flag_phase_finale'); ?>" name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_2]" data-name="paris[<?php echo $match->getAttribute('id') ?>][score_equipe_1]" value="<?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>">
-										</div>
-										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
-										</div>
-									</div>
-									<?php if($match->getAttribute("flag_phase_finale") == 1):?>
-									<div class="row <?php echo (!is_null($pari))?((!is_null($pari->getAttribute('score_tir_but_1')) && $pari->getAttribute('score_tir_but_1') != '' && $pari->getAttribute('score_equipe_1') == $pari->getAttribute("score_equipe_2"))?'':'hidden'):'hidden';?>" >
-                                        <input class="form-control tab" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_tir_but_1]" value="<?php echo ($pari)?$pari->getAttribute("score_tir_but_1"):'' ?>"> - <input class="form-control tab" type="number" name="paris[<?php echo $match->getAttribute('id') ?>][score_tir_but_2]" value="<?php echo ($pari)?$pari->getAttribute("score_tir_but_2"):'' ?>">
-									</div>
-									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
 							<div class="row">
@@ -99,32 +101,34 @@ $_equipeCollection = new EquipeCollection();
 								$pari = $_match->getPari($match);
 								?>
 								<div class="row row_match center">
-									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
-									<div class="row center date">
-										<?php
-										/** @var ChannelModel $channel */
-										$channel = $_match->getChannel($match->getAttribute('channel_id'));
-										if ($channel && $channel->getAttribute('image')): ?>
-											<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
-										<?php elseif ($channel): ?>
-											<?php echo $channel->getAttribute('name'); ?>
-										<?php endif; ?>
-									</div>
-									<div class="row">
-										<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
-											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+									<div class="col-lg-12">
+										<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+										<div class="row center date">
+											<?php
+											/** @var ChannelModel $channel */
+											$channel = $_match->getChannel($match->getAttribute('channel_id'));
+											if ($channel && $channel->getAttribute('image')): ?>
+												<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
+											<?php elseif ($channel): ?>
+												<?php echo $channel->getAttribute('name'); ?>
+											<?php endif; ?>
 										</div>
-										<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
-										</div>
-										<div class="col-lg-2 score">
-											<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
-										</div>
-										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+										<div class="row">
+											<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+												<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+											</div>
+											<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
+											<div class="col-lg-2 score">
+												<?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+											</div>
+											<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
 										</div>
 									</div>
 								</div>
@@ -141,47 +145,49 @@ $_equipeCollection = new EquipeCollection();
 								$pari = $_match->getPari($match);
 								?>
 								<div class="row row_match center">
-									<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
-									<div class="row center date">
-										<?php
-										/** @var ChannelModel $channel */
-										$channel = $_match->getChannel($match->getAttribute('channel_id'));
-										if ($channel && $channel->getAttribute('image')): ?>
-											<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
-										<?php elseif ($channel): ?>
-											<?php echo $channel->getAttribute('name'); ?>
-										<?php endif; ?>
-									</div>
-									<div class="row">
-										<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
-											<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
-										</div>
-										<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
-										</div>
-										<div class="col-lg-2 score">
-											<?php echo $match->getScore(); ?>
-											<?php $tir_but = $match->getTirBut(); ?>
-											<?php if ($tir_but): ?>
-												<br/><span class="tirBut">(<?php echo $tir_but; ?>)</span>
+									<div class="col-lg-12">
+										<div class="row center date"><?php echo date_format(new DateTime($match->getAttribute("date")), 'd/m/Y H:i'); ?></div>
+										<div class="row center date">
+											<?php
+											/** @var ChannelModel $channel */
+											$channel = $_match->getChannel($match->getAttribute('channel_id'));
+											if ($channel && $channel->getAttribute('image')): ?>
+												<img src="<?php echo $_match->getUrlImage('/channel/'.$channel->getAttribute('image')) ?>" />
+											<?php elseif ($channel): ?>
+												<?php echo $channel->getAttribute('name'); ?>
 											<?php endif; ?>
 										</div>
-										<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
-											<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
-											<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+										<div class="row">
+											<div class="col-lg-5 col-sm-6 col-xs-6" align="left">
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_1->getAttribute('image')) ?>" class="flag">
+												<p class="match"><?php echo $equipe_1->getAttribute('name') ?></p>
+											</div>
+											<div class="col-sm-6 col-xs-6 hidden-lg" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
+											<div class="col-lg-2 score">
+												<?php echo $match->getScore(); ?>
+												<?php $tir_but = $match->getTirBut(); ?>
+												<?php if ($tir_but): ?>
+													<br/><span class="tirBut">(<?php echo $tir_but; ?>)</span>
+												<?php endif; ?>
+											</div>
+											<div class="col-lg-5 hidden-sm hidden-md hidden-xs" align="right">
+												<p class="match"><?php echo $equipe_2->getAttribute('name') ?></p>
+												<img src="<?php echo $_match->getUrlImage('/pays/' . $equipe_2->getAttribute('image'))?>" class="flag">
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-lg-offset-5 col-lg-2 monParis">
-											mon paris : <?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
-											<?php if ($pari->getAttribute('score_tir_but_1') && $pari->getAttribute('score_tir_but_2')): ?>
-												(<?php echo $pari->getAttribute('score_tir_but_1') . ' - ' . $pari->getAttribute('score_tir_but_2'); ?>)
-											<?php endif; ?>
-											<br/>
-											<?php $score = $pari->getScore(); ?>
-											(<?php echo $score; ?> point<?php echo ($score > 1)?'s':''; ?>)
+										<div class="row">
+											<div class="col-lg-offset-5 col-lg-2 monParis">
+												mon paris : <?php echo ($pari)?$pari->getAttribute("score_equipe_1"):''?> - <?php echo ($pari)?$pari->getAttribute("score_equipe_2"):'' ?>
+												<?php if ($pari->getAttribute('score_tir_but_1') && $pari->getAttribute('score_tir_but_2')): ?>
+													(<?php echo $pari->getAttribute('score_tir_but_1') . ' - ' . $pari->getAttribute('score_tir_but_2'); ?>)
+												<?php endif; ?>
+												<br/>
+												<?php $score = $pari->getScore(); ?>
+												(<?php echo $score; ?> point<?php echo ($score > 1)?'s':''; ?>)
+											</div>
 										</div>
 									</div>
 								</div>
