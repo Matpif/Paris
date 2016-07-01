@@ -1,13 +1,13 @@
 ---
 - name: Installation de l'application
   hosts: paris
-  remote_user: matpif
+  remote_user: root
   vars:
-    - domain: paris.matpif.xyz
-    - port: 9999
+    - domain: exemple.com
+    - port: 80
     - web_root: /var/www
     - git_repo: https://github.com/Matpif/Paris.git
-    - git_root: /media/external/web/Paris
+    - git_root: /root/Paris
     - git_branch: master
 
   roles:
