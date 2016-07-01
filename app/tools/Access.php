@@ -84,6 +84,16 @@ class Access
                         $this->pageForbidden();
                     }
                 }
+            } else {
+                if (isset($_SESSION['utilisateur'])) {
+                    /**
+                     * @var $utilisateur UtilisateurModel
+                     */
+                    $this->_utilisateur = unserialize($_SESSION['utilisateur']);
+                    if ($this->_utilisateur->getAttribute('privilege') < $this->_pageAccess[$page]['level']) {
+                        $this->pageForbidden();
+                    }
+                }
             }
         } else {
             $this->pageNotFound();
