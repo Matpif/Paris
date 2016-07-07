@@ -1,0 +1,43 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 09/05/16
+ * Time: 15:33
+ */
+/** @var AdminController $_admin */
+$_admin = $this;
+$_poules = $_admin->getAllPoule();
+?>
+<div class="row">
+    <div class="col-md-3 col-md-offset-9">
+        <a href="<?php echo $_admin->getUrlAction('newPoule'); ?>" class="btn btn-primary btn-lg btn-block">Ajouter une poule</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php /** @var PouleModel $poule **/ ?>
+            <?php foreach ($_poules as $poule): ?>
+                <tr>
+                    <td><?php echo $poule->getAttribute('name'); ?></td>
+                    <td>
+                        <a href="<?php echo $_admin->getUrlAction('newPoule?id='.$poule->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $_admin->getUrlAction('deletePoule?id='.$poule->getAttribute('id')); ?>"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

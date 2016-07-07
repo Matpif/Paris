@@ -26,8 +26,8 @@ $_login = Controller::getController('LoginController');
                 <ul class="nav navbar-nav">
                     <li class=""><a href="<?php echo $_admin->getUrlAction('listUser'); ?>">Utilisateurs</a></li>
                     <li class=""><a href="<?php echo $_admin->getUrlAction('listMatch'); ?>">Matchs</a></li>
-                    <li class=""><a href="<?php echo $_admin->getUrlAction('newPoule'); ?>">Ajouter Poule</a></li>
-                    <li class=""><a href="<?php echo $_admin->getUrlAction('newEquipe'); ?>">Ajouter Equipe</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('listPoule'); ?>">Poules</a></li>
+                    <li class=""><a href="<?php echo $_admin->getUrlAction('listEquipe'); ?>">Equipes</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?php // echo $_access->getCurrentUser()->getAttribute('login'); ?>

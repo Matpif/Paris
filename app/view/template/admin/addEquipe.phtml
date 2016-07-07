@@ -8,6 +8,7 @@
 /** @var AdminController $_admin */
 $_admin = $this;
 $_allPoule = $_admin->getAllPoule();
+$_newEquipe = $_admin->getNewEquipe();
 ?>
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
@@ -20,12 +21,12 @@ $_allPoule = $_admin->getAllPoule();
 
                     <div class="form-group">
                         <label for="name">Nom *</label>
-                        <input type="text" class="form-control" id="name" placeholder="Nom de l'équipe" name="name" value="" required>
+                        <input type="text" class="form-control" id="name" placeholder="Nom de l'équipe" name="name" value="<?php echo $_newEquipe->getAttribute('name'); ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="image">Image</label>
-                        <input type="text" class="form-control" id="image" placeholder="Image, drapeau, ..." name="image" value="">
+                        <input type="text" class="form-control" id="image" placeholder="Image, drapeau, ..." name="image" value="<?php echo $_newEquipe->getAttribute('image'); ?>">
                     </div>
 
                     <div class="form-group">
@@ -33,7 +34,7 @@ $_allPoule = $_admin->getAllPoule();
                         <select name="poule_id" >
                             <?php /** @var PouleModel $poule */ ?>
                             <?php foreach ($_allPoule as $poule): ?>
-                                <option value="<?php echo $poule->getAttribute('id') ?>"><?php echo $poule->getAttribute('name') ?></option>
+                                <option value="<?php echo $poule->getAttribute('id') ?>" <?php echo ($_newEquipe->getAttribute('poule_id') == $poule->getAttribute('id'))?'selected':'' ?>  ><?php echo $poule->getAttribute('name') ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

@@ -19,6 +19,14 @@ class AdminController extends Controller
      * @var MatchModel
      */
     private $_newMatch;
+    /**
+     * @var PouleModel
+     */
+    private $_newPoule;
+    /**
+     * @var EquipeModel
+     */
+    private $_newEquipe;
 
     function __construct()
     {
@@ -51,11 +59,21 @@ class AdminController extends Controller
     }
 
     public function newPouleAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])) {
+            $this->_newPoule = (new PouleCollection())->loadById($get['id']);
+        }
+
         $this->setTemplate('/admin/addPoule.phtml');
         $this->_title = 'Création de poule';
     }
 
     public function newEquipeAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])) {
+            $this->_newEquipe = (new EquipeCollection())->loadById($get['id']);
+        }
+
         $this->setTemplate('/admin/addEquipe.phtml');
         $this->_title = 'Création d\'équipe';
     }
@@ -69,6 +87,16 @@ class AdminController extends Controller
         $this->setTemplate('/admin/listMatch.phtml');
         $this->_title = 'Liste des matchs';
     }
+
+    public function listPouleAction() {
+        $this->setTemplate('/admin/listPoule.phtml');
+        $this->_title = 'Liste des poules';
+    }
+    public function listEquipeAction() {
+        $this->setTemplate('/admin/listEquipe.phtml');
+        $this->_title = 'Liste des équipes';
+    }
+
 
     public function addUserAction(){
         $post = Access::getRequest();
@@ -175,6 +203,11 @@ class AdminController extends Controller
         $poule = new PouleModel();
 
         if (isset($post['name']) && !empty($post['name'])) {
+
+            if (isset($post['id'])) {
+                $poule->setAttribute('id', $post['id']);
+            }
+
             $poule->setAttribute('name', $post['name']);
 
             if ($poule->save()) {
@@ -200,6 +233,11 @@ class AdminController extends Controller
         $equipe = new EquipeModel();
 
         if (isset($post['name'], $post['image'], $post['poule_id']) && !empty($post['name']) && !empty($post['poule_id'])) {
+
+            if (isset($post['id'])) {
+                $equipe->setAttribute('id', $post['id']);
+            }
+
             $equipe->setAttribute('name', $post['name']);
             $equipe->setAttribute('image', $post['image']);
             $equipe->setAttribute('poule_id', $post['poule_id']);
@@ -227,7 +265,7 @@ class AdminController extends Controller
             /** @var UtilisateurModel $utilisateur */
             $utilisateur = (new UtilisateurCollection())->loadById($get['id']);
 
-            if ($utilisateur->remove()) {
+            if ($utilisateur && $utilisateur->remove()) {
                 $messages = new MessageManager();
                 $messages->newMessage('L\'utilisateur a été correctement supprimé', Message::LEVEL_SUCCESS);
             } else {
@@ -237,8 +275,62 @@ class AdminController extends Controller
         }
 
         $this->redirect($this->getUrlAction('listUser'));
-        //$this->setTemplate('/admin/listUser.phtml');
     }
+
+    public function deletePouleAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])){
+            /** @var PouleModel $poule */
+            $poule = (new PouleCollection())->loadById($get['id']);
+
+            if ($poule && $poule->remove()) {
+                $messages = new MessageManager();
+                $messages->newMessage('La poule a été correctement supprimée', Message::LEVEL_SUCCESS);
+            } else {
+                $messages = new MessageManager();
+                $messages->newMessage('La poule n\'a pas été correctement supprimée', Message::LEVEL_ERROR);
+            }
+        }
+
+        $this->redirect($this->getUrlAction('listPoule'));
+    }
+
+    public function deleteEquipeAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])){
+            /** @var EquipeModel $equipe */
+            $equipe = (new EquipeCollection())->loadById($get['id']);
+
+            if ($equipe && $equipe->remove()) {
+                $messages = new MessageManager();
+                $messages->newMessage('L\'équipe a été correctement supprimée', Message::LEVEL_SUCCESS);
+            } else {
+                $messages = new MessageManager();
+                $messages->newMessage('L\'équipe n\'a pas été correctement supprimée', Message::LEVEL_ERROR);
+            }
+        }
+
+        $this->redirect($this->getUrlAction('listEquipe'));
+    }
+
+    public function deleteMatchAction() {
+        $get = Access::getRequest();
+        if (isset($get['id'])){
+            /** @var MatchModel $match */
+            $match = (new MatchCollection())->loadById($get['id']);
+
+            if ($match && $match->remove()) {
+                $messages = new MessageManager();
+                $messages->newMessage('Le match a été correctement supprimée', Message::LEVEL_SUCCESS);
+            } else {
+                $messages = new MessageManager();
+                $messages->newMessage('Le match n\'a pas été correctement supprimée', Message::LEVEL_ERROR);
+            }
+        }
+
+        $this->redirect($this->getUrlAction('listMatch'));
+    }
+
 
     public function addScoreMatchAction() {
         $post = Access::getRequest();
@@ -327,6 +419,22 @@ class AdminController extends Controller
     }
 
     /**
+     * @return PouleModel
+     */
+    public function getNewPoule()
+    {
+        return ($this->_newPoule)?$this->_newPoule:new PouleModel();
+    }
+
+    /**
+     * @return EquipeModel
+     */
+    public function getNewEquipe()
+    {
+        return ($this->_newEquipe)?$this->_newEquipe:new EquipeModel();
+    }
+
+    /**
      * @return Collection
      */
     public function getAllEquipe() {
@@ -369,5 +477,13 @@ class AdminController extends Controller
     public function getAllChannel() {
         $channelCollection = (new ChannelCollection())->loadAll();
         return $channelCollection;
+    }
+
+    /**
+     * @param $id
+     * @return PouleModel|null
+     */
+    public function getPoule($id) {
+        return (new PouleCollection())->loadById($id);
     }
 }

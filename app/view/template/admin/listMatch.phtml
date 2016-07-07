@@ -61,6 +61,8 @@ $cs = new Crowdscores();
             <tr>
                 <th>Equipe 1</th>
                 <th>Equipe 2</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -72,6 +74,9 @@ $cs = new Crowdscores();
                     <td><?php echo $equipe1->getAttribute('name'); ?></td>
                     <td><?php echo $equipe2->getAttribute('name'); ?></td>
                     <td><a href="<?php echo $_admin->getUrlAction('newMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td>
+                        <a href="<?php echo $_admin->getUrlAction('deleteMatch?id='.$match->getAttribute('id')); ?>"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

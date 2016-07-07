@@ -155,8 +155,7 @@ class MatchsController extends Controller
         if(!$info){
             $messages = new MessageManager();
             $messages->newMessage('Un ou plusieurs paris n\'ont pas été sauvegardés', Message::LEVEL_INFO);
-        }
-        else {
+        } else {
             if (!$erreur) {
                 $messages = new MessageManager();
                 $messages->newMessage('Vos paris ont été sauvegardé correctement', Message::LEVEL_SUCCESS);

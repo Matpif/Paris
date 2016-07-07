@@ -1,0 +1,48 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 09/05/16
+ * Time: 15:33
+ */
+/** @var AdminController $_admin */
+$_admin = $this;
+$_equipes = $_admin->getAllEquipe();
+?>
+<div class="row">
+    <div class="col-md-3 col-md-offset-9">
+        <a href="<?php echo $_admin->getUrlAction('newEquipe'); ?>" class="btn btn-primary btn-lg btn-block">Ajouter une équipe</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Image</th>
+                    <th>Poule</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php /** @var EquipeModel $equipe */ ?>
+                <?php foreach ($_equipes as $equipe): ?>
+                    <?php $poule = $_admin->getPoule($equipe->getAttribute('poule_id')); ?>
+                    <tr>
+                       <td><?php echo $equipe->getAttribute('name'); ?></td>
+                       <td><img src="<?php echo $_admin->getUrlImage('/pays/' . $equipe->getAttribute('image'))?>" class="flag"></td>
+                       <td><?php echo $poule->getAttribute('name'); ?></td>
+                        <td>
+                            <a href="<?php echo $_admin->getUrlAction('newEquipe?id='.$equipe->getAttribute('id')); ?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                       <td>
+                           <a href="<?php echo $_admin->getUrlAction('deleteEquipe?id='.$equipe->getAttribute('id')); ?>"><span class="glyphicon glyphicon-remove text-danger"></span></a>
+                       </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -7,6 +7,7 @@
  */
 /** @var AdminController $_admin */
 $_admin = $this;
+$_newPoule = $_admin->getNewPoule();
 ?>
 <div class="row">
     <div class="col-lg-4 col-lg-offset-4 col-md-8 col-md-offset-2">
@@ -16,9 +17,12 @@ $_admin = $this;
             </div>
             <div class="panel-body">
                 <form action="<?php echo $_admin->getUrlAction('addPoule'); ?>" method="POST">
+                    <?php if ($_newPoule->getAttribute('id')): ?>
+                        <input type="hidden" name="id" value="<?php echo $_newPoule->getAttribute('id'); ?>"/>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label for="name">Nom</label>
-                        <input type="text" class="form-control" id="name" placeholder="Nom de la poule" name="name" value="" required>
+                        <input type="text" class="form-control" id="name" placeholder="Nom de la poule" name="name" value="<?php echo $_newPoule->getAttribute('name'); ?>" required>
                     </div>
                     <button type="submit" class="btn btn-default">Enregistrer</button>
                 </form>
