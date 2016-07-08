@@ -321,10 +321,10 @@ class AdminController extends Controller
         if (isset($get['id'])){
             /** @var MatchModel $match */
             $match = (new MatchCollection())->loadById($get['id']);
-            $paris = (new ParisCollection())->load(['match_id' => $match->getAttribute('id')]);
+            $paris = (new PariCollection())->load(['match_id' => $match->getAttribute('id')]);
 
             if ($match && $match->remove()) {
-                /** @var PouleModel $poule */
+                /** @var PariModel $pari */
                 foreach ($paris as $pari) {
                     if (!$pari->remove()) {
                         $messages = new MessageManager();
