@@ -321,14 +321,14 @@ class AdminController extends Controller
         if (isset($get['id'])){
             /** @var MatchModel $match */
             $match = (new MatchCollection())->loadById($get['id']);
-            $poules = (new PouleCollection())->load(['match_id' => $match->getAttribute('id')]);
+            $paris = (new ParisCollection())->load(['match_id' => $match->getAttribute('id')]);
 
             if ($match && $match->remove()) {
                 /** @var PouleModel $poule */
-                foreach ($poules as $poule) {
-                    if (!$poule->remove()) {
+                foreach ($paris as $pari) {
+                    if (!$pari->remove()) {
                         $messages = new MessageManager();
-                        $messages->newMessage('Tous les paris non pas été supprimé (id: '.$poule->getAttribute('id').')', Message::LEVEL_INFO);
+                        $messages->newMessage('Tous les paris non pas été supprimé (id: '.$pari->getAttribute('id').')', Message::LEVEL_INFO);
                     }
                 }
 
