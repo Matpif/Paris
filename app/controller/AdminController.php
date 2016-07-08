@@ -264,13 +264,16 @@ class AdminController extends Controller
         if (isset($get['id'])){
             /** @var UtilisateurModel $utilisateur */
             $utilisateur = (new UtilisateurCollection())->loadById($get['id']);
-
-            if ($utilisateur && $utilisateur->remove()) {
-                $messages = new MessageManager();
-                $messages->newMessage('L\'utilisateur a été correctement supprimé', Message::LEVEL_SUCCESS);
-            } else {
-                $messages = new MessageManager();
-                $messages->newMessage('L\'utilisateur n\'a pas été correctement supprimé', Message::LEVEL_ERROR);
+            $_utilisateur = Access::getInstance()->getCurrentUser();
+            
+            if ($utilisateur && $utilisateur->getAttribute('id') != $_utilisateur->getAttribute('id')) {
+                if ($utilisateur->remove()) {
+                    $messages = new MessageManager();
+                    $messages->newMessage('L\'utilisateur a été correctement supprimé', Message::LEVEL_SUCCESS);
+                } else {
+                    $messages = new MessageManager();
+                    $messages->newMessage('L\'utilisateur n\'a pas été correctement supprimé', Message::LEVEL_ERROR);
+                }
             }
         }
 
@@ -318,8 +321,17 @@ class AdminController extends Controller
         if (isset($get['id'])){
             /** @var MatchModel $match */
             $match = (new MatchCollection())->loadById($get['id']);
+            $poules = (new PouleCollection())->load(['match_id' => $match->getAttribute('id')]);
 
             if ($match && $match->remove()) {
+                /** @var PouleModel $poule */
+                foreach ($poules as $poule) {
+                    if (!$poule->remove()) {
+                        $messages = new MessageManager();
+                        $messages->newMessage('Tous les paris non pas été supprimé (id: '.$poule->getAttribute('id').')', Message::LEVEL_INFO);
+                    }
+                }
+
                 $messages = new MessageManager();
                 $messages->newMessage('Le match a été correctement supprimée', Message::LEVEL_SUCCESS);
             } else {
