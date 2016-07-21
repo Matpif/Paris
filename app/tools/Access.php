@@ -58,10 +58,13 @@ class Access
                                 'MonClassement' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_USER],
                                 'Login' => ['connect' => false, 'level' => null],
                                 'Admin' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
+                                'Config' => ['connect' => true, 'level' => UtilisateurModel::PRIVILEGE_ADMIN],
                                 'About' => ['connect' => false, 'level' => null],
                                 ];
         $this->_rewritePage = [
                                 '/ParisPartages' => ['controller' => 'Share', 'action' => ''],
+                                '/Admin/Config' => ['controller' => 'Config', 'action' => ''],
+                                '/Admin/Config/save' => ['controller' => 'Config', 'action' => 'save'],
                                 ];
     }
 

@@ -413,6 +413,11 @@ class AdminController extends Controller
             }
         }
     }
+    
+    public function getCountModel($modelName) {
+        $collection = Collection::getInstanceOf($modelName);
+        return $collection->countElement();
+    }
 
     /**
      * @return UtilisateurModel

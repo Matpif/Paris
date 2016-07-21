@@ -8,6 +8,19 @@
  */
 abstract class Collection implements Iterator
 {
+    /**
+     * @param $model string|Model Name of Model
+     * @return Collection
+     */
+    static public function getInstanceOf($model) {
+        if ($model instanceof Model) {
+            $model = str_replace("Model", "Collection", get_class($model));
+        }
+
+        $collectionName = $model.'Collection';
+        return new $collectionName;
+    }
+
     const SORT_ASC = 'ASC';
     const SORT_DESC = 'DESC';
 
@@ -189,6 +202,27 @@ abstract class Collection implements Iterator
     }
     public function rewind() {
         $this->_position = 0;
+    }
+
+    public function countElement($attributes = null) {
+
+        $query = "SELECT count(*) as nb FROM {$this->_table}";
+
+        if (is_array($attributes)) {
+            $dataParamList = $this->_db->dataParamList($attributes, $this->_key, ' AND ', true);
+            $query .= " WHERE ".$dataParamList;
+        }
+
+        $stmt = $this->_db->prepareQuery($query, $attributes);
+        $results = $stmt->execute();
+
+        $nb = 0;
+
+        while ($result = $results->fetchArray(SQLITE3_ASSOC)) {
+            $nb = $result['nb'];
+        }
+
+        return $nb;
     }
 
     /**

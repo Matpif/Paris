@@ -1,0 +1,36 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: matpif
+ * Date: 13/07/16
+ * Time: 11:15
+ */
+
+/**
+ * @var ConfigController $this
+ */
+$_config = $this;
+$config = $_config->getConfig();
+?>
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-6">
+        <h3>Configuration</h3>
+        <p class="center">Attention ceci est la configuration de l'application, toute modification peut entrainer des problèmes d'accès.<br/>Le fichier peut être modifié ici /app/tools/config.ini</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-6">
+        <form action="<?php echo $_config->getUrlAction('save'); ?>" method="post">
+            <?php foreach ($config as $keySection => $section): ?>
+                <h4><?php echo $keySection; ?></h4>
+                <div class="form-group">
+                    <?php foreach ($section as $key => $value): ?>
+                        <label><?php echo $key; ?></label>
+                        <input type="text" class="form-control" name="config[<?php echo $keySection; ?>][<?php echo $key; ?>]" value="<?php echo $value; ?>" /></label>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+            <button type="submit" class="btn btn-default">Enregistrer</button>
+        </form>
+    </div>
+</div>

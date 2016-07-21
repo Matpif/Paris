@@ -6,3 +6,45 @@
  * Time: 17:10
  */
 /** @var AdminController $this */
+?>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <p class="center">
+            <b>Bienvenue dans la partie administration</b>
+        </p>
+        <p class="center">
+            Vous pouvez ici administrer les utilisateurs, équipes, poules, matchs.<br/>
+            Vous pouvez modifier la configuration de l'application (/app/tools/config.ini)
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Module</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Utilisateur</td>
+                <td><?php echo $this->getCountModel('Utilisateur'); ?></td>
+            </tr>
+            <tr>
+                <td>Equipe</td>
+                <td><?php echo $this->getCountModel('Equipe'); ?></td>
+            </tr>
+            <tr>
+                <td>Poule</td>
+                <td><?php echo $this->getCountModel('Poule'); ?></td>
+            </tr>
+            <tr>
+                <td>Match</td>
+                <td><?php echo $this->getCountModel('Match'); ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
