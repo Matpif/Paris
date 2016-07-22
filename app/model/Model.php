@@ -6,14 +6,8 @@
  * Date: 12/04/16
  * Time: 18:41
  */
-Abstract class Model
+Abstract class Model extends VarientObject
 {
-    /**
-     * Model attribute
-     * @var array
-     */
-    protected $_data;
-
     /**
      * Table model
      * @var string
@@ -35,35 +29,6 @@ Abstract class Model
     function __construct()
     {
         $this->_db = SQLite::getInstance();
-    }
-
-    /**
-     * Set data to array
-     * @param $data array
-     */
-    public function setData($data) {
-        $this->_data = $data;
-    }
-
-    /**
-     * Set value in data
-     * @param $key string
-     * @param $value mixed
-     */
-    public function setAttribute($key, $value) {
-        $this->_data[$key] = $value;
-    }
-
-    /**
-     * Get data by key
-     * @param $key string
-     * @return mixed|string
-     */
-    public function getAttribute($key) {
-        if (is_array($this->_data) && array_key_exists($key, $this->_data))
-            return $this->_data[$key];
-        else
-            return '';
     }
 
     /**
